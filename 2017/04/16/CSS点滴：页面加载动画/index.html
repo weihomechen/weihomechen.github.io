@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="页面切换需要加载时间，这个过程对于用户而言是无聊的，如果时间过长，很可能引起用户的不快，甚至关掉页面。如果在页面加载期间，展现有趣的动画，可以转移用户的注意力，提高用户体验。下面展示了几种有趣的加载小动画，为了便于展示，引入了jsFiddle。因为jsFiddle有时候会抽风，顺便也把代码贴一下, 以后有需要方便复制粘贴~~~ 加载动画1： 1&amp;lt;div class=&quot;spinner&quot;&amp;gt;">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS花园：页面加载动画">
+<meta property="og:url" content="http://ifun.work/2017/04/16/CSS点滴：页面加载动画/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="页面切换需要加载时间，这个过程对于用户而言是无聊的，如果时间过长，很可能引起用户的不快，甚至关掉页面。如果在页面加载期间，展现有趣的动画，可以转移用户的注意力，提高用户体验。下面展示了几种有趣的加载小动画，为了便于展示，引入了jsFiddle。因为jsFiddle有时候会抽风，顺便也把代码贴一下, 以后有需要方便复制粘贴~~~ 加载动画1： 1&amp;lt;div class=&quot;spinner&quot;&amp;gt;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-07-03T16:08:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS花园：页面加载动画">
+<meta name="twitter:description" content="页面切换需要加载时间，这个过程对于用户而言是无聊的，如果时间过长，很可能引起用户的不快，甚至关掉页面。如果在页面加载期间，展现有趣的动画，可以转移用户的注意力，提高用户体验。下面展示了几种有趣的加载小动画，为了便于展示，引入了jsFiddle。因为jsFiddle有时候会抽风，顺便也把代码贴一下, 以后有需要方便复制粘贴~~~ 加载动画1： 1&amp;lt;div class=&quot;spinner&quot;&amp;gt;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ifun.work/2017/04/16/CSS点滴：页面加载动画/"/>
+
+
+
+
+
+  <title>CSS花园：页面加载动画 | 乌斯怀亚-世界以南</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乌斯怀亚-世界以南</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">weihome的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/04/16/CSS点滴：页面加载动画/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CSS花园：页面加载动画</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-16T20:11:22+08:00">
+                2017-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>页面切换需要加载时间，这个过程对于用户而言是无聊的，如果时间过长，很可能引起用户的不快，甚至关掉页面。如果在页面加载期间，展现有趣的动画，可以转移用户的注意力，提高用户体验。下面展示了几种有趣的加载小动画，为了便于展示，引入了jsFiddle。因为jsFiddle有时候会抽风，顺便也把代码贴一下, 以后有需要方便复制粘贴~~~</p>
+<h5 id="加载动画1："><a href="#加载动画1：" class="headerlink" title="加载动画1："></a>加载动画1：</h5><iframe scrolling="no" width="100%" height="300" src="//jsfiddle.net/d2wer0xj/embedded/result,html,css/light" frameborder="0" allowfullscreen></iframe>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"spinner"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.spinner</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#333</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">  <span class="attribute">-webkit-animation</span>: sk-rotateplane <span class="number">1.2s</span> infinite ease-in-out;</span><br><span class="line">  <span class="attribute">animation</span>: sk-rotateplane <span class="number">1.2s</span> infinite ease-in-out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> sk-rotateplane &#123;</span><br><span class="line">  0% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(120px) &#125;</span><br><span class="line">  50% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateY</span>(180deg) &#125;</span><br><span class="line">  100% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateY</span>(180deg)  <span class="built_in">rotateX</span>(180deg) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> sk-rotateplane &#123;</span><br><span class="line">  0% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateX</span>(0deg) <span class="built_in">rotateY</span>(0deg);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateX</span>(0deg) <span class="built_in">rotateY</span>(0deg) </span><br><span class="line">  &#125; 50% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateX</span>(-180.1deg) <span class="built_in">rotateY</span>(0deg);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateX</span>(-180.1deg) <span class="built_in">rotateY</span>(0deg) </span><br><span class="line">  &#125; 100% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateX</span>(-180deg) <span class="built_in">rotateY</span>(-179.9deg);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateX</span>(-180deg) <span class="built_in">rotateY</span>(-179.9deg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="加载动画2："><a href="#加载动画2：" class="headerlink" title="加载动画2："></a>加载动画2：</h5><iframe scrolling="no" width="100%" height="300" src="//jsfiddle.net/qkmy3q3f/embedded/result,html,css/light" frameborder="0" allowfullscreen></iframe>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"spinner"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"double-bounce1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"double-bounce2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.spinner</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.double-bounce1</span>, <span class="selector-class">.double-bounce2</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#333</span>;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.6</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">-webkit-animation</span>: sk-bounce <span class="number">2.0s</span> infinite ease-in-out;</span><br><span class="line">  <span class="attribute">animation</span>: sk-bounce <span class="number">2.0s</span> infinite ease-in-out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.double-bounce2</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">1.0s</span>;</span><br><span class="line">  <span class="attribute">animation-delay</span>: -<span class="number">1.0s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> sk-bounce &#123;</span><br><span class="line">  0%, 100% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(0.0) &#125;</span><br><span class="line">  50% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1.0) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> sk-bounce &#123;</span><br><span class="line">  0%, 100% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(0.0);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(0.0);</span><br><span class="line">  &#125; 50% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(1.0);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1.0);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="加载动画3："><a href="#加载动画3：" class="headerlink" title="加载动画3："></a>加载动画3：</h5><iframe scrolling="no" width="100%" height="300" src="//jsfiddle.net/o599kbz7/embedded/result,html,css/light" frameborder="0" allowfullscreen></iframe>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"spinner"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cube1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cube2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.spinner</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.cube1</span>, <span class="selector-class">.cube2</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#00B8A9</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">-webkit-animation</span>: sk-cubemove <span class="number">1.8s</span> infinite ease-in-out;</span><br><span class="line">  <span class="attribute">animation</span>: sk-cubemove <span class="number">1.8s</span> infinite ease-in-out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.cube2</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">0.9s</span>;</span><br><span class="line">  <span class="attribute">animation-delay</span>: -<span class="number">0.9s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> sk-cubemove &#123;</span><br><span class="line">  25% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">translateX</span>(42px) <span class="built_in">rotate</span>(-90deg) <span class="built_in">scale</span>(0.5) &#125;</span><br><span class="line">  50% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">translateX</span>(42px) <span class="built_in">translateY</span>(42px) <span class="built_in">rotate</span>(-180deg) &#125;</span><br><span class="line">  75% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">translateX</span>(0px) <span class="built_in">translateY</span>(42px) <span class="built_in">rotate</span>(-270deg) <span class="built_in">scale</span>(0.5) &#125;</span><br><span class="line">  100% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(-360deg) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> sk-cubemove &#123;</span><br><span class="line">  25% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateX</span>(42px) <span class="built_in">rotate</span>(-90deg) <span class="built_in">scale</span>(0.5);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">translateX</span>(42px) <span class="built_in">rotate</span>(-90deg) <span class="built_in">scale</span>(0.5);</span><br><span class="line">  &#125; 50% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateX</span>(42px) <span class="built_in">translateY</span>(42px) <span class="built_in">rotate</span>(-179deg);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">translateX</span>(42px) <span class="built_in">translateY</span>(42px) <span class="built_in">rotate</span>(-179deg);</span><br><span class="line">  &#125; 50<span class="selector-class">.1</span>% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateX</span>(42px) <span class="built_in">translateY</span>(42px) <span class="built_in">rotate</span>(-180deg);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">translateX</span>(42px) <span class="built_in">translateY</span>(42px) <span class="built_in">rotate</span>(-180deg);</span><br><span class="line">  &#125; 75% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateX</span>(0px) <span class="built_in">translateY</span>(42px) <span class="built_in">rotate</span>(-270deg) <span class="built_in">scale</span>(0.5);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">translateX</span>(0px) <span class="built_in">translateY</span>(42px) <span class="built_in">rotate</span>(-270deg) <span class="built_in">scale</span>(0.5);</span><br><span class="line">  &#125; 100% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">rotate</span>(-360deg);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(-360deg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="加载动画4："><a href="#加载动画4：" class="headerlink" title="加载动画4："></a>加载动画4：</h5><iframe scrolling="no" width="100%" height="300" src="//jsfiddle.net/danat002/embedded/result,html,css/light" frameborder="0" allowfullscreen></iframe>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"spinner"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dot1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dot2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.spinner</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">-webkit-animation</span>: sk-rotate <span class="number">2.0s</span> infinite linear;</span><br><span class="line">  <span class="attribute">animation</span>: sk-rotate <span class="number">2.0s</span> infinite linear;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.dot1</span>, <span class="selector-class">.dot2</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">60%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">60%</span>;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#F38181</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">100%</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">-webkit-animation</span>: sk-bounce <span class="number">2.0s</span> infinite ease-in-out;</span><br><span class="line">  <span class="attribute">animation</span>: sk-bounce <span class="number">2.0s</span> infinite ease-in-out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.dot2</span> &#123;</span><br><span class="line">  <span class="attribute">top</span>: auto;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">1.0s</span>;</span><br><span class="line">  <span class="attribute">animation-delay</span>: -<span class="number">1.0s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> sk-rotate &#123; 100% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(360deg) &#125;&#125;</span><br><span class="line">@<span class="keyword">keyframes</span> sk-rotate &#123; 100% &#123; <span class="attribute">transform</span>: <span class="built_in">rotate</span>(360deg); <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(360deg) &#125;&#125;</span><br><span class="line"></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> sk-bounce &#123;</span><br><span class="line">  0%, 100% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(0.0) &#125;</span><br><span class="line">  50% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1.0) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> sk-bounce &#123;</span><br><span class="line">  0%, 100% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(0.0);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(0.0);</span><br><span class="line">  &#125; 50% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(1.0);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1.0);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="加载动画5："><a href="#加载动画5：" class="headerlink" title="加载动画5："></a>加载动画5：</h5><iframe scrolling="no" width="100%" height="300" src="//jsfiddle.net/vz7ec4v8/embedded/result,html,css/light" frameborder="0" allowfullscreen></iframe>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"spinner"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bounce1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bounce2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bounce3"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.spinner</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">70px</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.spinner</span> &gt; <span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">18px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">18px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#46CDCF</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">-webkit-animation</span>: sk-bouncedelay <span class="number">1.4s</span> infinite ease-in-out both;</span><br><span class="line">  <span class="attribute">animation</span>: sk-bouncedelay <span class="number">1.4s</span> infinite ease-in-out both;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.spinner</span> <span class="selector-class">.bounce1</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">0.32s</span>;</span><br><span class="line">  <span class="attribute">animation-delay</span>: -<span class="number">0.32s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.spinner</span> <span class="selector-class">.bounce2</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">0.16s</span>;</span><br><span class="line">  <span class="attribute">animation-delay</span>: -<span class="number">0.16s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> sk-bouncedelay &#123;</span><br><span class="line">  0%, 80%, 100% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(0) &#125;</span><br><span class="line">  40% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1.0) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> sk-bouncedelay &#123;</span><br><span class="line">  0%, 80%, 100% &#123; </span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(0);</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(0);</span><br><span class="line">  &#125; 40% &#123; </span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1.0);</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(1.0);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="加载动画6："><a href="#加载动画6：" class="headerlink" title="加载动画6："></a>加载动画6：</h5><iframe scrolling="no" width="100%" height="300" src="//jsfiddle.net/r8rer0L7/embedded/result,html,css/light" frameborder="0" allowfullscreen></iframe>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle1 sk-child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle2 sk-child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle3 sk-child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle4 sk-child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle5 sk-child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle6 sk-child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle7 sk-child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle8 sk-child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle9 sk-child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle10 sk-child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle11 sk-child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-circle12 sk-child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.sk-circle</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-child</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-child</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">15%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">15%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#00ADB5</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">-webkit-animation</span>: sk-circleBounceDelay <span class="number">1.2s</span> infinite ease-in-out both;</span><br><span class="line">          <span class="attribute">animation</span>: sk-circleBounceDelay <span class="number">1.2s</span> infinite ease-in-out both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle2</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(30deg);</span><br><span class="line">      <span class="attribute">-ms-transform</span>: <span class="built_in">rotate</span>(30deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">rotate</span>(30deg); &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle3</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(60deg);</span><br><span class="line">      <span class="attribute">-ms-transform</span>: <span class="built_in">rotate</span>(60deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">rotate</span>(60deg); &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle4</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(90deg);</span><br><span class="line">      <span class="attribute">-ms-transform</span>: <span class="built_in">rotate</span>(90deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">rotate</span>(90deg); &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle5</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(120deg);</span><br><span class="line">      <span class="attribute">-ms-transform</span>: <span class="built_in">rotate</span>(120deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">rotate</span>(120deg); &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle6</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(150deg);</span><br><span class="line">      <span class="attribute">-ms-transform</span>: <span class="built_in">rotate</span>(150deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">rotate</span>(150deg); &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle7</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(180deg);</span><br><span class="line">      <span class="attribute">-ms-transform</span>: <span class="built_in">rotate</span>(180deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">rotate</span>(180deg); &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle8</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(210deg);</span><br><span class="line">      <span class="attribute">-ms-transform</span>: <span class="built_in">rotate</span>(210deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">rotate</span>(210deg); &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle9</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(240deg);</span><br><span class="line">      <span class="attribute">-ms-transform</span>: <span class="built_in">rotate</span>(240deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">rotate</span>(240deg); &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle10</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(270deg);</span><br><span class="line">      <span class="attribute">-ms-transform</span>: <span class="built_in">rotate</span>(270deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">rotate</span>(270deg); &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle11</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(300deg);</span><br><span class="line">      <span class="attribute">-ms-transform</span>: <span class="built_in">rotate</span>(300deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">rotate</span>(300deg); &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle12</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(330deg);</span><br><span class="line">      <span class="attribute">-ms-transform</span>: <span class="built_in">rotate</span>(330deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">rotate</span>(330deg); &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle2</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">1.1s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: -<span class="number">1.1s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle3</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">1s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: -<span class="number">1s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle4</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">0.9s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: -<span class="number">0.9s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle5</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">0.8s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: -<span class="number">0.8s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle6</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">0.7s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: -<span class="number">0.7s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle7</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">0.6s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: -<span class="number">0.6s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle8</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">0.5s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: -<span class="number">0.5s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle9</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">0.4s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: -<span class="number">0.4s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle10</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">0.3s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: -<span class="number">0.3s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle11</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">0.2s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: -<span class="number">0.2s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-circle</span> <span class="selector-class">.sk-circle12</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: -<span class="number">0.1s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: -<span class="number">0.1s</span>; &#125;</span><br><span class="line"></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> sk-circleBounceDelay &#123;</span><br><span class="line">  0%, 80%, 100% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(0);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">scale</span>(0);</span><br><span class="line">  &#125; 40% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">scale</span>(1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> sk-circleBounceDelay &#123;</span><br><span class="line">  0%, 80%, 100% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(0);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">scale</span>(0);</span><br><span class="line">  &#125; 40% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">scale</span>(1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="加载动画7："><a href="#加载动画7：" class="headerlink" title="加载动画7："></a>加载动画7：</h5><iframe scrolling="no" width="100%" height="300" src="//jsfiddle.net/L7nvohot/embedded/result,html,css/light" frameborder="0" allowfullscreen></iframe>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube-grid"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube sk-cube1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube sk-cube2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube sk-cube3"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube sk-cube4"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube sk-cube5"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube sk-cube6"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube sk-cube7"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube sk-cube8"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube sk-cube9"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.sk-cube-grid</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.sk-cube-grid</span> <span class="selector-class">.sk-cube</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">33%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">33%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#F38181</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">-webkit-animation</span>: sk-cubeGridScaleDelay <span class="number">1.3s</span> infinite ease-in-out;</span><br><span class="line">          <span class="attribute">animation</span>: sk-cubeGridScaleDelay <span class="number">1.3s</span> infinite ease-in-out; </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sk-cube-grid</span> <span class="selector-class">.sk-cube1</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: <span class="number">0.2s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: <span class="number">0.2s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-cube-grid</span> <span class="selector-class">.sk-cube2</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: <span class="number">0.3s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: <span class="number">0.3s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-cube-grid</span> <span class="selector-class">.sk-cube3</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: <span class="number">0.4s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: <span class="number">0.4s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-cube-grid</span> <span class="selector-class">.sk-cube4</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: <span class="number">0.1s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: <span class="number">0.1s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-cube-grid</span> <span class="selector-class">.sk-cube5</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: <span class="number">0.2s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: <span class="number">0.2s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-cube-grid</span> <span class="selector-class">.sk-cube6</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: <span class="number">0.3s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: <span class="number">0.3s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-cube-grid</span> <span class="selector-class">.sk-cube7</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: <span class="number">0s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: <span class="number">0s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-cube-grid</span> <span class="selector-class">.sk-cube8</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: <span class="number">0.1s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: <span class="number">0.1s</span>; &#125;</span><br><span class="line"><span class="selector-class">.sk-cube-grid</span> <span class="selector-class">.sk-cube9</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: <span class="number">0.2s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: <span class="number">0.2s</span>; &#125;</span><br><span class="line"></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> sk-cubeGridScaleDelay &#123;</span><br><span class="line">  0%, 70%, 100% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale3D</span>(1, 1, 1);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">scale3D</span>(1, 1, 1);</span><br><span class="line">  &#125; 35% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale3D</span>(0, 0, 1);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">scale3D</span>(0, 0, 1); </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> sk-cubeGridScaleDelay &#123;</span><br><span class="line">  0%, 70%, 100% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale3D</span>(1, 1, 1);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">scale3D</span>(1, 1, 1);</span><br><span class="line">  &#125; 35% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale3D</span>(0, 0, 1);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">scale3D</span>(0, 0, 1);</span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="加载动画8："><a href="#加载动画8：" class="headerlink" title="加载动画8："></a>加载动画8：</h5><iframe scrolling="no" width="100%" height="300" src="//jsfiddle.net/njs6v6k5/embedded/result,html,css/light" frameborder="0" allowfullscreen></iframe>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-folding-cube"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube1 sk-cube"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube2 sk-cube"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube4 sk-cube"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sk-cube3 sk-cube"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.sk-folding-cube</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotateZ</span>(45deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">rotateZ</span>(45deg);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.sk-folding-cube</span> <span class="selector-class">.sk-cube</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1.1);</span><br><span class="line">      <span class="attribute">-ms-transform</span>: <span class="built_in">scale</span>(1.1);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">scale</span>(1.1); </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sk-folding-cube</span> <span class="selector-class">.sk-cube</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#3FBAC2</span>;</span><br><span class="line">  <span class="attribute">-webkit-animation</span>: sk-foldCubeAngle <span class="number">2.4s</span> infinite linear both;</span><br><span class="line">          <span class="attribute">animation</span>: sk-foldCubeAngle <span class="number">2.4s</span> infinite linear both;</span><br><span class="line">  <span class="attribute">-webkit-transform-origin</span>: <span class="number">100%</span> <span class="number">100%</span>;</span><br><span class="line">      <span class="attribute">-ms-transform-origin</span>: <span class="number">100%</span> <span class="number">100%</span>;</span><br><span class="line">          <span class="attribute">transform-origin</span>: <span class="number">100%</span> <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sk-folding-cube</span> <span class="selector-class">.sk-cube2</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1.1) <span class="built_in">rotateZ</span>(90deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">scale</span>(1.1) <span class="built_in">rotateZ</span>(90deg);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sk-folding-cube</span> <span class="selector-class">.sk-cube3</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1.1) <span class="built_in">rotateZ</span>(180deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">scale</span>(1.1) <span class="built_in">rotateZ</span>(180deg);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sk-folding-cube</span> <span class="selector-class">.sk-cube4</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1.1) <span class="built_in">rotateZ</span>(270deg);</span><br><span class="line">          <span class="attribute">transform</span>: <span class="built_in">scale</span>(1.1) <span class="built_in">rotateZ</span>(270deg);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sk-folding-cube</span> <span class="selector-class">.sk-cube2</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: <span class="number">0.3s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: <span class="number">0.3s</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sk-folding-cube</span> <span class="selector-class">.sk-cube3</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: <span class="number">0.6s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: <span class="number">0.6s</span>; </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sk-folding-cube</span> <span class="selector-class">.sk-cube4</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-animation-delay</span>: <span class="number">0.9s</span>;</span><br><span class="line">          <span class="attribute">animation-delay</span>: <span class="number">0.9s</span>;</span><br><span class="line">&#125;</span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> sk-foldCubeAngle &#123;</span><br><span class="line">  0%, 10% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(140px) <span class="built_in">rotateX</span>(-180deg);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">perspective</span>(140px) <span class="built_in">rotateX</span>(-180deg);</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>; </span><br><span class="line">  &#125; 25%, 75% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(140px) <span class="built_in">rotateX</span>(0deg);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">perspective</span>(140px) <span class="built_in">rotateX</span>(0deg);</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">1</span>; </span><br><span class="line">  &#125; 90%, 100% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(140px) <span class="built_in">rotateY</span>(180deg);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">perspective</span>(140px) <span class="built_in">rotateY</span>(180deg);</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>; </span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> sk-foldCubeAngle &#123;</span><br><span class="line">  0%, 10% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(140px) <span class="built_in">rotateX</span>(-180deg);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">perspective</span>(140px) <span class="built_in">rotateX</span>(-180deg);</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>; </span><br><span class="line">  &#125; 25%, 75% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(140px) <span class="built_in">rotateX</span>(0deg);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">perspective</span>(140px) <span class="built_in">rotateX</span>(0deg);</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">1</span>; </span><br><span class="line">  &#125; 90%, 100% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(140px) <span class="built_in">rotateY</span>(180deg);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">perspective</span>(140px) <span class="built_in">rotateY</span>(180deg);</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="加载动画9："><a href="#加载动画9：" class="headerlink" title="加载动画9："></a>加载动画9：</h5><iframe scrolling="no" width="100%" height="300" src="//jsfiddle.net/s16eg1aq/embedded/result,html,css/light" frameborder="0" allowfullscreen></iframe>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"load-3"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"k-line2 k-line12-1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"k-line2 k-line12-2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"k-line2 k-line12-3"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"k-line2 k-line12-4"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"k-line2 k-line12-5"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"k-line2 k-line12-6"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"k-line2 k-line12-7"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"k-line2 k-line12-8"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.k-line2</span> &#123;</span><br><span class="line">        <span class="attribute">display</span>:inline-block;</span><br><span class="line">        <span class="attribute">background</span>:<span class="number">#14FFEC</span>;</span><br><span class="line">        <span class="attribute">height</span>:<span class="number">5px</span>;</span><br><span class="line">        <span class="attribute">width</span>:<span class="number">5px</span>;</span><br><span class="line">        <span class="attribute">opacity</span>:<span class="number">0</span>;</span><br><span class="line">        <span class="attribute">border-radius</span>:<span class="number">50%</span>;</span><br><span class="line">        <span class="attribute">transform</span>:<span class="built_in">translateX</span>(-800px);</span><br><span class="line">        <span class="attribute">background-color</span>:<span class="number">#08D9D6</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.k-line12-1</span> &#123;</span><br><span class="line">        <span class="attribute">animation</span>:k-loadingS <span class="number">4s</span> infinite;</span><br><span class="line">        <span class="attribute">animation-delay</span>:.<span class="number">8s</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.k-line12-2</span> &#123;</span><br><span class="line">        <span class="attribute">animation</span>:k-loadingS <span class="number">4s</span> infinite;</span><br><span class="line">        <span class="attribute">animation-delay</span>:.<span class="number">7s</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.k-line12-3</span> &#123;</span><br><span class="line">        <span class="attribute">animation</span>:k-loadingS <span class="number">4s</span> infinite;</span><br><span class="line">        <span class="attribute">animation-delay</span>:.<span class="number">6s</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.k-line12-4</span> &#123;</span><br><span class="line">        <span class="attribute">animation</span>:k-loadingS <span class="number">4s</span> infinite;</span><br><span class="line">        <span class="attribute">animation-delay</span>:.<span class="number">5s</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.k-line12-5</span> &#123;</span><br><span class="line">        <span class="attribute">animation</span>:k-loadingS <span class="number">4s</span> infinite;</span><br><span class="line">        <span class="attribute">animation-delay</span>:.<span class="number">4s</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.k-line12-6</span> &#123;</span><br><span class="line">        <span class="attribute">animation</span>:k-loadingS <span class="number">4s</span> infinite;</span><br><span class="line">        <span class="attribute">animation-delay</span>:.<span class="number">3s</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.k-line12-7</span> &#123;</span><br><span class="line">        <span class="attribute">animation</span>:k-loadingS <span class="number">4s</span> infinite;</span><br><span class="line">        <span class="attribute">animation-delay</span>:.<span class="number">2s</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.k-line12-8</span> &#123;</span><br><span class="line">        <span class="attribute">animation</span>:k-loadingS <span class="number">4s</span> infinite;</span><br><span class="line">        <span class="attribute">animation-delay</span>:.<span class="number">1s</span></span><br><span class="line">    &#125;</span><br><span class="line">    @<span class="keyword">keyframes</span> k-loadingS &#123;</span><br><span class="line">        40% &#123;</span><br><span class="line">            <span class="attribute">transform</span>:<span class="built_in">translateX</span>(0);</span><br><span class="line">            <span class="attribute">opacity</span>:.<span class="number">8</span></span><br><span class="line">        &#125;</span><br><span class="line">        100% &#123;</span><br><span class="line">            <span class="attribute">transform</span>:<span class="built_in">translateX</span>(300px);</span><br><span class="line">            <span class="attribute">opacity</span>:<span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/15/You-don-t-know-JS-this和对象原型-笔记（四）/" rel="next" title="You don't know JS:this和对象原型 笔记（四）">
+                <i class="fa fa-chevron-left"></i> You don't know JS:this和对象原型 笔记（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/19/You-don-t-konw-JS-类型与文法捡漏（1）/" rel="prev" title="You don't konw JS: 类型与文法捡漏（1）">
+                You don't konw JS: 类型与文法捡漏（1） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">weihome</p>
+              <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#加载动画1："><span class="nav-number">1.</span> <span class="nav-text">加载动画1：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加载动画2："><span class="nav-number">2.</span> <span class="nav-text">加载动画2：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加载动画3："><span class="nav-number">3.</span> <span class="nav-text">加载动画3：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加载动画4："><span class="nav-number">4.</span> <span class="nav-text">加载动画4：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加载动画5："><span class="nav-number">5.</span> <span class="nav-text">加载动画5：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加载动画6："><span class="nav-number">6.</span> <span class="nav-text">加载动画6：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加载动画7："><span class="nav-number">7.</span> <span class="nav-text">加载动画7：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加载动画8："><span class="nav-number">8.</span> <span class="nav-text">加载动画8：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加载动画9："><span class="nav-number">9.</span> <span class="nav-text">加载动画9：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weihome</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

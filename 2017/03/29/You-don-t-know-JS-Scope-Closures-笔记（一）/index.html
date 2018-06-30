@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="笔记 JS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="What is Scope? 什么是作用域作用域是一套规则，用来规定如何找到存储的变量。俩个重点：存储和访问。 编译原理虽然JS被成为动态语言，但是代码在执行前也要进行编译，编译主要有三个阶段： 比如有var a = 2; 一般的编译会经过一下步骤： 1.Tokenizing/Lexing（分词/词法分析）：将字符串分解成对编程语言有意义的词法单元：var 、 a 、 = 、 2、; 分词和词法分">
+<meta name="keywords" content="笔记 JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="You don&#39;t know JS: Scope &amp; Closures 笔记（一）">
+<meta property="og:url" content="http://ifun.work/2017/03/29/You-don-t-know-JS-Scope-Closures-笔记（一）/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="What is Scope? 什么是作用域作用域是一套规则，用来规定如何找到存储的变量。俩个重点：存储和访问。 编译原理虽然JS被成为动态语言，但是代码在执行前也要进行编译，编译主要有三个阶段： 比如有var a = 2; 一般的编译会经过一下步骤： 1.Tokenizing/Lexing（分词/词法分析）：将字符串分解成对编程语言有意义的词法单元：var 、 a 、 = 、 2、; 分词和词法分">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-04-18T14:38:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="You don&#39;t know JS: Scope &amp; Closures 笔记（一）">
+<meta name="twitter:description" content="What is Scope? 什么是作用域作用域是一套规则，用来规定如何找到存储的变量。俩个重点：存储和访问。 编译原理虽然JS被成为动态语言，但是代码在执行前也要进行编译，编译主要有三个阶段： 比如有var a = 2; 一般的编译会经过一下步骤： 1.Tokenizing/Lexing（分词/词法分析）：将字符串分解成对编程语言有意义的词法单元：var 、 a 、 = 、 2、; 分词和词法分">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ifun.work/2017/03/29/You-don-t-know-JS-Scope-Closures-笔记（一）/"/>
+
+
+
+
+
+  <title>You don't know JS: Scope & Closures 笔记（一） | 乌斯怀亚-世界以南</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乌斯怀亚-世界以南</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">weihome的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/03/29/You-don-t-know-JS-Scope-Closures-笔记（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">You don't know JS: Scope & Closures 笔记（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-29T22:25:39+08:00">
+                2017-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="What-is-Scope-什么是作用域"><a href="#What-is-Scope-什么是作用域" class="headerlink" title="What is Scope? 什么是作用域"></a>What is Scope? 什么是作用域</h2><p>作用域是一套规则，用来规定如何找到存储的变量。俩个重点：存储和访问。</p>
+<h3 id="编译原理"><a href="#编译原理" class="headerlink" title="编译原理"></a>编译原理</h3><p>虽然JS被成为动态语言，但是代码在执行前也要进行编译，编译主要有三个阶段：</p>
+<p>比如有var a = 2; 一般的编译会经过一下步骤：</p>
+<p>1.Tokenizing/Lexing（分词/词法分析）：将字符串分解成对编程语言有意义的词法单元：var 、 a 、 = 、 2、; 分词和词法分析的差别：词法单元生成器在判断时调用的是有状态的解析规则，称为 词法分析。</p>
+<p>2.Parsing（解析/语法分析）：将词法单元数组转换成代表程序语法结构的树。这个树被称为“抽象语法树（Abstract Syntax Tree，AST）”。</p>
+<p>3.Code-Generation（代码生成）：将 抽象语法树 转化为可执行的一组机器指令。</p>
+<p>JS引擎做的工作复杂得多，而且js的编译一般是在执行前很短的时间内编译的，而不是构建前。JavaScript 引擎用尽了各种办法（比如 JIT，可以延迟编译甚至实施重编译）来保证性能最佳。</p>
+<h3 id="理解作用域"><a href="#理解作用域" class="headerlink" title="理解作用域"></a>理解作用域</h3><ul>
+<li>引擎：从头到尾负责整个 JavaScript 程序的编译及执行过程。</li>
+<li>编译器：负责语法分析及代码生成等脏活累活。</li>
+<li>作用域：负责收集并维护由所有声明的标识符（变量）组成的一系列查询，并实施一套非常严格的规则，确定当前执行的代码对这些标识符的访问权限。</li>
+</ul>
+<p>var a = 2; 编译过程：<br>首先编译器会在当前作用域中声明一个变量（如果之前没有声明过），然后在运行时引擎会在作用域中查找该变量，如果能够找到就会对它赋值。</p>
+<h4 id="引擎对变量的查询：LHS-和-RHS"><a href="#引擎对变量的查询：LHS-和-RHS" class="headerlink" title="引擎对变量的查询：LHS 和 RHS"></a>引擎对变量的查询：LHS 和 RHS</h4><ul>
+<li>LHS:赋值操作的目标是谁, 找到要赋值的目标或容器，然后赋值，一般在赋值操作的左侧</li>
+<li>RHS:谁是赋值操作的源头, 取变量的值，一般在赋值操作的右侧</li>
+</ul>
+<p>引擎通过作用域查询变量。</p>
+<h4 id="作用域嵌套"><a href="#作用域嵌套" class="headerlink" title="作用域嵌套"></a>作用域嵌套</h4><p>当一个块或函数嵌套在另一个块或函数中时，就发生了作用域的嵌套。在当前作用域中无法找到某个变量时，引擎就会在外层嵌套的作用域中继续查找，直到找到该变量，或抵达最外层的作用域（也就是全局作用域）为止。向上查询，不能向下查询。</p>
+<h4 id="变量查询抛出的异常"><a href="#变量查询抛出的异常" class="headerlink" title="变量查询抛出的异常"></a>变量查询抛出的异常</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log( a + b );   <span class="comment">// 对b进行RHS查询会抛出异常</span></span><br><span class="line">b = a;                  <span class="comment">// 对b进行LHS查询，严格模式抛出异常</span></span><br><span class="line">&#125;</span><br><span class="line">foo( <span class="number">2</span> );</span><br></pre></td></tr></table></figure>
+<p>第一次对 b 进行 RHS 查询时是无法找到该变量的,这是一个“未声明”的变量，引擎就会抛出 ReferenceError异常。<br>相较之下，LHS 查询下，如果在顶层中也无法找到目标变量，非严格模式下，就会创建该变量；而严格模式禁止自动或隐式地创建全局变量，在严格模式中 LHS 查询失败时，不会创建并返回一个全局变量，引擎抛出ReferenceError 异常。<br>接下来，如果 RHS 查询找到了一个变量，但是尝试对这个变量的值进行不合理的操作，比如试图对一个非函数类型的值进行函数调用，或着引用 null 或 undefined 类型的值中的属性，那么引擎会抛出另外一种类型的异常，叫作 TypeError。<br>ReferenceError 同作用域判别失败相关，而 TypeError 则代表作用域判别成功了，但是对结果的操作是非法或不合理的。</p>
+<h4 id="总结-amp-测验"><a href="#总结-amp-测验" class="headerlink" title="总结&amp;测验"></a>总结&amp;测验</h4><ul>
+<li>作用域是什么？</li>
+<li>LHS查询和RHS查询</li>
+<li>var a = 2; 编译步骤：var a ：在其作用域中声明新变量；a = 2：LHS 查询变量 a 并对其进行赋值。</li>
+<li>从作用域中查询变量，一直向上查询也没找到，抛出的异常</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line"><span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> c = foo( <span class="number">2</span> );</span><br></pre></td></tr></table></figure>
+<p>3次LHS查询和4次RHS查询分别在哪？</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔记-JS/" rel="tag"># 笔记 JS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/28/JS中的求值策略/" rel="next" title="JS点滴：求值策略">
+                <i class="fa fa-chevron-left"></i> JS点滴：求值策略
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/03/You-don-t-know-JS-Scope-Closures-笔记（二）/" rel="prev" title="You don't know JS: Scope & Closures 笔记（二）">
+                You don't know JS: Scope & Closures 笔记（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">weihome</p>
+              <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-Scope-什么是作用域"><span class="nav-number">1.</span> <span class="nav-text">What is Scope? 什么是作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译原理"><span class="nav-number">1.1.</span> <span class="nav-text">编译原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解作用域"><span class="nav-number">1.2.</span> <span class="nav-text">理解作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引擎对变量的查询：LHS-和-RHS"><span class="nav-number">1.2.1.</span> <span class="nav-text">引擎对变量的查询：LHS 和 RHS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作用域嵌套"><span class="nav-number">1.2.2.</span> <span class="nav-text">作用域嵌套</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量查询抛出的异常"><span class="nav-number">1.2.3.</span> <span class="nav-text">变量查询抛出的异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结-amp-测验"><span class="nav-number">1.2.4.</span> <span class="nav-text">总结&amp;测验</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weihome</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

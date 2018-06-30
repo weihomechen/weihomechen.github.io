@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="笔记 JS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="对象对象语法 字面形式   12345var myObj = &amp;#123;    //字面声明一次性添加一个或多个键/值对    key: value    // ...      &amp;#125;;  构造形式   1234var myObj = new Object();// 构造形式，只能一个一个地添加属性。myObj.key = value;// ...   类型es5的中主要类型:  str">
+<meta name="keywords" content="笔记 JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="You don&#39;t know JS:this和对象原型 笔记（三）">
+<meta property="og:url" content="http://ifun.work/2017/04/10/You-don-t-know-JS-this和对象原型-笔记（三）/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="对象对象语法 字面形式   12345var myObj = &amp;#123;    //字面声明一次性添加一个或多个键/值对    key: value    // ...      &amp;#125;;  构造形式   1234var myObj = new Object();// 构造形式，只能一个一个地添加属性。myObj.key = value;// ...   类型es5的中主要类型:  str">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-04-12T15:47:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="You don&#39;t know JS:this和对象原型 笔记（三）">
+<meta name="twitter:description" content="对象对象语法 字面形式   12345var myObj = &amp;#123;    //字面声明一次性添加一个或多个键/值对    key: value    // ...      &amp;#125;;  构造形式   1234var myObj = new Object();// 构造形式，只能一个一个地添加属性。myObj.key = value;// ...   类型es5的中主要类型:  str">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ifun.work/2017/04/10/You-don-t-know-JS-this和对象原型-笔记（三）/"/>
+
+
+
+
+
+  <title>You don't know JS:this和对象原型 笔记（三） | 乌斯怀亚-世界以南</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乌斯怀亚-世界以南</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">weihome的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/04/10/You-don-t-know-JS-this和对象原型-笔记（三）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">You don't know JS:this和对象原型 笔记（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-10T20:25:52+08:00">
+                2017-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><h3 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h3><ul>
+<li><p>字面形式</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObj = &#123;</span><br><span class="line">    <span class="comment">//字面声明一次性添加一个或多个键/值对</span></span><br><span class="line">    key: value</span><br><span class="line">    <span class="comment">// ...      </span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构造形式</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="comment">// 构造形式，只能一个一个地添加属性。</span></span><br><span class="line">myObj.key = value;</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><p>es5的中主要类型:</p>
+<ul>
+<li>string</li>
+<li>number</li>
+<li>boolean</li>
+<li>null</li>
+<li>undefined</li>
+<li>object</li>
+</ul>
+<p>简单基本类型 （string，number，boolean，null，和undefined）不是object, <code>typeof null</code>返回字符串”object”属于语言bug。</p>
+<p>存在几种特殊的对象子类型，称之为复杂基本类型，比如 <code>function</code> 和 <code>array</code>。</p>
+<h3 id="内建对象"><a href="#内建对象" class="headerlink" title="内建对象"></a>内建对象</h3><ul>
+<li>String</li>
+<li>Number</li>
+<li>Boolean</li>
+<li>Object</li>
+<li>Function</li>
+<li>Array</li>
+<li>Date</li>
+<li>RegExp</li>
+<li>Error</li>
+</ul>
+<p>在JS中，它们仅仅是内建的函数，可以被用作构造器（和new操作符一起调用），其结果是一个新构建的相应子类型的对象:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> strPrimitive = <span class="string">"I am a string"</span>;</span><br><span class="line"><span class="keyword">typeof</span> strPrimitive;                            <span class="comment">// "string"</span></span><br><span class="line">strPrimitive <span class="keyword">instanceof</span> <span class="built_in">String</span>;                    <span class="comment">// false 基本简单类型不是对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> strObject = <span class="keyword">new</span> <span class="built_in">String</span>( <span class="string">"I am a string"</span> );</span><br><span class="line"><span class="keyword">typeof</span> strObject;                                 <span class="comment">// "object"</span></span><br><span class="line">strObject <span class="keyword">instanceof</span> <span class="built_in">String</span>;                    <span class="comment">// true     </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 考察 object 子类型</span></span><br><span class="line"><span class="comment">// 可用来判断类型</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call( strObject );    <span class="comment">// [object String]</span></span><br></pre></td></tr></table></figure>
+<p>tip： </p>
+<blockquote>
+<p>基本类型值不是一个对象，它是一个不可变的基本字面值。为了对它进行操作，在必要的时候会自动地将基本类型转换为对象类型，所以几乎从不需要明确地创建对象。</p>
+</blockquote>
+<h3 id="对象的属性"><a href="#对象的属性" class="headerlink" title="对象的属性"></a>对象的属性</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    a: <span class="number">2</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">myObject.a;        <span class="comment">// 2 “属性（property）”访问, `.`操作符后面需要一个标识符（Identifier）兼容的属性名</span></span><br><span class="line"></span><br><span class="line">myObject[<span class="string">"a"</span>];    <span class="comment">// 2 “键（key）”访问, 基本可以接收任何字符串作为属性名,可以用来动态地组建字符串的值</span></span><br></pre></td></tr></table></figure>
+<p>属性名总是字符串。如果使用字符串以外（基本）类型的值，它会首先被转换为字符串。</p>
+<p>es6的计算型属性名：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> prefix = <span class="string">"foo"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    [prefix + <span class="string">"bar"</span>]: <span class="string">"hello"</span>,</span><br><span class="line">    [prefix + <span class="string">"baz"</span>]: <span class="string">"world"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">myObject[<span class="string">"foobar"</span>]; <span class="comment">// hello</span></span><br><span class="line">myObject[<span class="string">"foobaz"</span>]; <span class="comment">// world</span></span><br></pre></td></tr></table></figure>
+<p>tips: </p>
+<p>访问的属性如果是一个函数，不意味着这个函数属于这个对象，不是方法访问而是引用这个函数。</p>
+<p>如果你试图在一个数组上添加属性，但是属性名 看起来 像一个数字，那么最终它会成为一个数字索引（也就是改变了数组的内容）。</p>
+<p>JSON安全的对象简单的复制：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newObj = <span class="built_in">JSON</span>.parse( <span class="built_in">JSON</span>.stringify( someObj ) );</span><br></pre></td></tr></table></figure></p>
+<h4 id="属性描述符（Property-Descriptors）"><a href="#属性描述符（Property-Descriptors）" class="headerlink" title="属性描述符（Property Descriptors）"></a>属性描述符（Property Descriptors）</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    a: <span class="number">2</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor( myObject, <span class="string">"a"</span> ); <span class="comment">// 获取属性描述符</span></span><br><span class="line"><span class="comment">// &#123;</span></span><br><span class="line"><span class="comment">//    value: 2,</span></span><br><span class="line"><span class="comment">//    writable: true,</span></span><br><span class="line"><span class="comment">//    enumerable: true,</span></span><br><span class="line"><span class="comment">//    configurable: true</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myObject = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty( myObject, <span class="string">"a"</span>, &#123; <span class="comment">// 定义属性描述符</span></span><br><span class="line">    value: <span class="number">2</span>,                           <span class="comment">// 属性的值</span></span><br><span class="line">    writable: <span class="literal">true</span>,                     <span class="comment">// 可写性，如果为false，对value的修改将悄无声息地失败或得到一个TypeError错误</span></span><br><span class="line">    configurable: <span class="literal">true</span>,                 <span class="comment">// 可配置性，设置为false是一个单向操作，不可撤销！</span></span><br><span class="line">                                        <span class="comment">// 设置为false后，writeable可以由ture变为false，但不能由false变为ture；delete移除属性失效；</span></span><br><span class="line">    enumerable: <span class="literal">true</span>                    <span class="comment">// 可枚举性，如果为false，在for..in循环中不会出现，不包括in操作符</span></span><br><span class="line">&#125; );</span><br><span class="line"></span><br><span class="line">myObject.a; <span class="comment">// 2</span></span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#### 不可变性</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> - 对象常量：writable:false + configurable:false，创建了一个作为对象属性的常量（不能被改变，重定义或删除）</span></span><br><span class="line"><span class="string"> - 防止扩展：防止一个对象被添加新的属性，但另一方面保留其他既存的对象属性：Object.preventExtensions(..)</span></span><br><span class="line"><span class="string"> - 封印：Object.seal(..)：Object.preventExtensions(..) + configurable:false</span></span><br><span class="line"><span class="string"> - 冻结： Object.seal(..) + writable:false</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#### [[Get]]和[[Put]]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[[Get]]：获取属性，首先检查对象，寻找被请求的属性，如果找到，就返回相应的值。如果没找到，会遍历[[Prototype]]链向上寻找。最终也没找到，返回undefined。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[[Put]]：设置属性，如果属性存在，将会大致检查：这个属性是访问器描述符吗？如果是，而且是setter，就调用setter。这个属性是writable为false数据描述符吗？如果是，在非strict mode下无声地失败，或者在strict mode下抛出TypeError。否则，像平常一样设置既存属性的值。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#### 访问器属性：Getters 与 Setters</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>js</span><br><span class="line"><span class="comment">// 字面法</span></span><br><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    <span class="comment">// 为`a`定义getter</span></span><br><span class="line">    get a() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._a_;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 为`a`定义setter</span></span><br><span class="line">    set a(val) &#123;</span><br><span class="line">        <span class="keyword">this</span>._a_ = val * <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// defineProperty法</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(</span><br><span class="line">    myObject,   <span class="comment">// 目标对象</span></span><br><span class="line">    <span class="string">"b"</span>,        <span class="comment">// 属性名</span></span><br><span class="line">    &#123;           <span class="comment">// 描述符</span></span><br><span class="line">        <span class="comment">// 为`b`定义getter</span></span><br><span class="line">        get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">return</span> <span class="keyword">this</span>._a_&#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 确保`b`作为对象属性出现</span></span><br><span class="line">        enumerable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">myObject.a = <span class="number">2</span>;</span><br><span class="line">myObject.a; <span class="comment">// 4</span></span><br><span class="line">myObject.b; <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<h4 id="存在性"><a href="#存在性" class="headerlink" title="存在性"></a>存在性</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    a: <span class="number">2</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// in操作符会检查属性是否存在于对象 中，或者是否存在于[[Prototype]]链对象遍历的更高层中</span></span><br><span class="line">(<span class="string">"a"</span> <span class="keyword">in</span> myObject);                <span class="comment">// true</span></span><br><span class="line">(<span class="string">"b"</span> <span class="keyword">in</span> myObject);                <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//hasOwnProperty(..) 仅仅 检查myObject是否拥有属性，但 不会 查询[[Prototype]]链</span></span><br><span class="line">myObject.hasOwnProperty( <span class="string">"a"</span> );    <span class="comment">// true</span></span><br><span class="line">myObject.hasOwnProperty( <span class="string">"b"</span> );    <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 更加健壮的查询</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.hasOwnProperty.call(myObject,<span class="string">"a"</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="可枚举性"><a href="#可枚举性" class="headerlink" title="可枚举性"></a>可枚举性</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = &#123; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(</span><br><span class="line">    myObject,</span><br><span class="line">    <span class="string">"a"</span>,</span><br><span class="line">    <span class="comment">// 使`a`可枚举</span></span><br><span class="line">    &#123; <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">value</span>: <span class="number">2</span> &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(</span><br><span class="line">    myObject,</span><br><span class="line">    <span class="string">"b"</span>,</span><br><span class="line">    <span class="comment">// 使`b`不可枚举</span></span><br><span class="line">    &#123; <span class="attr">enumerable</span>: <span class="literal">false</span>, <span class="attr">value</span>: <span class="number">3</span> &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">myObject.b; <span class="comment">// 3</span></span><br><span class="line">(<span class="string">"b"</span> <span class="keyword">in</span> myObject); <span class="comment">// true</span></span><br><span class="line">myObject.hasOwnProperty( <span class="string">"b"</span> ); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 属性b存在，可访问，但是不可枚举，所以不会出现在 for..in..操作符的结果中：</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> k <span class="keyword">in</span> myObject) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log( k, myObject[k] ); </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// "a" 2 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以区分可枚举和不可枚举属性的方法：</span></span><br><span class="line">myObject.propertyIsEnumerable( <span class="string">"a"</span> ); <span class="comment">// true</span></span><br><span class="line">myObject.propertyIsEnumerable( <span class="string">"b"</span> ); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Object.keys(..)返回一个所有可枚举属性的数组：</span></span><br><span class="line"><span class="built_in">Object</span>.keys( myObject ); <span class="comment">// ["a"] </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Object.getOwnPropertyNames(..)返回一个所有属性的数组，不论能不能枚举：</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyNames( myObject ); <span class="comment">// ["a", "b"]</span></span><br></pre></td></tr></table></figure>
+<p>in和hasOwnProperty(..)区别于它们是否查询[[Prototype]]链，而Object.keys(..)和Object.getOwnPropertyNames(..)都只考察直接给定的对象。</p>
+<h3 id="复习"><a href="#复习" class="headerlink" title="复习"></a>复习</h3><ul>
+<li>对象的字面形式和构造形式，各自的特点</li>
+<li>js的基本类型，对象的子类型，内建对象</li>
+<li>属性访问的机制，<code>.</code>和<code>[]</code>形式，当前对象没找到的话沿着[[Prototype]]链继续找，返回值（属性的值或undefined）</li>
+<li>属性描述符，如何通过定义属性描述符来控制对象，几种不同等级的不可变性</li>
+<li>访问器属性，定义访问器属性</li>
+<li>判断属性是否存在，是否可枚举的方法</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔记-JS/" rel="tag"># 笔记 JS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/09/You-don-t-know-JS-this和对象原型-笔记（二）/" rel="next" title="You don't know JS:this和对象原型 笔记（二）">
+                <i class="fa fa-chevron-left"></i> You don't know JS:this和对象原型 笔记（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/15/You-don-t-know-JS-this和对象原型-笔记（四）/" rel="prev" title="You don't know JS:this和对象原型 笔记（四）">
+                You don't know JS:this和对象原型 笔记（四） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">weihome</p>
+              <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">1.</span> <span class="nav-text">对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象语法"><span class="nav-number">1.1.</span> <span class="nav-text">对象语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型"><span class="nav-number">1.2.</span> <span class="nav-text">类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内建对象"><span class="nav-number">1.3.</span> <span class="nav-text">内建对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的属性"><span class="nav-number">1.4.</span> <span class="nav-text">对象的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#属性描述符（Property-Descriptors）"><span class="nav-number">1.4.1.</span> <span class="nav-text">属性描述符（Property Descriptors）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存在性"><span class="nav-number">1.4.2.</span> <span class="nav-text">存在性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可枚举性"><span class="nav-number">1.4.3.</span> <span class="nav-text">可枚举性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复习"><span class="nav-number">1.5.</span> <span class="nav-text">复习</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weihome</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="笔记 JS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="类型与值类型内建类型JavaScript定义了7种内建类型：  null undefined string number boolean object symbol （es6）   除了object所有这些类型都被称为“基本类型”。  typeof操作符可以检测给定值的类型，但是返回值并不正好跟七个类型一一匹配，而是存在两种特殊情况： 12typeof null // &apos;object&apos; 意外的bu">
+<meta name="keywords" content="笔记 JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="You don&#39;t konw JS: 类型与文法捡漏（1）">
+<meta property="og:url" content="http://ifun.work/2017/04/19/You-don-t-konw-JS-类型与文法捡漏（1）/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="类型与值类型内建类型JavaScript定义了7种内建类型：  null undefined string number boolean object symbol （es6）   除了object所有这些类型都被称为“基本类型”。  typeof操作符可以检测给定值的类型，但是返回值并不正好跟七个类型一一匹配，而是存在两种特殊情况： 12typeof null // &apos;object&apos; 意外的bu">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-04-23T07:32:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="You don&#39;t konw JS: 类型与文法捡漏（1）">
+<meta name="twitter:description" content="类型与值类型内建类型JavaScript定义了7种内建类型：  null undefined string number boolean object symbol （es6）   除了object所有这些类型都被称为“基本类型”。  typeof操作符可以检测给定值的类型，但是返回值并不正好跟七个类型一一匹配，而是存在两种特殊情况： 12typeof null // &apos;object&apos; 意外的bu">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ifun.work/2017/04/19/You-don-t-konw-JS-类型与文法捡漏（1）/"/>
+
+
+
+
+
+  <title>You don't konw JS: 类型与文法捡漏（1） | 乌斯怀亚-世界以南</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乌斯怀亚-世界以南</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">weihome的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/04/19/You-don-t-konw-JS-类型与文法捡漏（1）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">You don't konw JS: 类型与文法捡漏（1）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-19T21:57:58+08:00">
+                2017-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="类型与值"><a href="#类型与值" class="headerlink" title="类型与值"></a>类型与值</h1><h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><h3 id="内建类型"><a href="#内建类型" class="headerlink" title="内建类型"></a>内建类型</h3><p>JavaScript定义了7种内建类型：</p>
+<ul>
+<li>null</li>
+<li>undefined</li>
+<li>string</li>
+<li>number</li>
+<li>boolean</li>
+<li>object</li>
+<li>symbol （es6）</li>
+</ul>
+<blockquote>
+<p>除了object所有这些类型都被称为“基本类型”。</p>
+</blockquote>
+<p><code>typeof</code>操作符可以检测给定值的类型，但是返回值并不正好跟七个类型一一匹配，而是存在两种特殊情况：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="literal">null</span> <span class="comment">// 'object' 意外的bug，当作特殊情况处理</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;&#125; <span class="comment">// 'function' 函数虽然也是对象，但是不返回'object', 而是'function'</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>null是唯一一个“falsy”，但是在typeof检查中返回”object”的基本类型</p>
+</blockquote>
+<p>测试是否是null类型：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="literal">null</span>;</span><br><span class="line">(!a &amp;&amp; <span class="keyword">typeof</span> a === <span class="string">"object"</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>对象的子类型：</p>
+<ul>
+<li>function</li>
+<li>array</li>
+<li>其它原生类型（String，Number，Boolean等等）</li>
+</ul>
+<p>变量没有类型 – 值才有类型。变量可以在任何时候，持有任何值。</p>
+<p>如果你对一个变量使用typeof，它不会像表面上看起来那样询问“这个变量的类型是什么？”，因为JS变量是没有类型的。取而代之的是，它会询问“在这个变量里的值的类型是什么？”</p>
+<h3 id="undefined-和-“undeclared”"><a href="#undefined-和-“undeclared”" class="headerlink" title="undefined 和 “undeclared”"></a>undefined 和 “undeclared”</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"></span><br><span class="line">a; <span class="comment">// undefined, 已经声明过但是这时候没有值</span></span><br><span class="line">b; <span class="comment">// ReferenceError: b is not defined. 'undeclared',从未声明过</span></span><br></pre></td></tr></table></figure>
+<p>虽然区别很大，但是JS中一定程度混淆了两者：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> a; <span class="comment">// "undefined"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> b; <span class="comment">// "undefined"</span></span><br></pre></td></tr></table></figure></p>
+<p>因为<code>typeof</code>对一个未声明的变量也返回”undefined”，这种安全防卫机制（防止一个错误）在特定的情况下非常有用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DEBUG 未声明</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这将抛出一个错误！</span></span><br><span class="line"><span class="keyword">if</span> (DEBUG) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">"Debugging is starting"</span> );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是一个安全的存在性检查</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> DEBUG !== <span class="string">"undefined"</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">"Debugging is starting"</span> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="值"><a href="#值" class="headerlink" title="值"></a>值</h2><h3 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h3><ul>
+<li>数组成员可以是任何类型的值。</li>
+<li><code>delete</code>操作符删除的是数组成员的值属性，数组长度不变。</li>
+<li>“空值槽”不同于被明确设置（a[1] = undefined）的值槽。</li>
+<li>虽然可以向数组添加属性，但是数组应该专注于数字索引，键值对属性交给<code>object</code></li>
+<li>arr[‘1’] 指向arr[1]。</li>
+<li>类数组转化:<code>Array.prototype.slice.call()</code>、<code>Array.from(..)</code>、<code>map()</code></li>
+</ul>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><ul>
+<li><code>string</code>是不可变的，<code>string</code>上没有一个方法是可以原地修改它的内容的，而是创建并返回一个新的<code>string</code></li>
+<li>可以借助array的某些方法来处理<code>string</code></li>
+<li>翻转一个string：<code>var newString = string.split(&#39;&#39;).reverse().join(&#39;&#39;)</code></li>
+</ul>
+<h3 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h3><ul>
+<li>JS没有真正的整数，在JS中，一个“整数”只是一个没有小数部分的小数值。</li>
+<li>‘整数’和’小数’部分如果是0，那就可选。<code>.1 === 0.1</code> <code>1. ===  1.0</code></li>
+<li>转化成指数形式： <code>toExponential()</code></li>
+<li>指定保留几位小数： <code>toFixed()</code></li>
+<li>指定保留几位有效数字： <code>toPrecision()</code></li>
+<li><code>42.toFixed( 3 );// SyntaxError</code> 因为<code>42.</code>是合法的number字面量</li>
+<li>不应该使用<code>0O363</code>这样的八进制，保持使用小写的谓词0x，0b，和0o。</li>
+</ul>
+<h4 id="小数值"><a href="#小数值" class="headerlink" title="小数值"></a>小数值</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.1</span> + <span class="number">0.2</span> === <span class="number">0.3</span>; <span class="comment">// false 0.1和0.2的二进制表示形式是不精确的</span></span><br><span class="line"><span class="comment">// 0.30000000000000004</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>es6的极小机械值（容差值）Number.EPSILON， 为2^-52（2.220446049250313e-16），两数只差小于这个值，就可以被认为是相等的</p>
+</blockquote>
+<p>es6前的填补：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="built_in">Number</span>.EPSILON) &#123;</span><br><span class="line">    <span class="built_in">Number</span>.EPSILON = <span class="built_in">Math</span>.pow(<span class="number">2</span>，<span class="number">-52</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h4><p>可以被表示的最大的浮点值：<code>Number.MAX_VALUE</code>，极小的一端（不是负值）：<code>Number.MIN_VALUE</code></p>
+<p>es6中定义的最大安全整数：<code>Number.MAX_SAFE_INTEGER</code>，最小值：<code>Number.MIN_SAFE_INTEGER</code></p>
+<p>测试整数:Number.isInteger(..)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// es6前的填补</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">Number</span>.isInteger) &#123;</span><br><span class="line">    <span class="built_in">Number</span>.isInteger = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">typeof</span> num == <span class="string">"number"</span> &amp;&amp; num % <span class="number">1</span> == <span class="number">0</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试一个值是否是安全整数:Number.isSafeInteger(..)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// es6前的填补</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">Number</span>.isSafeInteger) &#123;</span><br><span class="line">    <span class="built_in">Number</span>.isSafeInteger = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Number</span>.isInteger( num ) &amp;&amp;</span><br><span class="line">            <span class="built_in">Math</span>.abs( num ) &lt;= <span class="built_in">Number</span>.MAX_SAFE_INTEGER;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一些数字操作（比如位操作符）是仅仅为32位number定义的。</p>
+<h3 id="特殊值"><a href="#特殊值" class="headerlink" title="特殊值"></a>特殊值</h3><ul>
+<li>null: 空值，曾经有过值但现在没有，关键字，不能做标识符</li>
+<li>undefined: 还没有值，可以做标识符</li>
+<li>void操作符: 不会修改任何已经存在的值；只是确保不会有值从操作符表达式中返回来。所以这个表达式的结果总是值undefined。</li>
+</ul>
+<h4 id="Infinity"><a href="#Infinity" class="headerlink" title="Infinity"></a>Infinity</h4><ul>
+<li>无穷：如果操作的结果太大以至于无法正确表示就会选择用<code>Infinity</code>表示，<code>（+-）Infinity/（+-）Infinity</code>结果为<code>NaN</code></li>
+</ul>
+<h4 id="NaN（Not-a-Number）"><a href="#NaN（Not-a-Number）" class="headerlink" title="NaN（Not a Number）"></a>NaN（Not a Number）</h4><p>但是类型是number，它从来不等于它自己：NaN !== NaN</p>
+<ul>
+<li>isNaN(..)：用于测试是否不是一个数字</li>
+<li>Number.isNaN(..)：用于测试是否是NaN</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// es6前的填补</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">Number</span>.isNaN) &#123;</span><br><span class="line">    <span class="built_in">Number</span>.isNaN = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="keyword">typeof</span> n === <span class="string">"number"</span> &amp;&amp;</span><br><span class="line">            <span class="built_in">window</span>.isNaN( n )</span><br><span class="line">        );</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//或者：</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">Number</span>.isNaN) &#123;</span><br><span class="line">    <span class="built_in">Number</span>.isNaN = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> n !== n;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="零"><a href="#零" class="headerlink" title="零"></a>零</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断是否是`-0`</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isNegZero</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    n = <span class="built_in">Number</span>( n );</span><br><span class="line">    <span class="keyword">return</span> (n === <span class="number">0</span>) &amp;&amp; (<span class="number">1</span> / n === -<span class="literal">Infinity</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="绝对等价"><a href="#绝对等价" class="headerlink" title="绝对等价"></a>绝对等价</h4><p>Object.is(..)：测试两个值的绝对等价性,不受NaN和正负零的影响</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// es6前的填补</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">Object</span>.is) &#123;</span><br><span class="line">    <span class="built_in">Object</span>.is = <span class="function"><span class="keyword">function</span>(<span class="params">v1, v2</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 测试 `-0`</span></span><br><span class="line">        <span class="keyword">if</span> (v1 === <span class="number">0</span> &amp;&amp; v2 === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span> / v1 === <span class="number">1</span> / v2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 测试 `NaN`</span></span><br><span class="line">        <span class="keyword">if</span> (v1 !== v1) &#123;</span><br><span class="line">            <span class="keyword">return</span> v2 !== v2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 其他情况</span></span><br><span class="line">        <span class="keyword">return</span> v1 === v2;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="值与引用"><a href="#值与引用" class="headerlink" title="值与引用"></a>值与引用</h2><p>简单值（也叫基本标量） 总是 通过值拷贝来赋予/传递：null，undefined，string，number， boolean，以及ES6的symbol。</p>
+<p>复合值——object（包括array，和所有的对象包装器）和function——总是 在赋值或传递时创建一个引用的拷贝。</p>
+<p>引用与其他语言中的引用/指针不同 —— 它们从不指向其他的变量/引用，而仅指向值。</p>
+<p>简单值作为函数参数时，传入的是值的拷贝，函数内的操作不会影响外部的值，如果想让函数影响传入的参数，可以将简单值包装成复合值（对象）。</p>
+<p>相反的，复合值作为参数传入时，是传入值的引用，函数内对这个引用的操作会影响外部的引用，如果不想让外部的引用受到影响，可以将复合值做一个拷贝后传入，比如参数是<code>array</code>，可以使用<code>slice()</code>处理后传入函数。</p>
+<h2 id="原生类型"><a href="#原生类型" class="headerlink" title="原生类型"></a>原生类型</h2><p>最常用的原生类型的一览：</p>
+<ul>
+<li>String()</li>
+<li>Number()</li>
+<li>Boolean()</li>
+<li>Array()</li>
+<li>Object()</li>
+<li>Function()</li>
+<li>RegExp()</li>
+<li>Date()</li>
+<li>Error()</li>
+<li>Symbol() —— ES6加入</li>
+</ul>
+<p>这些原生类型实际上是内建函数，其构建的值是一个包含这个值的对象，typeof显示这些对象不是它们自己的特殊类型，而是object类型的子类型。</p>
+<p>如果没有必要，避免使用对象包装器，而是直接使用直接字面量，访问字面量属性时JS会自动进行封装。</p>
+<h3 id="对象包装器"><a href="#对象包装器" class="headerlink" title="对象包装器"></a>对象包装器</h3><p>Boolean包装的值：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Boolean</span>( <span class="literal">false</span> ); <span class="comment">// object</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!a) &#123; <span class="comment">// false</span></span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">"Oops"</span> ); <span class="comment">// 永远不会运行</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>封箱一个基本类型值: <code>Object();</code></p>
+<p>开箱，取出底层的基本类型值：<code>valueOf();</code></p>
+<h3 id="原生类型作为构造器"><a href="#原生类型作为构造器" class="headerlink" title="原生类型作为构造器"></a>原生类型作为构造器</h3><h4 id="Array-构造器"><a href="#Array-构造器" class="headerlink" title="Array(..)构造器"></a>Array(..)构造器</h4><p>Array(..)构造器不要求在它前面使用new关键字,如果它仅仅被传入一个number参数,那么这个参数就会作为长度，创建一个带有“空值槽”的“稀散数组”。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Array</span>( <span class="number">3</span> );</span><br><span class="line"><span class="keyword">var</span> b = [ <span class="literal">undefined</span>, <span class="literal">undefined</span>, <span class="literal">undefined</span> ];</span><br><span class="line"><span class="keyword">var</span> c = [];</span><br><span class="line">c.length = <span class="number">3</span>;</span><br><span class="line">a; <span class="comment">// [undefined × 3]</span></span><br><span class="line">b; <span class="comment">// [undefined, undefined, undefined]</span></span><br><span class="line">c; <span class="comment">// [undefined × 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个实际的undefined值的数组（不只是“空值槽”）</span></span><br><span class="line"><span class="keyword">var</span> d = <span class="built_in">Array</span>.apply( <span class="literal">null</span>, &#123; <span class="attr">length</span>: <span class="number">3</span> &#125; );</span><br><span class="line">d; <span class="comment">// [ undefined, undefined, undefined ]</span></span><br></pre></td></tr></table></figure>
+<h4 id="Object-，Function-和RegExp"><a href="#Object-，Function-和RegExp" class="headerlink" title="Object(..)，Function(..)和RegExp(..)"></a>Object(..)，Function(..)和RegExp(..)</h4><p>需要动态地定义一个函数的参数和/或它的函数体时才使用<code>Function()</code>,需要动态定义一个正则表达式时才使用<code>RegExp(..)</code></p>
+<h4 id="Date-和Error"><a href="#Date-和Error" class="headerlink" title="Date(..)和Error(..)"></a>Date(..)和Error(..)</h4><p>Date(..)和Error(..)原生类型构造器要比其他种类的原生类型有用得多，因为它们没有字面量形式。</p>
+<p>Date()如果不用<code>new</code>调用，将会返回时间的字符串形式。</p>
+<h4 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol(..)"></a>Symbol(..)</h4><p>ES6新增的基本值类型，主要用途可能是私有属性，或者类似的特殊属性。</p>
+<h3 id="原生类型原型"><a href="#原生类型原型" class="headerlink" title="原生类型原型"></a>原生类型原型</h3><p>每一个内建的原生构造器都拥有它自己的.prototype对象，该构造器构建的实例可以访问构造器原型对象上的属性/方法。</p>
+<p>一些原生类型的原型不 仅仅 是单纯的对象：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ypeof <span class="built_in">Function</span>.prototype;            <span class="comment">// "function"</span></span><br><span class="line"><span class="built_in">Function</span>.prototype();                <span class="comment">// 它是一个空函数！</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">RegExp</span>.prototype.toString();        <span class="comment">// "/(?:)/" —— 空的正则表达式</span></span><br><span class="line"><span class="string">"abc"</span>.match( <span class="built_in">RegExp</span>.prototype );    <span class="comment">// [""]</span></span><br></pre></td></tr></table></figure></p>
+<p>构造器原型对象详见<code>原型对象和原型链</code>。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔记-JS/" rel="tag"># 笔记 JS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/16/CSS点滴：页面加载动画/" rel="next" title="CSS花园：页面加载动画">
+                <i class="fa fa-chevron-left"></i> CSS花园：页面加载动画
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/26/You-don-t-konw-JS-类型与文法捡漏（2）/" rel="prev" title="You don't konw JS: 类型与文法捡漏（2）">
+                You don't konw JS: 类型与文法捡漏（2） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">weihome</p>
+              <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类型与值"><span class="nav-number">1.</span> <span class="nav-text">类型与值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型"><span class="nav-number">1.1.</span> <span class="nav-text">类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内建类型"><span class="nav-number">1.1.1.</span> <span class="nav-text">内建类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined-和-“undeclared”"><span class="nav-number">1.1.2.</span> <span class="nav-text">undefined 和 “undeclared”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值"><span class="nav-number">1.2.</span> <span class="nav-text">值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Array"><span class="nav-number">1.2.1.</span> <span class="nav-text">Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String"><span class="nav-number">1.2.2.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Number"><span class="nav-number">1.2.3.</span> <span class="nav-text">Number</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#小数值"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">小数值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整数"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">整数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊值"><span class="nav-number">1.2.4.</span> <span class="nav-text">特殊值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Infinity"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">Infinity</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NaN（Not-a-Number）"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">NaN（Not a Number）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#零"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">零</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对等价"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">绝对等价</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值与引用"><span class="nav-number">1.3.</span> <span class="nav-text">值与引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生类型"><span class="nav-number">1.4.</span> <span class="nav-text">原生类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象包装器"><span class="nav-number">1.4.1.</span> <span class="nav-text">对象包装器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原生类型作为构造器"><span class="nav-number">1.4.2.</span> <span class="nav-text">原生类型作为构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Array-构造器"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">Array(..)构造器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-，Function-和RegExp"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">Object(..)，Function(..)和RegExp(..)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Date-和Error"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">Date(..)和Error(..)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">Symbol(..)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原生类型原型"><span class="nav-number">1.4.3.</span> <span class="nav-text">原生类型原型</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weihome</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

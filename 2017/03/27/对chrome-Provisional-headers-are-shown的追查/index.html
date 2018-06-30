@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="缘由最近开发的邮件系统有一个全局的错误拦截，报错后会弹出错误提示，就像这个：  前几天做完一个功能，提交上去准备给测试妹子测试了，无聊的时候自己点一点，没想到点出了个问题。是这样的，我向后台调用搜索接口，同样的关键词多次搜索，大部分时候返回正确结果，但是偶然会出现错误提示。虽然一头雾水，但是自己发现的bug不叫bug，别人发现的bug才叫bug，趁没人发现赶紧补上吧~ 打开控制台，找一下出错的地方">
+<meta name="keywords" content="web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对chrome Provisional headers are shown的追查">
+<meta property="og:url" content="http://ifun.work/2017/03/27/对chrome-Provisional-headers-are-shown的追查/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="缘由最近开发的邮件系统有一个全局的错误拦截，报错后会弹出错误提示，就像这个：  前几天做完一个功能，提交上去准备给测试妹子测试了，无聊的时候自己点一点，没想到点出了个问题。是这样的，我向后台调用搜索接口，同样的关键词多次搜索，大部分时候返回正确结果，但是偶然会出现错误提示。虽然一头雾水，但是自己发现的bug不叫bug，别人发现的bug才叫bug，趁没人发现赶紧补上吧~ 打开控制台，找一下出错的地方">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://onh4i9vxw.bkt.clouddn.com/error-tip.png">
+<meta property="og:image" content="http://onh4i9vxw.bkt.clouddn.com/network-list.png">
+<meta property="og:image" content="http://onh4i9vxw.bkt.clouddn.com/bq.jpg">
+<meta property="og:image" content="http://onh4i9vxw.bkt.clouddn.com/err-list2.png">
+<meta property="og:image" content="http://onh4i9vxw.bkt.clouddn.com/cancel.png">
+<meta property="og:image" content="http://onh4i9vxw.bkt.clouddn.com/error-detail.png">
+<meta property="og:image" content="http://onh4i9vxw.bkt.clouddn.com/err-timing.png">
+<meta property="og:image" content="http://onh4i9vxw.bkt.clouddn.com/bq2.jpg">
+<meta property="og:image" content="http://onh4i9vxw.bkt.clouddn.com/yilian.jpg">
+<meta property="og:image" content="http://onh4i9vxw.bkt.clouddn.com/swkl.jpg">
+<meta property="og:updated_time" content="2017-04-18T14:17:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对chrome Provisional headers are shown的追查">
+<meta name="twitter:description" content="缘由最近开发的邮件系统有一个全局的错误拦截，报错后会弹出错误提示，就像这个：  前几天做完一个功能，提交上去准备给测试妹子测试了，无聊的时候自己点一点，没想到点出了个问题。是这样的，我向后台调用搜索接口，同样的关键词多次搜索，大部分时候返回正确结果，但是偶然会出现错误提示。虽然一头雾水，但是自己发现的bug不叫bug，别人发现的bug才叫bug，趁没人发现赶紧补上吧~ 打开控制台，找一下出错的地方">
+<meta name="twitter:image" content="http://onh4i9vxw.bkt.clouddn.com/error-tip.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ifun.work/2017/03/27/对chrome-Provisional-headers-are-shown的追查/"/>
+
+
+
+
+
+  <title>对chrome Provisional headers are shown的追查 | 乌斯怀亚-世界以南</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乌斯怀亚-世界以南</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">weihome的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/03/27/对chrome-Provisional-headers-are-shown的追查/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">对chrome Provisional headers are shown的追查</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-27T20:28:41+08:00">
+                2017-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h2><p>最近开发的邮件系统有一个全局的错误拦截，报错后会弹出错误提示，就像这个：</p>
+<p><img src="http://onh4i9vxw.bkt.clouddn.com/error-tip.png" alt="error-tip"></p>
+<p>前几天做完一个功能，提交上去准备给测试妹子测试了，无聊的时候自己点一点，没想到点出了个问题。是这样的，我向后台调用搜索接口，同样的关键词多次搜索，大部分时候返回正确结果，但是偶然会出现错误提示。虽然一头雾水，但是自己发现的bug不叫bug，别人发现的bug才叫bug，趁没人发现赶紧补上吧~</p>
+<p>打开控制台，找一下出错的地方，定位到了network，如下图:</p>
+<p><img src="http://onh4i9vxw.bkt.clouddn.com/network-list.png" alt="network-list"></p>
+<p>可以看到，输入关键词’a’进行搜索，前几次都是返回正确的结果，最后一次出现了错误了，而关键词’as’也返回了正确结果。此时此刻，我的内心有一句MMP有点想讲，但还是算了，</p>
+<p><img src="http://onh4i9vxw.bkt.clouddn.com/bq.jpg" alt=""></p>
+<h2 id="追查"><a href="#追查" class="headerlink" title="追查"></a>追查</h2><h3 id="select2插件"><a href="#select2插件" class="headerlink" title="select2插件"></a>select2插件</h3><p>首先可以排除语法的问题，同样的关键词，偶然会出现错误。这个接口是在插件select2中使用的，会是select2的问题么。把这个接口拿到其它地方使用，这个错误具有偶发性，希望它来呢越是不来，我都要以为是select2的锅了。然而，select2表示这个锅他不背…</p>
+<p><img src="http://onh4i9vxw.bkt.clouddn.com/err-list2.png" alt="network-list2"></p>
+<p>好了，排除掉select2。重新看一下错误的网络请求：</p>
+<p><img src="http://onh4i9vxw.bkt.clouddn.com/cancel.png" alt=""></p>
+<p>发生错误的请求被取消了！为什么被取消呢，前面和后面的请求都返回了正确的结果。再看一下详细面板，</p>
+<p><img src="http://onh4i9vxw.bkt.clouddn.com/error-detail.png" alt="error-detail"></p>
+<p>header面板给出了一个提示：</p>
+<blockquote>
+<p>Provisional headers are shown</p>
+</blockquote>
+<p>preview和response内容为空，时间线显示的是</p>
+<p><img src="http://onh4i9vxw.bkt.clouddn.com/err-timing.png" alt="timing"></p>
+<blockquote>
+<p>这个请求被停止了</p>
+</blockquote>
+<p>对于之前没遇到又一时没头绪的问题，找搜索引擎就对了。</p>
+<h3 id="chrome-插件"><a href="#chrome-插件" class="headerlink" title="chrome 插件"></a>chrome 插件</h3><p>原来一些chrome插件会屏蔽掉某些网络请求，使之没发出去，比如过滤广告的Adblock等，不过我并没有使用跟网络有关的chrome插件，pass。</p>
+<h3 id="浏览器或是系统环境？"><a href="#浏览器或是系统环境？" class="headerlink" title="浏览器或是系统环境？"></a>浏览器或是系统环境？</h3><p>经过测试，edge也有这种情况，换台电脑吧，嗯，一样的。</p>
+<h3 id="后台"><a href="#后台" class="headerlink" title="后台"></a>后台</h3><p>到这时候已经有点想甩锅了，说不定就是后台响应请求速度太慢的问题。嗯，我这就去找后台…</p>
+<h3 id="继续求助搜索引擎"><a href="#继续求助搜索引擎" class="headerlink" title="继续求助搜索引擎"></a>继续求助搜索引擎</h3><p>因为拿不出证据被后台大叔怼回来的我，只好继续上网搜索了，stackoverflow上面倒有一些相关问题，不过他们是请求被Pending了很久，从请求的时间线来看，体现在Stalled的时间长达几十秒，比如<a href="http://stackoverflow.com/questions/14821725/ajax-request-over-https-hangs-for-40-seconds-in-chrome-only" target="_blank" rel="noopener">这个</a></p>
+<p>可是，可是我这个错误stalled的时间只有几十毫秒啊…<br><img src="http://onh4i9vxw.bkt.clouddn.com/bq2.jpg" alt="ganga"></p>
+<p>虽然没找到跟我这个问题相似的情况，不过倒是收获了慢慢的干货，比如这一篇<a href="http://fex.baidu.com/blog/2015/01/chrome-stalled-problem-resolving-process/" target="_blank" rel="noopener">关于请求被挂起页面加载缓慢问题的追查</a> 这位百度FEX的前辈好厉害啊，多多向他学习！</p>
+<h3 id="撸起袖子就是干"><a href="#撸起袖子就是干" class="headerlink" title="撸起袖子就是干"></a>撸起袖子就是干</h3><p>回到正题，网络上找不到相似的问题，只好自己动手，丰衣足食了。听他们讲，chrome的net-internals可以查看具体的网络请求细节，嗯，先在地址栏输入chrome://net-internals，然后我内心是这样的：这都是什么啊</p>
+<p><img src="http://onh4i9vxw.bkt.clouddn.com/yilian.jpg" alt="yilian"></p>
+<p>么事么事，我先去找一下net-internals的说明，等我回来再战。 </p>
+<h3 id="net-internals"><a href="#net-internals" class="headerlink" title="net-internals"></a>net-internals</h3><p>切换到event，点开一个请求，可以看到类似的信息:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">36499: URL_REQUEST</span><br><span class="line">https://angular.cn/</span><br><span class="line">Start Time: 2017-03-27 23:03:46.769</span><br><span class="line"></span><br><span class="line">t=56812 [st=  0] +REQUEST_ALIVE  [dt=167]</span><br><span class="line">t=56812 [st=  0]    DELEGATE_INFO  [dt=0]  <span class="comment"># 第一部分的工作开始</span></span><br><span class="line">                    --&gt; delegate_info = <span class="string">"NavigationResourceThrottle"</span></span><br><span class="line">t=56812 [st=  0]    URL_REQUEST_DELEGATE  [dt=0]</span><br><span class="line">t=56813 [st=  1]    URL_REQUEST_START_JOB  [dt=0]</span><br><span class="line">                    --&gt; load_flags = 37120 (MAIN_FRAME_DEPRECATED | MAYBE_USER_GESTURE | VERIFY_EV_CERT)</span><br><span class="line">                    --&gt; method = <span class="string">"GET"</span></span><br><span class="line">                    --&gt; priority = <span class="string">"HIGHEST"</span></span><br><span class="line">                    --&gt; url = <span class="string">"https://angular.cn/"</span></span><br><span class="line">t=56813 [st=  1]   +URL_REQUEST_START_JOB  [dt=163]</span><br><span class="line">                    --&gt; load_flags = 37120 (MAIN_FRAME_DEPRECATED | MAYBE_USER_GESTURE | VERIFY_EV_CERT)</span><br><span class="line">                    --&gt; method = <span class="string">"GET"</span></span><br><span class="line">                    --&gt; priority = <span class="string">"HIGHEST"</span></span><br><span class="line">                    --&gt; url = <span class="string">"https://angular.cn/"</span></span><br><span class="line">t=56813 [st=  1]      URL_REQUEST_DELEGATE  [dt=0]</span><br><span class="line">t=56813 [st=  1]      HTTP_CACHE_GET_BACKEND  [dt=0]</span><br><span class="line">t=56813 [st=  1]      HTTP_CACHE_OPEN_ENTRY  [dt=0]</span><br><span class="line">                      --&gt; net_error = -2 (ERR_FAILED)</span><br><span class="line">t=56813 [st=  1]      HTTP_CACHE_CREATE_ENTRY  [dt=0]</span><br><span class="line">t=56813 [st=  1]      HTTP_CACHE_ADD_TO_ENTRY  [dt=0]</span><br><span class="line">t=56813 [st=  1]     +HTTP_STREAM_REQUEST  [dt=1]  <span class="comment"># 第二部分开始</span></span><br><span class="line">t=56813 [st=  1]        HTTP_STREAM_REQUEST_STARTED_JOB</span><br><span class="line">                        --&gt; source_dependency = 36502 (HTTP_STREAM_JOB)</span><br><span class="line">t=56814 [st=  2]        HTTP_STREAM_REQUEST_BOUND_TO_JOB</span><br><span class="line">                        --&gt; source_dependency = 36502 (HTTP_STREAM_JOB)</span><br><span class="line">t=56814 [st=  2]     -HTTP_STREAM_REQUEST</span><br><span class="line">t=56814 [st=  2]     +HTTP_TRANSACTION_SEND_REQUEST  [dt=0] <span class="comment"># 发送请求头</span></span><br><span class="line">t=56814 [st=  2]        HTTP_TRANSACTION_HTTP2_SEND_REQUEST_HEADERS</span><br><span class="line">                        --&gt; :authority: angular.cn</span><br><span class="line">                            :method: GET</span><br><span class="line">                            :path: /</span><br><span class="line">                            :scheme: https</span><br><span class="line">                            accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">                            accept-encoding: gzip, deflate, sdch, br</span><br><span class="line">                            accept-language: zh-CN,zh;q=0.8</span><br><span class="line">                            upgrade-insecure-requests: 1</span><br><span class="line">                            user-agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.3 Safari/537.36</span><br><span class="line">t=56814 [st=  2]     -HTTP_TRANSACTION_SEND_REQUEST</span><br><span class="line">t=56814 [st=  2]     +HTTP_TRANSACTION_READ_HEADERS  [dt=160] <span class="comment"># 第三部分 读取响应头</span></span><br><span class="line">t=56974 [st=162]        HTTP_TRANSACTION_READ_RESPONSE_HEADERS</span><br><span class="line">                        --&gt; HTTP/1.1 200</span><br><span class="line">                            status: 200</span><br><span class="line">                            server: Tengine</span><br><span class="line">                            content-type: text/html</span><br><span class="line">                            content-length: 6069</span><br><span class="line">                            date: Mon, 27 Mar 2017 14:57:02 GMT</span><br><span class="line">                            last-modified: Tue, 14 Mar 2017 06:48:21 GMT</span><br><span class="line">                            etag: <span class="string">"58c79235-426e"</span></span><br><span class="line">                            content-encoding: gzip</span><br><span class="line">                            via: cache4.l2et15[98,200-0,H], cache3.l2et15[99,0], kunlun9.cn141[152,200-0,M], kunlun4.cn141[152,0]</span><br><span class="line">                            age: 0</span><br><span class="line">                            x-cache: MISS TCP_MISS dirn:2:87827485</span><br><span class="line">                            x-swift-savetime: Mon, 27 Mar 2017 14:57:02 GMT</span><br><span class="line">                            x-swift-cachetime: 3600</span><br><span class="line">                            timing-allow-origin: *</span><br><span class="line">                            eagleid: 7005fb0414906266225666270e</span><br><span class="line">t=56974 [st=162]     -HTTP_TRANSACTION_READ_HEADERS</span><br><span class="line">t=56975 [st=163]     +HTTP_CACHE_WRITE_INFO  [dt=0] <span class="comment"># 页面缓存处理</span></span><br><span class="line">t=56975 [st=163]        HTTP2_STREAM_UPDATE_RECV_WINDOW</span><br><span class="line">                        --&gt; delta = -1073</span><br><span class="line">                        --&gt; stream_id = 1</span><br><span class="line">                        --&gt; window_size = 6290383</span><br><span class="line">t=56975 [st=163]     -HTTP_CACHE_WRITE_INFO</span><br><span class="line">t=56975 [st=163]      HTTP_CACHE_WRITE_DATA  [dt=0]</span><br><span class="line">t=56975 [st=163]      HTTP_CACHE_WRITE_INFO  [dt=1]</span><br><span class="line">t=56976 [st=164]      URL_REQUEST_DELEGATE  [dt=0]</span><br><span class="line">t=56976 [st=164]      URL_REQUEST_FILTERS_SET</span><br><span class="line">                      --&gt; filters = <span class="string">"GZIP"</span></span><br><span class="line">t=56976 [st=164]   -URL_REQUEST_START_JOB</span><br><span class="line">t=56976 [st=164]   +URL_REQUEST_DELEGATE  [dt=2]</span><br><span class="line">t=56976 [st=164]     +DELEGATE_INFO  [dt=1]</span><br><span class="line">                      --&gt; delegate_info = <span class="string">"NavigationResourceThrottle"</span></span><br><span class="line">t=56977 [st=165]        HTTP2_STREAM_UPDATE_RECV_WINDOW</span><br><span class="line">                        --&gt; delta = -1847</span><br><span class="line">                        --&gt; stream_id = 1</span><br><span class="line">                        --&gt; window_size = 6288536</span><br><span class="line">t=56977 [st=165]        HTTP2_STREAM_UPDATE_RECV_WINDOW</span><br><span class="line">                        --&gt; delta = -3149</span><br><span class="line">                        --&gt; stream_id = 1</span><br><span class="line">                        --&gt; window_size = 6285387</span><br><span class="line">t=56977 [st=165]     -DELEGATE_INFO</span><br><span class="line">t=56978 [st=166]   -URL_REQUEST_DELEGATE</span><br><span class="line">t=56978 [st=166]    HTTP_TRANSACTION_READ_BODY  [dt=0] </span><br><span class="line">t=56978 [st=166]    HTTP_CACHE_WRITE_DATA  [dt=0]</span><br><span class="line">t=56978 [st=166]    URL_REQUEST_JOB_BYTES_READ</span><br><span class="line">                    --&gt; byte_count = 6069</span><br><span class="line">t=56978 [st=166]    URL_REQUEST_JOB_FILTERED_BYTES_READ</span><br><span class="line">                    --&gt; byte_count = 17006</span><br><span class="line">t=56978 [st=166]    HTTP_TRANSACTION_READ_BODY  [dt=0]</span><br><span class="line">t=56978 [st=166]    HTTP_CACHE_WRITE_DATA  [dt=0]</span><br><span class="line">t=56979 [st=167] -REQUEST_ALIVE</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>日志第一列为时间线，自请求发起时算。第二列为每步操作所逝去的时间，时间差的概念，与第三列里面的dt不同，它会积累前面的耗时。第三列为具体的事件，以及相应事件的耗时dt，此耗时为绝对耗时。+号对应事件开始，-号对应事件结束，也就是说他们必然成对出现。住里是展开后更加详细的子事件。直到不能再细分。</p>
+</blockquote>
+<p>可以看到，浏览器主要做了以下的工作：</p>
+<ol>
+<li>拉取浏览器cache，判断是否需要更新，如果不需要更新则从缓存获取内容直接渲染。判断是否更新的主要依据有：Expires时间、cache设置，浏览器的设置。浏览器拉取缓存的这部分工作主要体现在cache相关的event上</li>
+<li>发送页面header请求 </li>
+<li>接受响应头信息，接收完header后，浏览器得到了返回的请求类型（200、304……）、服务器资源是否有更新（如果没有更新直接从cache获取缓存渲染）等信息</li>
+<li>接收完了页面内容，如果页面需要进行缓存则将页面缓存起来，同时对页面进行解码（包括gzip解压等。根据返回的数据类型（html类型、图片类型、声音…）进行页面渲染</li>
+</ol>
+<p>我们主要关注两部分，</p>
+<ul>
+<li>发送请求头 <code>+HTTP_TRANSACTION_SEND_REQUEST  [dt=0]</code></li>
+<li>读取响应头 <code>+HTTP_TRANSACTION_READ_HEADERS  [dt=160]</code><br>这是正常的情况下，没有什么问题。并且日志里可以清晰地看到发送的请求头是什么，然后解析出来的响应头是什么。这跟在网络面板看到的是一致的。</li>
+</ul>
+<h3 id="分析日志"><a href="#分析日志" class="headerlink" title="分析日志"></a>分析日志</h3><p>再来看错误请求的日志详情：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">19208: URL_REQUEST</span><br><span class="line">http://127.0.0.1:8080/api/mail/contacts/search?condition=a</span><br><span class="line">Start Time: 2017-03-27 15:41:57.122</span><br><span class="line"></span><br><span class="line">t=273378 [st= 0] +REQUEST_ALIVE  [dt=38]</span><br><span class="line">t=273378 [st= 0]    URL_REQUEST_DELEGATE  [dt=0]</span><br><span class="line">t=273378 [st= 0]   +URL_REQUEST_START_JOB  [dt=37]</span><br><span class="line">                    --&gt; load_flags = 33026 (BYPASS_CACHE | MAYBE_USER_GESTURE | VERIFY_EV_CERT)</span><br><span class="line">                    --&gt; method = <span class="string">"GET"</span></span><br><span class="line">                    --&gt; priority = <span class="string">"MEDIUM"</span></span><br><span class="line">                    --&gt; url = <span class="string">"http://127.0.0.1:8080/api/mail/contacts/search?condition=a"</span></span><br><span class="line">t=273378 [st= 0]      URL_REQUEST_DELEGATE  [dt=0]</span><br><span class="line">t=273378 [st= 0]      HTTP_CACHE_GET_BACKEND  [dt=0]</span><br><span class="line">t=273378 [st= 0]      HTTP_CACHE_DOOM_ENTRY  [dt=0]</span><br><span class="line">                      --&gt; net_error = -2 (ERR_FAILED)</span><br><span class="line">t=273378 [st= 0]      HTTP_CACHE_CREATE_ENTRY  [dt=0]</span><br><span class="line">t=273378 [st= 0]      HTTP_CACHE_ADD_TO_ENTRY  [dt=0]</span><br><span class="line">t=273378 [st= 0]     +HTTP_STREAM_REQUEST  [dt=0]</span><br><span class="line">t=273378 [st= 0]        HTTP_STREAM_REQUEST_STARTED_JOB</span><br><span class="line">                        --&gt; source_dependency = 19211 (HTTP_STREAM_JOB)</span><br><span class="line">t=273378 [st= 0]        HTTP_STREAM_REQUEST_BOUND_TO_JOB</span><br><span class="line">                        --&gt; source_dependency = 19211 (HTTP_STREAM_JOB)</span><br><span class="line">t=273378 [st= 0]     -HTTP_STREAM_REQUEST</span><br><span class="line">t=273378 [st= 0]     +HTTP_TRANSACTION_SEND_REQUEST  [dt=0]                       <span class="comment"># 发送请求头</span></span><br><span class="line">t=273378 [st= 0]        HTTP_TRANSACTION_SEND_REQUEST_HEADERS</span><br><span class="line">                        --&gt; GET /api/mail/contacts/search?condition=a HTTP/1.1</span><br><span class="line">                            Host: 127.0.0.1:8080</span><br><span class="line">                            Connection: keep-alive</span><br><span class="line">                            Pragma: no-cache</span><br><span class="line">                            Cache-Control: no-cache</span><br><span class="line">                            Accept: application/json, text/javascript, */*; q=0.01</span><br><span class="line">                            X-Requested-With: XMLHttpRequest</span><br><span class="line">                            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36</span><br><span class="line">                            Referer: http://127.0.0.1:8080/pages/mail/mail.html</span><br><span class="line">                            Accept-Encoding: gzip, deflate, sdch, br</span><br><span class="line">                            Accept-Language: zh-CN,zh;q=0.8,en;q=0.6</span><br><span class="line">                            Cookie: [93 bytes were stripped]</span><br><span class="line">t=273378 [st= 0]     -HTTP_TRANSACTION_SEND_REQUEST                               </span><br><span class="line">t=273378 [st= 0]     +HTTP_TRANSACTION_READ_HEADERS  [dt=37]                      <span class="comment"># 读取请求头</span></span><br><span class="line">t=273378 [st= 0]        HTTP_STREAM_PARSER_READ_HEADERS  [dt=37]</span><br><span class="line">t=273415 [st=37]        HTTP_TRANSACTION_READ_RESPONSE_HEADERS</span><br><span class="line">                        --&gt; HTTP/1.1 200</span><br><span class="line">                            X-Content-Type-Options: nosniff</span><br><span class="line">                            X-XSS-Protection: 1; mode=block</span><br><span class="line">                            Cache-Control: no-cache, no-store, max-age=0, must-revalidate</span><br><span class="line">                            Pragma: no-cache</span><br><span class="line">                            Expires: 0</span><br><span class="line">                            Content-Type: application/json;charset=UTF-8</span><br><span class="line">                            Transfer-Encoding: chunked</span><br><span class="line">                            Date: Mon, 27 Mar 2017 07:41:56 GMT</span><br><span class="line">t=273415 [st=37]     -HTTP_TRANSACTION_READ_HEADERS</span><br><span class="line">t=273415 [st=37]      HTTP_CACHE_WRITE_INFO  [dt=0]                             <span class="comment"># 接受后的处理</span></span><br><span class="line">t=273415 [st=37]      URL_REQUEST_DELEGATE  [dt=0]</span><br><span class="line">t=273415 [st=37]   -URL_REQUEST_START_JOB</span><br><span class="line">t=273415 [st=37]    URL_REQUEST_DELEGATE  [dt=0]</span><br><span class="line">t=273415 [st=37]    HTTP_TRANSACTION_READ_BODY  [dt=0]</span><br><span class="line">t=273415 [st=37]    URL_REQUEST_JOB_BYTES_READ</span><br><span class="line">                    --&gt; byte_count = 2283</span><br><span class="line">t=273415 [st=37]    HTTP_TRANSACTION_READ_BODY  [dt=0]</span><br><span class="line">t=273416 [st=38] -REQUEST_ALIVE</span><br></pre></td></tr></table></figure>
+<hr>
+<p>咦，好像并没有错啊，难道我导出时导错了？然而验证之后这就是错误请求的日志，我能怎么办，我也很绝望啊</p>
+<p><img src="http://onh4i9vxw.bkt.clouddn.com/swkl.jpg" alt=""></p>
+<p>嗯，这很酸爽。我还是再去问问度娘和谷哥吧。</p>
+<h3 id="新的希望"><a href="#新的希望" class="headerlink" title="新的希望"></a>新的希望</h3><p>度娘告诉我，浏览器对于同一域名的请求是有数量限制的。</p>
+<p>那会不会是请求数量太多了被挂起了？这时候我想起了一直被忽略的，出现错误后还能正常返回的请求，去看一下出错后正常返回的请求日志：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 正常请求的日志</span></span><br><span class="line">19212: URL_REQUEST</span><br><span class="line">http://127.0.0.1:8080/api/mail/contacts/search?condition=as</span><br><span class="line">Start Time: 2017-03-27 15:41:57.171</span><br><span class="line"></span><br><span class="line">t=273427 [st= 0] +REQUEST_ALIVE  [dt=31]</span><br><span class="line">t=273427 [st= 0]    URL_REQUEST_DELEGATE  [dt=0]</span><br><span class="line">t=273427 [st= 0]   +URL_REQUEST_START_JOB  [dt=30]</span><br><span class="line">                    --&gt; load_flags = 33026 (BYPASS_CACHE | MAYBE_USER_GESTURE | VERIFY_EV_CERT)</span><br><span class="line">                    --&gt; method = <span class="string">"GET"</span></span><br><span class="line">                    --&gt; priority = <span class="string">"MEDIUM"</span></span><br><span class="line">                    --&gt; url = <span class="string">"http://127.0.0.1:8080/api/mail/contacts/search?condition=as"</span></span><br><span class="line">t=273427 [st= 0]      URL_REQUEST_DELEGATE  [dt=0]</span><br><span class="line">t=273427 [st= 0]      HTTP_CACHE_GET_BACKEND  [dt=0]</span><br><span class="line">t=273427 [st= 0]      HTTP_CACHE_DOOM_ENTRY  [dt=0]</span><br><span class="line">                      --&gt; net_error = -2 (ERR_FAILED)</span><br><span class="line">t=273427 [st= 0]      HTTP_CACHE_CREATE_ENTRY  [dt=0]</span><br><span class="line">t=273427 [st= 0]      HTTP_CACHE_ADD_TO_ENTRY  [dt=0]</span><br><span class="line">t=273427 [st= 0]     +HTTP_STREAM_REQUEST  [dt=0]</span><br><span class="line">t=273427 [st= 0]        HTTP_STREAM_REQUEST_STARTED_JOB</span><br><span class="line">                        --&gt; source_dependency = 19215 (HTTP_STREAM_JOB)</span><br><span class="line">t=273427 [st= 0]        HTTP_STREAM_REQUEST_BOUND_TO_JOB</span><br><span class="line">                        --&gt; source_dependency = 19215 (HTTP_STREAM_JOB)</span><br><span class="line">t=273427 [st= 0]     -HTTP_STREAM_REQUEST</span><br><span class="line">t=273428 [st= 1]     +HTTP_TRANSACTION_SEND_REQUEST  [dt=0]</span><br><span class="line">t=273428 [st= 1]        HTTP_TRANSACTION_SEND_REQUEST_HEADERS</span><br><span class="line">                        --&gt; GET /api/mail/contacts/search?condition=as HTTP/1.1</span><br><span class="line">                            Host: 127.0.0.1:8080</span><br><span class="line">                            Connection: keep-alive</span><br><span class="line">                            Pragma: no-cache</span><br><span class="line">                            Cache-Control: no-cache</span><br><span class="line">                            Accept: application/json, text/javascript, */*; q=0.01</span><br><span class="line">                            X-Requested-With: XMLHttpRequest</span><br><span class="line">                            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36</span><br><span class="line">                            Referer: http://127.0.0.1:8080/pages/mail/mail.html</span><br><span class="line">                            Accept-Encoding: gzip, deflate, sdch, br</span><br><span class="line">                            Accept-Language: zh-CN,zh;q=0.8,en;q=0.6</span><br><span class="line">                            Cookie: [93 bytes were stripped]</span><br><span class="line">t=273428 [st= 1]     -HTTP_TRANSACTION_SEND_REQUEST</span><br><span class="line">t=273428 [st= 1]     +HTTP_TRANSACTION_READ_HEADERS  [dt=29]     <span class="comment"># 从发出到接受，花费29毫秒，少于上一个请求的37毫秒</span></span><br><span class="line">t=273428 [st= 1]        HTTP_STREAM_PARSER_READ_HEADERS  [dt=29]</span><br><span class="line">t=273457 [st=30]        HTTP_TRANSACTION_READ_RESPONSE_HEADERS</span><br><span class="line">                        --&gt; HTTP/1.1 200</span><br><span class="line">                            X-Content-Type-Options: nosniff</span><br><span class="line">                            X-XSS-Protection: 1; mode=block</span><br><span class="line">                            Cache-Control: no-cache, no-store, max-age=0, must-revalidate</span><br><span class="line">                            Pragma: no-cache</span><br><span class="line">                            Expires: 0</span><br><span class="line">                            Content-Type: application/json;charset=UTF-8</span><br><span class="line">                            Transfer-Encoding: chunked</span><br><span class="line">                            Date: Mon, 27 Mar 2017 07:41:56 GMT   <span class="comment"># 这个时间跟上一个请求是一样的！</span></span><br><span class="line">t=273457 [st=30]     -HTTP_TRANSACTION_READ_HEADERS</span><br><span class="line">t=273457 [st=30]      HTTP_CACHE_WRITE_INFO  [dt=0]</span><br><span class="line">t=273457 [st=30]      URL_REQUEST_DELEGATE  [dt=0]</span><br><span class="line">t=273457 [st=30]   -URL_REQUEST_START_JOB</span><br><span class="line">t=273457 [st=30]    URL_REQUEST_DELEGATE  [dt=0]</span><br><span class="line">t=273457 [st=30]    HTTP_TRANSACTION_READ_BODY  [dt=1]</span><br><span class="line">t=273458 [st=31]    URL_REQUEST_JOB_BYTES_READ</span><br><span class="line">                    --&gt; byte_count = 3</span><br><span class="line">t=273458 [st=31]    HTTP_TRANSACTION_READ_BODY  [dt=0]</span><br><span class="line">t=273458 [st=31] -REQUEST_ALIVE</span><br></pre></td></tr></table></figure>
+<hr>
+<p>仔细看，发现了两次响应头返回的时间是一样的！可是为什么是7点啊，这个时间代表的是什么？事以至此，虽然还有些地方不是很明白，不过可以推测不外乎两个原因：</p>
+<ul>
+<li>后一个请求返回的结果时间戳跟前一个是一样的，浏览器保留了后一个请求返回的结果，丢弃了前一个请求</li>
+<li>后一个请求返回结果的时间早于前一个请求，浏览器接受了后一个请求的结果，丢弃了前一个请求</li>
+</ul>
+<p>不管怎么看，前一个请求都是被浏览器丢弃了，突然觉得它有点可怜，心疼。</p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>在全局错误拦截方法里，打了个断点。再次重复机械的操作，控制台终于有反应了。赶紧瞧瞧，看到“abort”, 果然是被抛弃了…</p>
+<p>早知道我打个断点就好了啊，就不用大费周章了，可是我怎么觉得这波不亏呢</p>
+<p>既然是请求被丢弃了，后面又有新的请求返回了正确的结果，那么用户对于这类错误其实没必要感知。果断找技术总监确认一下，讨论过后决定屏蔽掉这类错误。</p>
+<h2 id="陈词总结"><a href="#陈词总结" class="headerlink" title="陈词总结"></a>陈词总结</h2><p>可能引起chrome网络请求出现 “provisional headers are shown” 提示的原总结起来有以下几点：</p>
+<ul>
+<li>chrome网络相关的插件，比如广告过滤插件</li>
+<li>后端迟迟不返回结果，造成stalled时间过长</li>
+<li>浏览器对于同一域名的请求有个数限制</li>
+<li>对同一目标的先后多个请求，后面的请求返回在前导致前面的请求被丢弃</li>
+</ul>
+<h2 id="疑点"><a href="#疑点" class="headerlink" title="疑点"></a>疑点</h2><p>关于第四点，从网络日志来看，前一个请求发送请求头的时间是早于后一个请求的，但是前一个请求被“cancel”，也就是被取消了，这个请求并没有发出去，而后面的请求已经返回了。所以说日志里发送请求头的时间不代表浏览器真正发送请求的时间？现在没法给出更合理的解释，先记录在案吧。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web/" rel="tag"># web</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/25/小白搭建个人博客记录/" rel="next" title="小白搭建个人博客记录">
+                <i class="fa fa-chevron-left"></i> 小白搭建个人博客记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/28/JS中的求值策略/" rel="prev" title="JS点滴：求值策略">
+                JS点滴：求值策略 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">weihome</p>
+              <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缘由"><span class="nav-number">1.</span> <span class="nav-text">缘由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#追查"><span class="nav-number">2.</span> <span class="nav-text">追查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#select2插件"><span class="nav-number">2.1.</span> <span class="nav-text">select2插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chrome-插件"><span class="nav-number">2.2.</span> <span class="nav-text">chrome 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器或是系统环境？"><span class="nav-number">2.3.</span> <span class="nav-text">浏览器或是系统环境？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后台"><span class="nav-number">2.4.</span> <span class="nav-text">后台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继续求助搜索引擎"><span class="nav-number">2.5.</span> <span class="nav-text">继续求助搜索引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#撸起袖子就是干"><span class="nav-number">2.6.</span> <span class="nav-text">撸起袖子就是干</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#net-internals"><span class="nav-number">2.7.</span> <span class="nav-text">net-internals</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析日志"><span class="nav-number">2.8.</span> <span class="nav-text">分析日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新的希望"><span class="nav-number">2.9.</span> <span class="nav-text">新的希望</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证"><span class="nav-number">2.10.</span> <span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#陈词总结"><span class="nav-number">3.</span> <span class="nav-text">陈词总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#疑点"><span class="nav-number">4.</span> <span class="nav-text">疑点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weihome</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

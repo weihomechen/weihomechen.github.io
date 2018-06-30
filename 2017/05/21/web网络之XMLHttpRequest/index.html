@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="network," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="导语继HTTP之后，来梳理一下XMLHttpRequest。如果用过jQuery，那几乎也用过$.ajax吧，估计也是成功地发过很多个Ajax请求了。本文主要从的标准和API回顾XMLHttpRequest。 Ajax和XMLHttpRequest日常开发中，好像很少将Ajax和XMLHttpRequest区分开来，但其实这是两个不同维度的概念。 ajax依赖现有的CSS/HTML/Javascr">
+<meta name="keywords" content="network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web网络之XMLHttpRequest">
+<meta property="og:url" content="http://ifun.work/2017/05/21/web网络之XMLHttpRequest/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="导语继HTTP之后，来梳理一下XMLHttpRequest。如果用过jQuery，那几乎也用过$.ajax吧，估计也是成功地发过很多个Ajax请求了。本文主要从的标准和API回顾XMLHttpRequest。 Ajax和XMLHttpRequest日常开发中，好像很少将Ajax和XMLHttpRequest区分开来，但其实这是两个不同维度的概念。 ajax依赖现有的CSS/HTML/Javascr">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/XMLHttpRequest%E5%85%BC%E5%AE%B9%E6%80%A7.png">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/responseType.png">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/status.png">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/trigger.png">
+<meta property="og:updated_time" content="2017-06-29T14:10:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web网络之XMLHttpRequest">
+<meta name="twitter:description" content="导语继HTTP之后，来梳理一下XMLHttpRequest。如果用过jQuery，那几乎也用过$.ajax吧，估计也是成功地发过很多个Ajax请求了。本文主要从的标准和API回顾XMLHttpRequest。 Ajax和XMLHttpRequest日常开发中，好像很少将Ajax和XMLHttpRequest区分开来，但其实这是两个不同维度的概念。 ajax依赖现有的CSS/HTML/Javascr">
+<meta name="twitter:image" content="http://os965hewa.bkt.clouddn.com/XMLHttpRequest%E5%85%BC%E5%AE%B9%E6%80%A7.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ifun.work/2017/05/21/web网络之XMLHttpRequest/"/>
+
+
+
+
+
+  <title>web网络之XMLHttpRequest | 乌斯怀亚-世界以南</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乌斯怀亚-世界以南</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">weihome的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/05/21/web网络之XMLHttpRequest/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">web网络之XMLHttpRequest</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-21T21:09:24+08:00">
+                2017-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h3><p>继<strong>HTTP</strong>之后，来梳理一下<strong><font color="#F57170"><code>XMLHttpRequest</code></font></strong>。如果用过jQuery，那几乎也用过$.ajax吧，估计也是成功地发过很多个Ajax请求了。本文主要从的标准和API回顾<font color="#F57170">XMLHttpRequest</font>。</p>
+<h3 id="Ajax和XMLHttpRequest"><a href="#Ajax和XMLHttpRequest" class="headerlink" title="Ajax和XMLHttpRequest"></a>Ajax和<font color="#F57170">XMLHttpRequest</font></h3><p>日常开发中，好像很少将<code>Ajax</code>和<font color="#F57170">XMLHttpRequest</font>区分开来，但其实这是两个不同维度的概念。</p>
+<p>ajax依赖现有的CSS/HTML/Javascript，而其中最核心的依赖是浏览器提供的<font color="#F57170">XMLHttpRequest</font>对象，是这个对象使得浏览器可以发出HTTP请求与接收HTTP响应。</p>
+<p>所以两者的关系：我们使用<font color="#F57170">XMLHttpRequest</font>对象来发送一个Ajax请求。</p>
+<h3 id="XMLHttpRequest的发展历程"><a href="#XMLHttpRequest的发展历程" class="headerlink" title="XMLHttpRequest的发展历程"></a><font color="#F57170">XMLHttpRequest</font>的发展历程</h3><p><font color="#F57170">XMLHttpRequest</font>一开始只是微软浏览器提供的一个接口，后来各大浏览器纷纷效仿也提供了这个接口，再后来W3C对它进行了标准化，提出了<font color="#F57170">XMLHttpRequest</font>标准。<font color="#F57170">XMLHttpRequest</font>标准又分为Level 1和Level 2。</p>
+<p><font color="#F57170">XMLHttpRequest</font> Level 1主要存在以下缺点：</p>
+<ul>
+<li>受同源策略的限制，不能发送跨域请求；</li>
+<li>不能发送二进制文件（如图片、视频、音频等），只能发送纯文本数据；</li>
+<li>在发送和获取数据的过程中，无法实时获取进度信息，只能判断是否完成；</li>
+</ul>
+<p>那么Level 2对Level 1 进行了改进，<font color="#F57170">XMLHttpRequest</font> Level 2中新增了以下功能：</p>
+<ul>
+<li>可以发送跨域请求，在服务端允许的情况下；</li>
+<li>支持发送和接收二进制数据；</li>
+<li>新增formData对象，支持发送表单数据；</li>
+<li>发送和获取数据时，可以获取进度信息；</li>
+<li>可以设置请求的超时时间；</li>
+</ul>
+<p>更多详细可以访问 <a href="http://www.ruanyifeng.com/blog/2012/09/xmlhttprequest_level_2.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/09/xmlhttprequest_level_2.html</a></p>
+<h3 id="XMLHttpRequest兼容性"><a href="#XMLHttpRequest兼容性" class="headerlink" title="XMLHttpRequest兼容性"></a><font color="#F57170">XMLHttpRequest</font>兼容性</h3><p>关于xhr的浏览器兼容性，大家可以直接查看“Can I use”这个网站提供的结果<font color="#F57170">XMLHttpRequest</font>兼容性，下面提供一个截图。</p>
+<p><img src="http://os965hewa.bkt.clouddn.com/XMLHttpRequest%E5%85%BC%E5%AE%B9%E6%80%A7.png" alt="兼容性"></p>
+<p>从图中可以看到：</p>
+<ul>
+<li>IE8/IE9、Opera Mini 完全不支持xhr对象</li>
+<li>IE10/IE11部分支持，不支持 xhr.responseType为json</li>
+<li>部分浏览器不支持设置请求超时，即无法使用xhr.timeout</li>
+<li>部分浏览器不支持xhr.responseType为blob</li>
+</ul>
+<h3 id="细说XMLHttpRequest如何使用"><a href="#细说XMLHttpRequest如何使用" class="headerlink" title="细说XMLHttpRequest如何使用"></a>细说<font color="#F57170">XMLHttpRequest</font>如何使用</h3><p>先来看一段使用<font color="#F57170">XMLHttpRequest</font>发送Ajax请求的简单示例代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendAjax</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//构造表单数据</span></span><br><span class="line">  <span class="keyword">var</span> formData = <span class="keyword">new</span> FormData();</span><br><span class="line">  formData.append(<span class="string">'username'</span>, <span class="string">'johndoe'</span>);</span><br><span class="line">  formData.append(<span class="string">'id'</span>, <span class="number">123456</span>);</span><br><span class="line">  <span class="comment">//创建xhr对象 </span></span><br><span class="line">  <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  <span class="comment">//设置xhr请求的超时时间</span></span><br><span class="line">  xhr.timeout = <span class="number">3000</span>;</span><br><span class="line">  <span class="comment">//设置响应返回的数据格式</span></span><br><span class="line">  xhr.responseType = <span class="string">"text"</span>;</span><br><span class="line">  <span class="comment">//创建一个 post 请求，采用异步</span></span><br><span class="line">  xhr.open(<span class="string">'POST'</span>, <span class="string">'/server'</span>, <span class="literal">true</span>);</span><br><span class="line">  <span class="comment">//注册相关事件回调处理函数</span></span><br><span class="line">  xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.status == <span class="number">200</span>||<span class="keyword">this</span>.status == <span class="number">304</span>)&#123;</span><br><span class="line">        alert(<span class="keyword">this</span>.responseText);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  xhr.ontimeout = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; ... &#125;;</span><br><span class="line">  xhr.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; ... &#125;;</span><br><span class="line">  xhr.upload.onprogress = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; ... &#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//发送数据</span></span><br><span class="line">  xhr.send(formData);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面是一个使用xhr发送表单数据的示例，整个流程可以参考注释。</p>
+<h4 id="如何设置request-header"><a href="#如何设置request-header" class="headerlink" title="如何设置request header"></a>如何设置request header</h4><p>在发送Ajax请求（实质是一个HTTP请求）时，我们可能需要设置一些请求头部信息，比如content-type、connection、cookie、accept-xxx等。xhr提供了setRequestHeader来允许我们修改请求 header。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> setRequestHeader(DOMString header, DOMString value);</span><br></pre></td></tr></table></figure>
+<p>注意点：</p>
+<ul>
+<li>方法的第一个参数 header 大小写不敏感，即可以写成content-type，也可以写成Content-Type，甚至写成content-Type;</li>
+<li>Content-Type的默认值与具体发送的数据类型有关，请参考本文【可以发送什么类型的数据】一节；</li>
+<li>setRequestHeader必须在open()方法之后，send()方法之前调用，否则会抛错；</li>
+<li>setRequestHeader可以调用多次，最终的值不会采用覆盖override的方式，而是采用追加append的方式。</li>
+</ul>
+<p>下面是一个示例代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> client = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">client.open(<span class="string">'GET'</span>, <span class="string">'demo.cgi'</span>);</span><br><span class="line">client.setRequestHeader(<span class="string">'X-Test'</span>, <span class="string">'one'</span>);</span><br><span class="line">client.setRequestHeader(<span class="string">'X-Test'</span>, <span class="string">'two'</span>);</span><br><span class="line"><span class="comment">// 最终request header中"X-Test"为: one, two</span></span><br><span class="line">client.send();</span><br></pre></td></tr></table></figure></p>
+<h4 id="如何获取response-header"><a href="#如何获取response-header" class="headerlink" title="如何获取response header"></a>如何获取response header</h4><p>xhr提供了2个用来获取响应头部的方法：<em>getAllResponseHeaders</em>和<em>getResponseHeader</em>。前者是获取 response 中的所有header 字段，后者只是获取某个指定 header 字段的值。另外，getResponseHeader(header)的header参数不区分大小写。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DOMString getAllResponseHeaders();</span><br><span class="line">DOMString getResponseHeader(DOMString header);</span><br></pre></td></tr></table></figure>
+<p>这2个方法看起来简单，但却处处是坑儿。</p>
+<p>-使用<code>getAllResponseHeaders()</code>看到的所有response header与实际在控制台 Network 中看到的 response header 不一样</p>
+<ul>
+<li>使用<code>getResponseHeader()</code>获取某个 header 的值时，浏览器抛错Refused to get unsafe header “XXX”</li>
+</ul>
+<ul>
+<li>原因1：W3C的 xhr 标准中做了限制，规定客户端无法获取 response 中的 Set-Cookie、Set-Cookie2这2个字段，无论是同域还是跨域请求；</li>
+<li>原因2：W3C 的 cors 标准对于跨域请求也做了限制，规定对于跨域请求，客户端允许获取的response header字段只限于“simple response header”和“Access-Control-Expose-Headers” （两个名词的解释见下方）。</li>
+</ul>
+<blockquote>
+<p>“simple response header”包括的 header 字段有：Cache-Control,Content-Language,Content-Type,Expires,Last-Modified,Pragma;<br>“Access-Control-Expose-Headers”：首先得注意是”Access-Control-Expose-Headers”进行跨域请求时响应头部中的一个字段，对于同域请求，响应头部是没有这个字段的。这个字段中列举的 header 字段就是服务器允许暴露给客户端访问的字段。</p>
+</blockquote>
+<p>所以getAllResponseHeaders()只能拿到限制以外（即被视为safe）的header字段，而不是全部字段；而调用getResponseHeader(header)方法时，header参数必须是限制以外的header字段，否则调用就会报<em>Refused to get unsafe header</em>的错误。</p>
+<h4 id="如何指定xhr-response的数据类型"><a href="#如何指定xhr-response的数据类型" class="headerlink" title="如何指定xhr.response的数据类型"></a>如何指定xhr.response的数据类型</h4><p>有些时候我们希望xhr.response返回的就是我们想要的数据类型。比如：响应返回的数据是纯JSON字符串，但我们期望最终通过xhr.response拿到的直接就是一个 js 对象，我们该怎么实现呢？<br>有2种方法可以实现，一个是level 1就提供的overrideMimeType()方法，另一个是level 2才提供的xhr.responseType属性。</p>
+<h5 id="xhr-overrideMimeType"><a href="#xhr-overrideMimeType" class="headerlink" title="xhr.overrideMimeType()"></a>xhr.overrideMimeType()</h5><p>overrideMimeType是xhr level 1就有的方法，所以浏览器兼容性良好。这个方法的作用就是用来重写response的content-type，这样做有什么意义呢？比如：server 端给客户端返回了一份document或者是 xml文档，我们希望最终通过xhr.response拿到的就是一个DOM对象，那么就可以用xhr.overrideMimeType(‘text/xml; charset = utf-8’)来实现。</p>
+<p>再举一个使用场景，我们都知道xhr level 1不支持直接传输blob二进制数据，那如果真要传输 blob 该怎么办呢？当时就是利用overrideMimeType方法来解决这个问题的。</p>
+<p>下面是一个获取图片文件的代码示例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="comment">//向 server 端获取一张图片</span></span><br><span class="line">xhr.open(<span class="string">'GET'</span>, <span class="string">'/path/to/image.png'</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这行是关键！</span></span><br><span class="line"><span class="comment">//将响应数据按照纯文本格式来解析，字符集替换为用户自己定义的字符集</span></span><br><span class="line">xhr.overrideMimeType(<span class="string">'text/plain; charset=x-user-defined'</span>);</span><br><span class="line"></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.readyState == <span class="number">4</span> &amp;&amp; <span class="keyword">this</span>.status == <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="comment">//通过 responseText 来获取图片文件对应的二进制字符串</span></span><br><span class="line">    <span class="keyword">var</span> binStr = <span class="keyword">this</span>.responseText;</span><br><span class="line">    <span class="comment">//然后自己再想方法将逐个字节还原为二进制数据</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = binStr.length; i &lt; len; ++i) &#123;</span><br><span class="line">      <span class="keyword">var</span> c = binStr.charCodeAt(i);</span><br><span class="line">      <span class="comment">//String.fromCharCode(c &amp; 0xff);</span></span><br><span class="line">      <span class="keyword">var</span> byte = c &amp; <span class="number">0xff</span>; </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure></p>
+<p>代码示例中xhr请求的是一张图片，通过将 response 的 content-type 改为’text/plain; charset=x-user-defined’，使得 xhr 以纯文本格式来解析接收到的blob 数据，最终用户通过this.responseText拿到的就是图片文件对应的二进制字符串，最后再将其转换为 blob 数据。</p>
+<h5 id="xhr-responseType"><a href="#xhr-responseType" class="headerlink" title="xhr.responseType"></a>xhr.responseType</h5><p>responseType是xhr level 2新增的属性，用来指定xhr.response的数据类型，目前还存在些兼容性问题，可以参考本文的【XMLHttpRequest的兼容性】这一小节。那么responseType可以设置为哪些格式呢，我简单做了一个表，如下<br><img src="http://os965hewa.bkt.clouddn.com/responseType.png" alt="responseType"></p>
+<p>下面是同样是获取一张图片的代码示例，相比xhr.overrideMimeType,用xhr.response来实现简单得多。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'GET'</span>, <span class="string">'/path/to/image.png'</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="comment">//可以将`xhr.responseType`设置为`"blob"`也可以设置为`" arrayBuffer"`</span></span><br><span class="line"><span class="comment">//xhr.responseType = 'arrayBuffer';</span></span><br><span class="line">xhr.responseType = <span class="string">'blob'</span>;</span><br><span class="line"></span><br><span class="line">xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.status == <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> blob = <span class="keyword">this</span>.response;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><p>虽然在xhr level 2中，2者是共同存在的。但其实不难发现，xhr.responseType就是用来取代xhr.overrideMimeType()的，xhr.responseType功能强大的多，xhr.overrideMimeType()能做到的xhr.responseType都能做到。所以我们现在完全可以摒弃使用xhr.overrideMimeType()了。</p>
+<h4 id="如何获取response数据"><a href="#如何获取response数据" class="headerlink" title="如何获取response数据"></a>如何获取response数据</h4><p>xhr提供了3个属性来获取请求返回的数据，分别是：xhr.response、xhr.responseText、xhr.responseXML</p>
+<ul>
+<li>xhr.response<ul>
+<li>默认值：空字符串””</li>
+<li>当请求完成时，此属性才有正确的值</li>
+<li>请求未完成时，此属性的值可能是””或者null，具体与xhr.responseType有关：当responseType为””或”text”时，值为””,responseType为其他值时,值为 null</li>
+</ul>
+</li>
+<li>xhr.responseText<ul>
+<li>默认值为空字符串””</li>
+<li>只有当 responseType 为”text”、””时，xhr对象上才有此属性，此时才能调用xhr.responseText，否则抛错</li>
+<li>只有当请求成功时，才能拿到正确值。以下2种情况下值都为空字符串””：请求未完成、请求失败</li>
+</ul>
+</li>
+<li>xhr.responseXML<ul>
+<li>默认值为 null</li>
+<li>只有当 responseType 为”text”、””、”document”时，xhr对象上才有此属性，此时才能调用xhr.responseXML，否则抛错</li>
+<li>只有当请求成功且返回数据被正确解析时，才能拿到正确值。以下3种情况下值都为null：请求未完成、请求失败、请求成功但返回数据无法被正确解析时</li>
+</ul>
+</li>
+</ul>
+<h4 id="如何追踪ajax请求的当前状态"><a href="#如何追踪ajax请求的当前状态" class="headerlink" title="如何追踪ajax请求的当前状态"></a>如何追踪ajax请求的当前状态</h4><p>在发一个ajax请求后，如果想追踪请求当前处于哪种状态，该怎么做呢？</p>
+<p>用xhr.readyState这个属性即可追踪到。这个属性是只读属性，总共有5种可能值，分别对应xhr不同的不同阶段。每次xhr.readyState的值发生变化时，都会触发xhr.onreadystatechange事件，我们可以在这个事件中进行相关状态判断。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">switch</span>(xhr.readyState)&#123;</span><br><span class="line">     <span class="keyword">case</span> <span class="number">1</span>:<span class="comment">//OPENED</span></span><br><span class="line">       <span class="comment">//do something</span></span><br><span class="line">           <span class="keyword">break</span>;</span><br><span class="line">     <span class="keyword">case</span> <span class="number">2</span>:<span class="comment">//HEADERS_RECEIVED</span></span><br><span class="line">       <span class="comment">//do something</span></span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">     <span class="keyword">case</span> <span class="number">3</span>:<span class="comment">//LOADING</span></span><br><span class="line">       <span class="comment">//do something</span></span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">     <span class="keyword">case</span> <span class="number">4</span>:<span class="comment">//DONE</span></span><br><span class="line">       <span class="comment">//do something</span></span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://os965hewa.bkt.clouddn.com/status.png" alt="status"></p>
+<h4 id="如何设置请求的超时时间"><a href="#如何设置请求的超时时间" class="headerlink" title="如何设置请求的超时时间"></a>如何设置请求的超时时间</h4><p>如果请求过了很久还没有成功，为了不会白白占用的网络资源，我们一般会主动终止请求。<font color="#F57170">XMLHttpRequest</font>提供了timeout属性来允许设置请求的超时时间。</p>
+<blockquote>
+<p>xhr.timeout</p>
+</blockquote>
+<p>单位：milliseconds 毫秒<br>默认值：0，即不设置超时</p>
+<p>很多同学都知道：从请求开始 算起，若超过 timeout 时间请求还没有结束（包括成功/失败），则会触发ontimeout事件，主动结束该请求。</p>
+<p>-【那么到底什么时候才算是请求开始 ？】<br>——xhr.onloadstart事件触发的时候，也就是你调用xhr.send()方法的时候。<br>因为xhr.open()只是创建了一个连接，但并没有真正开始数据的传输，而xhr.send()才是真正开始了数据的传输过程。只有调用了xhr.send()，才会触发xhr.onloadstart 。</p>
+<p>-【那么什么时候才算是请求结束 ？】<br>—— xhr.loadend事件触发的时候。</p>
+<p>另外，还有2个需要注意的坑儿：</p>
+<pre><code>- 可以在 send()之后再设置此xhr.timeout，但计时起始点仍为调用xhr.send()方法的时刻。
+- 当xhr为一个sync同步请求时，xhr.timeout必须置为0，否则会抛错。原因可以参考本文的【如何发一个同步请求】一节。
+</code></pre><h4 id="如何发一个同步请求"><a href="#如何发一个同步请求" class="headerlink" title="如何发一个同步请求"></a>如何发一个同步请求</h4><p>xhr默认发的是异步请求，但也支持发同步请求（当然实际开发中应该尽量避免使用）。到底是异步还是同步请求，由xhr.open（）传入的async参数决定。</p>
+<blockquote>
+<p>open(method, url [, async = true [, username = null [, password = null]]])</p>
+</blockquote>
+<ul>
+<li>method: 请求的方式，如GET/POST/HEADER等，这个参数不区分大小写</li>
+<li>url: 请求的地址，可以是相对地址如example.php，这个相对是相对于当前网页的url路径；也可以是绝对地址如<a href="http://www.example.com/example.php" target="_blank" rel="noopener">http://www.example.com/example.php</a></li>
+<li>async: 默认值为true，即为异步请求，若async=false，则为同步请求<br>在我认真研读W3C 的 xhr 标准前，我总以为同步请求和异步请求只是阻塞和非阻塞的区别，其他什么事件触发、参数设置应该是一样的，事实证明我错了。</li>
+</ul>
+<p>W3C 的 xhr标准中关于open()方法有这样一段说明：</p>
+<blockquote>
+<p>Throws an “InvalidAccessError” exception if async is false, the JavaScript global environment is a document environment, and either the timeout attribute is not zero, the withCredentials attribute is true, or the responseType attribute is not the empty string.<br>从上面一段说明可以知道，当xhr为同步请求时，有如下限制：</p>
+</blockquote>
+<pre><code>- xhr.timeout必须为0
+- xhr.withCredentials必须为 false
+- xhr.responseType必须为&quot;&quot;（注意置为&quot;text&quot;也不允许）
+</code></pre><p>若上面任何一个限制不满足，都会抛错，而对于异步请求，则没有这些参数设置上的限制。</p>
+<p>之前说过页面中应该尽量避免使用sync同步请求，为什么呢？<br>因为我们无法设置请求超时时间（xhr.timeout为0，即不限时）。在不限制超时的情况下，有可能同步请求一直处于pending状态，服务端迟迟不返回响应，这样整个页面就会一直阻塞，无法响应用户的其他交互。</p>
+<p>另外，标准中并没有提及同步请求时事件触发的限制，但实际开发中我确实遇到过部分应该触发的事件并没有触发的现象。如在 chrome中，当xhr为同步请求时，在xhr.readyState由2变成3时，并不会触发 onreadystatechange事件，xhr.upload.onprogress和 xhr.onprogress事件也不会触发。</p>
+<h4 id="如何获取上传、下载的进度"><a href="#如何获取上传、下载的进度" class="headerlink" title="如何获取上传、下载的进度"></a>如何获取上传、下载的进度</h4><p>在上传或者下载比较大的文件时，实时显示当前的上传、下载进度是很普遍的产品需求。<br>我们可以通过onprogress事件来实时显示进度，默认情况下这个事件每50ms触发一次。需要注意的是，上传过程和下载过程触发的是不同对象的onprogress事件：</p>
+<p>上传触发的是xhr.upload对象的 onprogress事件<br>下载触发的是xhr对象的onprogress事件<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">xhr.onprogress = updateProgress;</span><br><span class="line">xhr.upload.onprogress = updateProgress;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateProgress</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (event.lengthComputable) &#123;</span><br><span class="line">      <span class="keyword">var</span> completedPercent = event.loaded / event.total;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="可以发送什么类型的数据"><a href="#可以发送什么类型的数据" class="headerlink" title="可以发送什么类型的数据"></a>可以发送什么类型的数据</h4><blockquote>
+<p>void send(data);</p>
+</blockquote>
+<p>xhr.send(data)的参数data可以是以下几种类型：</p>
+<pre><code>- ArrayBuffer
+- Blob
+- Document
+- DOMString
+- FormData
+- null
+</code></pre><p>如果是 GET/HEAD请求，send()方法一般不传参或传 null。不过即使你真传入了参数，参数也最终被忽略，xhr.send(data)中的data会被置为 null.</p>
+<p>xhr.send(data)中data参数的数据类型会影响请求头部content-type的默认值：</p>
+<pre><code>如果data是 Document 类型，同时也是HTML Document类型，则content-type默认值为text/html;charset=UTF-8;否则为application/xml;charset=UTF-8；
+如果data是 DOMString 类型，content-type默认值为text/plain;charset=UTF-8；
+如果data是 FormData 类型，content-type默认值为multipart/form-data; boundary=[xxx]
+如果data是其他类型，则不会设置content-type的默认值
+当然这些只是content-type的默认值，但如果用xhr.setRequestHeader()手动设置了中content-type的值，以上默认值就会被覆盖。
+</code></pre><p>另外需要注意的是，若在断网状态下调用xhr.send(data)方法，则会抛错：Uncaught NetworkError: Failed to execute ‘send’ on ‘XMLHttpRequest’。一旦程序抛出错误，如果不 catch 就无法继续执行后面的代码，所以调用 xhr.send(data)方法时，应该用 try-catch捕捉错误。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    xhr.send(data)</span><br><span class="line">  &#125;<span class="keyword">catch</span>(e) &#123;</span><br><span class="line">    <span class="comment">//doSomething...</span></span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="xhr-withCredentials与-CORS-什么关系"><a href="#xhr-withCredentials与-CORS-什么关系" class="headerlink" title="xhr.withCredentials与 CORS 什么关系"></a>xhr.withCredentials与 CORS 什么关系</h4><p>我们都知道，在发同域请求时，浏览器会将cookie自动加在request header中。但大家是否遇到过这样的场景：在发送跨域请求时，cookie并没有自动加在request header中。<br>造成这个问题的原因是：在CORS标准中做了规定，默认情况下，浏览器在发送跨域请求时，不能发送任何认证信息（credentials）如”cookies”和”HTTP authentication schemes”。除非xhr.withCredentials为true（xhr对象有一个属性叫withCredentials，默认值为false）。</p>
+<p>所以根本原因是cookies也是一种认证信息，在跨域请求中，client端必须手动设置xhr.withCredentials=true，且server端也必须允许request能携带认证信息（即response header中包含Access-Control-Allow-Credentials:true），这样浏览器才会自动将cookie加在request header中。</p>
+<p>另外，要特别注意一点，一旦跨域request能够携带认证信息，server端一定不能将Access-Control-Allow-Origin设置为*，而必须设置为请求页面的域名。</p>
+<h3 id="xhr相关事件"><a href="#xhr相关事件" class="headerlink" title="xhr相关事件"></a>xhr相关事件</h3><h4 id="事件分类"><a href="#事件分类" class="headerlink" title="事件分类"></a>事件分类</h4><p>xhr相关事件有很多，有时记起来还挺容易混乱。但当我了解了具体代码实现后，就容易理清楚了。下面是XMLHttpRequest的部分实现代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">interface XMLHttpRequestEventTarget : EventTarget &#123;</span><br><span class="line">  <span class="comment">// event handlers</span></span><br><span class="line">  attribute EventHandler onloadstart;</span><br><span class="line">  attribute EventHandler onprogress;</span><br><span class="line">  attribute EventHandler onabort;</span><br><span class="line">  attribute EventHandler onerror;</span><br><span class="line">  attribute EventHandler onload;</span><br><span class="line">  attribute EventHandler ontimeout;</span><br><span class="line">  attribute EventHandler onloadend;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">interface XMLHttpRequestUpload : XMLHttpRequestEventTarget &#123;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">interface XMLHttpRequest : XMLHttpRequestEventTarget &#123;</span><br><span class="line">  <span class="comment">// event handler</span></span><br><span class="line">  attribute EventHandler onreadystatechange;</span><br><span class="line">  readonly attribute XMLHttpRequestUpload upload;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>从代码中我们可以看出：</p>
+<p><font color="#F57170">XMLHttpRequest</font>EventTarget接口定义了7个事件：</p>
+<pre><code>- onloadstart
+- onprogress
+- onabort
+- ontimeout
+- onerror
+- onload
+- onloadend
+</code></pre><p>每一个<font color="#F57170">XMLHttpRequest</font>里面都有一个upload属性，而upload是一个<font color="#F57170">XMLHttpRequest</font>Upload对象</p>
+<p><font color="#F57170">XMLHttpRequest</font>和<font color="#F57170">XMLHttpRequest</font>Upload都继承了同一个<font color="#F57170">XMLHttpRequest</font>EventTarget接口，所以xhr和xhr.upload都有第一条列举的7个事件<br>onreadystatechange是<font color="#F57170">XMLHttpRequest</font>独有的事件</p>
+<p>所以这么一看就很清晰了：</p>
+<p>xhr一共有8个相关事件：7个<font color="#F57170">XMLHttpRequest</font>EventTarget事件+1个独有的onreadystatechange事件；而xhr.upload只有7个<font color="#F57170">XMLHttpRequest</font>EventTarget事件。</p>
+<h4 id="事件触发条件"><a href="#事件触发条件" class="headerlink" title="事件触发条件"></a>事件触发条件</h4><p><img src="http://os965hewa.bkt.clouddn.com/trigger.png" alt="trigger"></p>
+<h4 id="事件触发顺序"><a href="#事件触发顺序" class="headerlink" title="事件触发顺序"></a>事件触发顺序</h4><p>当请求一切正常时，相关的事件触发顺序如下：</p>
+<pre><code>- 触发xhr.onreadystatechange(之后每次readyState变化时，都会触发一次)
+- 触发xhr.onloadstart
+- //上传阶段开始：
+- 触发xhr.upload.onloadstart
+- 触发xhr.upload.onprogress
+- 触发xhr.upload.onload
+- 触发xhr.upload.onloadend
+- //上传结束，下载阶段开始：
+- 触发xhr.onprogress
+- 触发xhr.onload
+- 触发xhr.onloadend
+- 发生abort/timeout/error异常的处理
+</code></pre><p>在请求的过程中，有可能发生 abort/timeout/error这3种异常。那么一旦发生这些异常，xhr后续会进行哪些处理呢？后续处理如下：</p>
+<pre><code>- 一旦发生abort或timeout或error异常，先立即中止当前请求
+- 将 readystate 置为4，并触发 xhr.onreadystatechange事件
+- 如果上传阶段还没有结束，则依次触发以下事件：
+- xhr.upload.onprogress
+- xhr.upload.[onabort或ontimeout或onerror]
+- xhr.upload.onloadend
+- 触发 xhr.onprogress事件
+- 触发 xhr.[onabort或ontimeout或onerror]事件
+- 触发xhr.onloadend 事件
+- 在哪个xhr事件中注册成功回调？
+</code></pre><p>从上面介绍的事件中，可以知道若xhr请求成功，就会触发xhr.onreadystatechange和xhr.onload两个事件。 那么我们到底要将成功回调注册在哪个事件中呢？我倾向于 xhr.onload事件，因为xhr.onreadystatechange是每次xhr.readyState变化时都会触发，而不是xhr.readyState=4时才触发。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xhr.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//如果请求成功</span></span><br><span class="line">    <span class="keyword">if</span>(xhr.status == <span class="number">200</span>)&#123;</span><br><span class="line">      <span class="comment">//do successCallback</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的示例代码是很常见的写法：先判断http状态码是否是200，如果是，则认为请求是成功的，接着执行成功回调。这样的判断是有坑儿的，比如当返回的http状态码不是200，而是201时，请求虽然也是成功的，但并没有执行成功回调逻辑。所以更靠谱的判断方法应该是：当http状态码为2xx或304时才认为成功。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xhr.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//如果请求成功</span></span><br><span class="line">  <span class="keyword">if</span>((xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) || xhr.status == <span class="number">304</span>)&#123;</span><br><span class="line">    <span class="comment">//do successCallback</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>扩展学习资料，如果你：</p>
+<p>想真正搞懂<font color="#F57170">XMLHttpRequest</font>，最靠谱的方法还是看 <a href="https://www.w3.org/TR/XMLHttpRequest/" target="_blank" rel="noopener">W3C的xhr</a> 标准;<br>想粗略的了解<font color="#F57170">XMLHttpRequest</font>的基本使用，可以参考MDN的<font color="#F57170">XMLHttpRequest</font><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest" target="_blank" rel="noopener">介绍</a>；</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/network/" rel="tag"># network</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/16/web网络之HTTP协议/" rel="next" title="web网络之HTTP协议">
+                <i class="fa fa-chevron-left"></i> web网络之HTTP协议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/26/web网络之TCP-IP协议/" rel="prev" title="web网络之TCP/IP协议">
+                web网络之TCP/IP协议 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">weihome</p>
+              <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ajax和XMLHttpRequest"><span class="nav-number">2.</span> <span class="nav-text">Ajax和XMLHttpRequest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XMLHttpRequest的发展历程"><span class="nav-number">3.</span> <span class="nav-text">XMLHttpRequest的发展历程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XMLHttpRequest兼容性"><span class="nav-number">4.</span> <span class="nav-text">XMLHttpRequest兼容性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#细说XMLHttpRequest如何使用"><span class="nav-number">5.</span> <span class="nav-text">细说XMLHttpRequest如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何设置request-header"><span class="nav-number">5.1.</span> <span class="nav-text">如何设置request header</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何获取response-header"><span class="nav-number">5.2.</span> <span class="nav-text">如何获取response header</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何指定xhr-response的数据类型"><span class="nav-number">5.3.</span> <span class="nav-text">如何指定xhr.response的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#xhr-overrideMimeType"><span class="nav-number">5.3.1.</span> <span class="nav-text">xhr.overrideMimeType()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#xhr-responseType"><span class="nav-number">5.3.2.</span> <span class="nav-text">xhr.responseType</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结"><span class="nav-number">5.3.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何获取response数据"><span class="nav-number">5.4.</span> <span class="nav-text">如何获取response数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何追踪ajax请求的当前状态"><span class="nav-number">5.5.</span> <span class="nav-text">如何追踪ajax请求的当前状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何设置请求的超时时间"><span class="nav-number">5.6.</span> <span class="nav-text">如何设置请求的超时时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何发一个同步请求"><span class="nav-number">5.7.</span> <span class="nav-text">如何发一个同步请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何获取上传、下载的进度"><span class="nav-number">5.8.</span> <span class="nav-text">如何获取上传、下载的进度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可以发送什么类型的数据"><span class="nav-number">5.9.</span> <span class="nav-text">可以发送什么类型的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xhr-withCredentials与-CORS-什么关系"><span class="nav-number">5.10.</span> <span class="nav-text">xhr.withCredentials与 CORS 什么关系</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xhr相关事件"><span class="nav-number">6.</span> <span class="nav-text">xhr相关事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#事件分类"><span class="nav-number">6.1.</span> <span class="nav-text">事件分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件触发条件"><span class="nav-number">6.2.</span> <span class="nav-text">事件触发条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件触发顺序"><span class="nav-number">6.3.</span> <span class="nav-text">事件触发顺序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结语"><span class="nav-number">7.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weihome</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

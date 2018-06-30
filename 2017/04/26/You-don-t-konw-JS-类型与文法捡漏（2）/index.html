@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="笔记 JS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="类型强制转换隐含强制转换与明确强制转换明显是有意为之的，是“明确强制转换”；为其他操作而发生的，是“隐含强制转换”。 12345var a = 42;var b = a + &quot;&quot;;            // 隐含强制转换var c = String( a );    // 明确强制转换 抽象操作值的变形规则定义了几种“抽象操作”,控制着值如何变成一个string，number，或boolean">
+<meta name="keywords" content="笔记 JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="You don&#39;t konw JS: 类型与文法捡漏（2）">
+<meta property="og:url" content="http://ifun.work/2017/04/26/You-don-t-konw-JS-类型与文法捡漏（2）/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="类型强制转换隐含强制转换与明确强制转换明显是有意为之的，是“明确强制转换”；为其他操作而发生的，是“隐含强制转换”。 12345var a = 42;var b = a + &quot;&quot;;            // 隐含强制转换var c = String( a );    // 明确强制转换 抽象操作值的变形规则定义了几种“抽象操作”,控制着值如何变成一个string，number，或boolean">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://oohz6uxcv.bkt.clouddn.com/cpmpare1.PNG">
+<meta property="og:image" content="http://oohz6uxcv.bkt.clouddn.com/compare2.PNG">
+<meta property="og:updated_time" content="2017-05-07T08:37:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="You don&#39;t konw JS: 类型与文法捡漏（2）">
+<meta name="twitter:description" content="类型强制转换隐含强制转换与明确强制转换明显是有意为之的，是“明确强制转换”；为其他操作而发生的，是“隐含强制转换”。 12345var a = 42;var b = a + &quot;&quot;;            // 隐含强制转换var c = String( a );    // 明确强制转换 抽象操作值的变形规则定义了几种“抽象操作”,控制着值如何变成一个string，number，或boolean">
+<meta name="twitter:image" content="http://oohz6uxcv.bkt.clouddn.com/cpmpare1.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ifun.work/2017/04/26/You-don-t-konw-JS-类型与文法捡漏（2）/"/>
+
+
+
+
+
+  <title>You don't konw JS: 类型与文法捡漏（2） | 乌斯怀亚-世界以南</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乌斯怀亚-世界以南</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">weihome的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/04/26/You-don-t-konw-JS-类型与文法捡漏（2）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">You don't konw JS: 类型与文法捡漏（2）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-26T22:01:21+08:00">
+                2017-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="类型强制转换"><a href="#类型强制转换" class="headerlink" title="类型强制转换"></a>类型强制转换</h2><h3 id="隐含强制转换与明确强制转换"><a href="#隐含强制转换与明确强制转换" class="headerlink" title="隐含强制转换与明确强制转换"></a>隐含强制转换与明确强制转换</h3><p>明显是有意为之的，是“明确强制转换”；为其他操作而发生的，是“隐含强制转换”。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">42</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = a + <span class="string">""</span>;            <span class="comment">// 隐含强制转换</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c = <span class="built_in">String</span>( a );    <span class="comment">// 明确强制转换</span></span><br></pre></td></tr></table></figure>
+<h3 id="抽象操作"><a href="#抽象操作" class="headerlink" title="抽象操作"></a>抽象操作</h3><p>值的变形规则定义了几种“抽象操作”,控制着值如何变成一个string，number，或boolean</p>
+<h4 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString()"></a>toString()</h4><p>对于普通的对象，默认的toString()将返回内部的[[Class]]；<br>对于数组，会将数组字符串化为它所有的值的字符串连接，并用”,”分割每个值。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="string">'x'</span>:<span class="number">1</span>&#125;;</span><br><span class="line">a.toString(); <span class="comment">//"[object Object]"</span></span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].toString(); <span class="comment">// "1,2,3"</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="JSON-stringify"><a href="#JSON-stringify" class="headerlink" title="JSON.stringify()"></a>JSON.stringify()</h4><p>对于简单值，基本上和toString()转换是相同的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify( <span class="number">42</span> );    <span class="comment">// "42"</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify( <span class="string">"42"</span> );    <span class="comment">// ""42"" （一个包含双引号的字符串）</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify( <span class="literal">null</span> );    <span class="comment">// "null"</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify( <span class="literal">true</span> );    <span class="comment">// "true"</span></span><br></pre></td></tr></table></figure>
+<p>任何JSON安全的值都可以被JSON.stringify(..)字符串化。JSON安全指的是可以用JSON合法表达的值。undefined，function，（ES6+）symbol，和带有循环引用的object（属性互相引用而造成了一个永不终结的循环），对于标准的JSON结构来说这些都是非法的值，主要是因为它们不能移植到消费JSON值的其他语言中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify( <span class="literal">undefined</span> );     <span class="comment">// undefined 对于undefined自动忽略</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify( <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125; );  <span class="comment">// undefined 对于function自动忽略</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify( [<span class="number">1</span>,<span class="literal">undefined</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,<span class="number">4</span>] ); <span class="comment">// "[1,null,null,4]"，数组中的undefined和function替换成null</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify( &#123; <span class="attr">a</span>:<span class="number">2</span>, <span class="attr">b</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125; &#125; );      <span class="comment">// "&#123;"a":2&#125;"， 对象中的不合法属性被简单忽略</span></span><br></pre></td></tr></table></figure>
+<p>如果一个object值定义了一个toJSON()方法，这个方法将会被首先调用，以取得用于序列化的值。toJSON()方法返回这个object的一个JSON安全版本。toJSON()并不是返回字符串，返回实际普通值（无论什么类型），而JSON.stringify(..)才处理字符串化。</p>
+<p>JSON.stringify(..)的第二个参数值（array或function）是可选的，它提供一种过滤机制，决定哪些属性应该被包含在序列化形式中。</p>
+<p>array：指定了允许被包含在这个object的序列化形式中的属性名称。如果一个属性不存在于这个列表中，那么它就会被跳过。</p>
+<p>function：传入两个参数值，key 和 value。要在序列化中跳过一个 key，可以返回undefined。否则，就返回 value。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    b: <span class="number">42</span>,</span><br><span class="line">    c: <span class="string">"42"</span>,</span><br><span class="line">    d: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify( a, [<span class="string">"b"</span>,<span class="string">"c"</span>] ); <span class="comment">// "&#123;"b":42,"c":"42"&#125;"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify( a, <span class="function"><span class="keyword">function</span>(<span class="params">k,v</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (k !== <span class="string">"c"</span>) <span class="keyword">return</span> v;</span><br><span class="line">&#125; );</span><br><span class="line"><span class="comment">// "&#123;"b":42,"d":[1,2,3]&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>JSON.stringify()还可以接收第三个可选参数值，被用做缩进。可以是一个正整数，用来指示每一级缩进中使用多少个空格字符。或者可以是一个string，这时每一级缩进将会使用它的前十个字符。</p>
+<h4 id="Number"><a href="#Number" class="headerlink" title="Number()"></a>Number()</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// string</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'1'</span>); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'a'</span>); <span class="comment">// NaN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// boolean</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">true</span>); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">false</span>); <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">undefined</span>); <span class="comment">// NaN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//null</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">null</span>); <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// obj</span></span><br><span class="line"><span class="built_in">Number</span>(&#123;&#125;); <span class="comment">// NaN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// array</span></span><br><span class="line"><span class="built_in">Number</span>([]); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Number</span>([<span class="number">1</span>]); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">Number</span>([<span class="number">1</span>,<span class="number">2</span>]); <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p>对象（以及数组）将会首先进行ToPrimitive抽象操作，看它有没有valueOf()方法。如果valueOf()可用并且它返回一个基本类型值，那么这个值就将用于强制转换成数字。如果不是这样，但toString()可用，那么就由它来提供用于强制转换的值。如果这两种操作都没提供一个基本类型值，就会抛出一个TypeError。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    valueOf: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"42"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = &#123;</span><br><span class="line">    toString: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"42"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c = [<span class="number">4</span>,<span class="number">2</span>];</span><br><span class="line">c.toString = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.join( <span class="string">""</span> );    <span class="comment">// "42"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Number</span>( a );          <span class="comment">// 42 先调用valueOf(),返回的是基本类型值，转换成number</span></span><br><span class="line"><span class="built_in">Number</span>( b );          <span class="comment">// 42 没有valueOf(),调用String(),返回的是基本类型值，转换成number</span></span><br><span class="line"><span class="built_in">Number</span>( c );          <span class="comment">// 42 同上</span></span><br><span class="line"><span class="built_in">Number</span>( <span class="string">""</span> );         <span class="comment">// 0  </span></span><br><span class="line"><span class="built_in">Number</span>( [] );         <span class="comment">// 0 </span></span><br><span class="line"><span class="built_in">Number</span>( [ <span class="string">"abc"</span> ] );  <span class="comment">// NaN 先调用内置的valueOf()返回数组本身，接着toString()返回'abc',转换成number得到NaN</span></span><br></pre></td></tr></table></figure>
+<h4 id="ToBoolean"><a href="#ToBoolean" class="headerlink" title="ToBoolean"></a>ToBoolean</h4><p>“falsy”值列表：</p>
+<ul>
+<li>undefined</li>
+<li>null</li>
+<li>false</li>
+<li>0, -0, and NaN</li>
+<li>‘’</li>
+</ul>
+<p>任何没有明确地存在于falsy列表中的东西，都是truthy。</p>
+<p>falsy转换到boolean时为<code>false</code>,truthy为<code>true</code>；</p>
+<h3 id="明确强制转换"><a href="#明确强制转换" class="headerlink" title="明确强制转换"></a>明确强制转换</h3><h4 id="gt-number"><a href="#gt-number" class="headerlink" title="-&gt; number"></a>-&gt; number</h4><ul>
+<li>Number()</li>
+<li>一元操作符<code>+</code></li>
+<li>操作符 <code>~</code>：~x大致与-(x+1)相同，可以和indeOf()配合使用， <code>~~</code>可用于取整</li>
+<li>parseInt(value[,radix]): 参数value是string，否则先转成string，参数radix可选，指定转化的进制。解析value时如果遇到非数字字符就停止解析。</li>
+</ul>
+<h4 id="gt-string"><a href="#gt-string" class="headerlink" title="-&gt; string"></a>-&gt; string</h4><ul>
+<li>String()</li>
+<li>toString()</li>
+</ul>
+<h4 id="gt-boolean"><a href="#gt-boolean" class="headerlink" title="-&gt; boolean"></a>-&gt; boolean</h4><ul>
+<li>Boolean()</li>
+</ul>
+<h3 id="隐含强制转换"><a href="#隐含强制转换" class="headerlink" title="隐含强制转换"></a>隐含强制转换</h3><ul>
+<li>相减时转换成number</li>
+<li>相加时一个是string，则另一个转换成string</li>
+<li>转换成boolean:<ul>
+<li>在一个if (..)语句中的测试表达式。</li>
+<li>在一个for ( .. ; .. ; .. )头部的测试表达式（第二个子句）。</li>
+<li>在while (..)和do..while(..)循环中的测试表达式。</li>
+<li>在? :三元表达式中的测试表达式（第一个子句）。</li>
+<li>||（“逻辑或”）和&amp;&amp;（“逻辑与”）操作符左手边的操作数。</li>
+</ul>
+</li>
+</ul>
+<h3 id="宽松等价与严格等价"><a href="#宽松等价与严格等价" class="headerlink" title="宽松等价与严格等价"></a>宽松等价与严格等价</h3><p><code>==</code>允许在等价性比较中进行强制转换，而<code>===</code>不允许强制转换</p>
+<h3 id="比较表达式中的类型转换"><a href="#比较表达式中的类型转换" class="headerlink" title="比较表达式中的类型转换"></a>比较表达式中的类型转换</h3><p>如果把js中的六种类型做一个划分，它们在比较运算中大概会采取以下措施：</p>
+<p><img src="http://oohz6uxcv.bkt.clouddn.com/cpmpare1.PNG" alt=""></p>
+<p>在运算过程中，所有类型的值都有一种向数字类型转化的趋势：</p>
+<ul>
+<li>右边的undefined和null和左边的任何一个都不相等</li>
+<li>string和number：string转换成number然后再比较</li>
+<li>boolean和number：boolean转换成number然后再比较</li>
+<li>boolean和string：都转换成number</li>
+<li>object和number：object先进行ToPrimitive抽象操作（valueOf()和toString()方法），然后转换成number</li>
+<li>object和string（boolean）：都转换成number</li>
+</ul>
+<p>用图来表示大概就是这样子（P表示ToPrimitive，N表示Number()）：</p>
+<p><img src="http://oohz6uxcv.bkt.clouddn.com/compare2.PNG" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔记-JS/" rel="tag"># 笔记 JS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/19/You-don-t-konw-JS-类型与文法捡漏（1）/" rel="next" title="You don't konw JS: 类型与文法捡漏（1）">
+                <i class="fa fa-chevron-left"></i> You don't konw JS: 类型与文法捡漏（1）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/04/彻底搞懂JS比较运算符/" rel="prev" title="JS点滴：彻底搞懂比较运算符">
+                JS点滴：彻底搞懂比较运算符 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">weihome</p>
+              <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型强制转换"><span class="nav-number">1.</span> <span class="nav-text">类型强制转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#隐含强制转换与明确强制转换"><span class="nav-number">1.1.</span> <span class="nav-text">隐含强制转换与明确强制转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象操作"><span class="nav-number">1.2.</span> <span class="nav-text">抽象操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#toString-NaN"><span class="nav-number">1.2.1.</span> <span class="nav-text">toString()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON-stringify"><span class="nav-number">1.2.2.</span> <span class="nav-text">JSON.stringify()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Number"><span class="nav-number">1.2.3.</span> <span class="nav-text">Number()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ToBoolean"><span class="nav-number">1.2.4.</span> <span class="nav-text">ToBoolean</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#明确强制转换"><span class="nav-number">1.3.</span> <span class="nav-text">明确强制转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gt-number"><span class="nav-number">1.3.1.</span> <span class="nav-text">-&gt; number</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gt-string"><span class="nav-number">1.3.2.</span> <span class="nav-text">-&gt; string</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gt-boolean"><span class="nav-number">1.3.3.</span> <span class="nav-text">-&gt; boolean</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐含强制转换"><span class="nav-number">1.4.</span> <span class="nav-text">隐含强制转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#宽松等价与严格等价"><span class="nav-number">1.5.</span> <span class="nav-text">宽松等价与严格等价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较表达式中的类型转换"><span class="nav-number">1.6.</span> <span class="nav-text">比较表达式中的类型转换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weihome</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

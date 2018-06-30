@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JS函数参数的求值策略最近发现对于JS中函数如何传参有一些困惑，便想着从头梳理一遍。 按照之前的理解，原始类型按值传递，对象按引用传递。 在计算机科学里，这个部分叫求值策略(Evaluation Strategy)。它决定变量之间、函数调用时实参和形参之间值是如何传递的。 按值传递 VS 按引用传递按值传递(call by value)是最常用的求值策略：函数的形参是被调用时所传实参的副本。修改形">
+<meta name="keywords" content="JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS点滴：求值策略">
+<meta property="og:url" content="http://ifun.work/2017/03/28/JS中的求值策略/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="JS函数参数的求值策略最近发现对于JS中函数如何传参有一些困惑，便想着从头梳理一遍。 按照之前的理解，原始类型按值传递，对象按引用传递。 在计算机科学里，这个部分叫求值策略(Evaluation Strategy)。它决定变量之间、函数调用时实参和形参之间值是如何传递的。 按值传递 VS 按引用传递按值传递(call by value)是最常用的求值策略：函数的形参是被调用时所传实参的副本。修改形">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-07-03T16:09:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS点滴：求值策略">
+<meta name="twitter:description" content="JS函数参数的求值策略最近发现对于JS中函数如何传参有一些困惑，便想着从头梳理一遍。 按照之前的理解，原始类型按值传递，对象按引用传递。 在计算机科学里，这个部分叫求值策略(Evaluation Strategy)。它决定变量之间、函数调用时实参和形参之间值是如何传递的。 按值传递 VS 按引用传递按值传递(call by value)是最常用的求值策略：函数的形参是被调用时所传实参的副本。修改形">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ifun.work/2017/03/28/JS中的求值策略/"/>
+
+
+
+
+
+  <title>JS点滴：求值策略 | 乌斯怀亚-世界以南</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乌斯怀亚-世界以南</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">weihome的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/03/28/JS中的求值策略/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS点滴：求值策略</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-28T20:31:10+08:00">
+                2017-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="JS函数参数的求值策略"><a href="#JS函数参数的求值策略" class="headerlink" title="JS函数参数的求值策略"></a>JS函数参数的求值策略</h2><p>最近发现对于JS中函数如何传参有一些困惑，便想着从头梳理一遍。</p>
+<p>按照之前的理解，原始类型按值传递，对象按引用传递。</p>
+<p>在计算机科学里，这个部分叫<em>求值策略(Evaluation Strategy)</em>。它决定变量之间、函数调用时实参和形参之间值是如何传递的。</p>
+<h3 id="按值传递-VS-按引用传递"><a href="#按值传递-VS-按引用传递" class="headerlink" title="按值传递 VS 按引用传递"></a>按值传递 VS 按引用传递</h3><p><strong>按值传递(call by value)</strong>是最常用的求值策略：函数的形参是被调用时所传实参的副本。修改形参的值并不会影响实参。<br><strong>按引用传递(call by reference)</strong>时，函数的形参接收实参的隐式引用，而不再是副本。这意味着函数形参的值如果被修改，实参也会被修改。同时两者指向相同的值。</p>
+<p>按引用传递会使函数调用的追踪更加困难，有时也会引起一些微妙的BUG。<br>按值传递由于每次都需要克隆副本，对一些复杂类型，性能较低。两种传值方式都有各自的问题。</p>
+<p>一般使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原始值类型的传参</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    x = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line">foo(a);</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>这种情况，参数的值是调用者传递的对象值的拷贝(copy of value），函数内部改变参数的值不会影响到该参数在外面的值，一般来说，是重新分配了新内存，该新内存块的值是外部对象的拷贝，并且它的值是用到函数内部的。</p>
+<p>如果函数的参数不是原始值而是复杂的结构对象时，将带来很大的性能问题，这时候就不会采用按值传递：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象的传参</span></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;<span class="string">'a'</span>: <span class="number">1</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    obj.a = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line">bar(obj1);</span><br><span class="line"><span class="built_in">console</span>.log(obj1.a); <span class="comment">// 10 obj1改变了</span></span><br></pre></td></tr></table></figure>
+<p>说明obj和obj1是同一个对象，obj不是obj1的副本，所以不是按值传递。但这样是否说明JS的对象是按引用传递的呢？我们再看下面的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象的传参</span></span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;<span class="string">'a'</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">baz</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    obj = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line">baz(obj2);</span><br><span class="line"><span class="built_in">console</span>.log(obj2.a); <span class="comment">// 1 obj2没有变化</span></span><br></pre></td></tr></table></figure>
+<p>如果是按引用传递，修改形参obj的值，应该影响到实参才对。但这里修改obj的值并未影响obj2。因此JS中的对象并不是按引用传递。那么究竟对象的值在JS中如何传递的呢？</p>
+<h3 id="按共享传递-call-by-sharing"><a href="#按共享传递-call-by-sharing" class="headerlink" title="按共享传递 call by sharing"></a>按共享传递 call by sharing</h3><p>准确的说，JS中的基本类型按值传递，对象类型按共享传递的(call by sharing)。最早由<code>Barbara Liskov</code>在1974年的GLU语言中提出。该求值策略被用于Python、Java、Ruby、JS等多种语言。</p>
+<blockquote>
+<p>该策略的重点是：调用函数传参时，函数接受对象实参引用的副本(既不是按值传递的对象副本，也不是按引用传递的隐式引用)。它和按引用传递的不同在于：在共享传递中对函数形参的赋值，不会影响实参的值。</p>
+</blockquote>
+<p>因为传参是引用的副本，所以不能通过修改形参的值，来修改实参的值；虽然引用是副本，但是引用的对象是相同的。它们共享相同的对象，所以修改形参对象的属性值，也会影响到实参的属性值。</p>
+<p>比如以上参数是对象的例子，对形参的赋值不会改变实参（因为传递的是引用的副本），但是对形参属性的改变会影响实参（引用的对象相同）。</p>
+<h3 id="按共享传递是特殊的按值传递"><a href="#按共享传递是特殊的按值传递" class="headerlink" title="按共享传递是特殊的按值传递"></a>按共享传递是特殊的按值传递</h3><p>按共享传递，修改参数的属性将会影响到外部，而重新赋值将不会影响到外部对象。按共享传递也是按值传递，只不过该值是引用的拷贝（地址副本）。</p>
+<h4 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h4><p>对于基本类型，由于它们都是不可变的，按共享传递与按值传递没有任何区别，所以说JS基本类型既符合按值传递，也符合按共享传递。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;        <span class="comment">// 1是number类型，不可变 </span></span><br><span class="line"><span class="keyword">var</span> b = a;        <span class="comment">// 传递特殊的值——引用地址拷贝（a的副本）</span></span><br><span class="line">b = <span class="number">10</span>;            <span class="comment">// b的赋值不会影响a</span></span><br><span class="line"><span class="built_in">console</span>.log(a);   <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>据按共享传递的求值策略，a和b是两个不同的引用(b是a的引用副本)，但引用相同的值。由于这里的基本类型数字1不可变，所以这里说按值传递、按共享传递没有任何区别。</p>
+<h4 id="对象类型"><a href="#对象类型" class="headerlink" title="对象类型"></a>对象类型</h4><p>对于对象类型，由于对象是可变的，修改对象本身会影响到共享这个对象的引用和引用副本：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;<span class="attr">x</span>: <span class="number">1</span>, <span class="attr">y</span>: <span class="number">2</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> bar = foo;</span><br><span class="line">  </span><br><span class="line"><span class="built_in">console</span>.log(bar === foo); <span class="comment">// true</span></span><br><span class="line">  </span><br><span class="line">bar.x = <span class="number">10</span>;</span><br><span class="line">bar.y = <span class="number">20</span>;</span><br><span class="line">  </span><br><span class="line"><span class="built_in">console</span>.log([foo.x, foo.y]); <span class="comment">// [10, 20]</span></span><br></pre></td></tr></table></figure>
+<p>而重新赋值分配，绑定是新的地址，而不影响已经先前的绑定 ：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bar = &#123;<span class="attr">z</span>: <span class="number">1</span>, <span class="attr">q</span>: <span class="number">2</span>&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="built_in">console</span>.log([foo.x, foo.y]); <span class="comment">// [10, 20] foo没改变</span></span><br><span class="line"><span class="built_in">console</span>.log([bar.z, bar.q]); <span class="comment">// [1, 2] bar现在引用的是新地址</span></span><br></pre></td></tr></table></figure>
+<p>将变量赋值给另外一个变量——是赋值值的引用。因此两个变量引用的是同一个内存地址。下一个赋值却是新地址，是解除与旧对象的地址绑定，然后绑定到新对象的地址上，这就是和按引用传递的最重要区别。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>对JS的求值策略有两种解释：</p>
+<ul>
+<li>JS采取的都是“按值传递”的求值策略, 其中对象类型较为特殊，实际为按值传递了引用(即传递引用的副本，而不是按引用传递引用)。从这个角度，说对象也是按值传递也是有道理的。</li>
+<li>引入“按共享传递”的求值策略，它让我们精确的区分按共享传递与经典的按值传递、按引用传递的不同。在这种情形下，可以按传参类型区分：“基本类型按值传递、而对象按共享传递。”</li>
+</ul>
+<p>虽然关于JS的求值策略有诸多争议和不同版本，但可以认为：JS中基本类型是按值传递的，对象类型是按共享传递的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/27/对chrome-Provisional-headers-are-shown的追查/" rel="next" title="对chrome Provisional headers are shown的追查">
+                <i class="fa fa-chevron-left"></i> 对chrome Provisional headers are shown的追查
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/29/You-don-t-know-JS-Scope-Closures-笔记（一）/" rel="prev" title="You don't know JS: Scope & Closures 笔记（一）">
+                You don't know JS: Scope & Closures 笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">weihome</p>
+              <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS函数参数的求值策略"><span class="nav-number">1.</span> <span class="nav-text">JS函数参数的求值策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按值传递-VS-按引用传递"><span class="nav-number">1.1.</span> <span class="nav-text">按值传递 VS 按引用传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按共享传递-call-by-sharing"><span class="nav-number">1.2.</span> <span class="nav-text">按共享传递 call by sharing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按共享传递是特殊的按值传递"><span class="nav-number">1.3.</span> <span class="nav-text">按共享传递是特殊的按值传递</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本类型"><span class="nav-number">1.3.1.</span> <span class="nav-text">基本类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象类型"><span class="nav-number">1.3.2.</span> <span class="nav-text">对象类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weihome</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
