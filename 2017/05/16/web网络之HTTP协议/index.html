@@ -2,15 +2,27 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next pisces use-motion" lang="">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -38,10 +50,6 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
 
 
 
@@ -50,50 +58,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="network," />
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
 
 
 
 
 
 
-
-
-
-
-<meta name="description" content="导语网络知识是前端的必备技能，毕竟是要跟服务端打交道的。web网络体系中，前端使用最频繁，与前端关系最为密切的当属HTTP协议了。其实在工作中一直在使用HTTP协议，不过因为缺少一次汇总，总觉得印象不是很全，那就来总结一下吧。 先从定义开始HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写，基于TCP/IP通信协议来传递数据。 HTTP是一个属于应用层的">
-<meta name="keywords" content="network">
-<meta property="og:type" content="article">
-<meta property="og:title" content="web网络之HTTP协议">
-<meta property="og:url" content="http://ifun.work/2017/05/16/web网络之HTTP协议/index.html">
-<meta property="og:site_name" content="乌斯怀亚-世界以南">
-<meta property="og:description" content="导语网络知识是前端的必备技能，毕竟是要跟服务端打交道的。web网络体系中，前端使用最频繁，与前端关系最为密切的当属HTTP协议了。其实在工作中一直在使用HTTP协议，不过因为缺少一次汇总，总觉得印象不是很全，那就来总结一下吧。 先从定义开始HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写，基于TCP/IP通信协议来传递数据。 HTTP是一个属于应用层的">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/Http%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E7%BB%93%E6%9E%84.png">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/http%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF%E6%A0%BC%E5%BC%8F.jpg">
-<meta property="og:updated_time" content="2017-06-29T14:10:02.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="web网络之HTTP协议">
-<meta name="twitter:description" content="导语网络知识是前端的必备技能，毕竟是要跟服务端打交道的。web网络体系中，前端使用最频繁，与前端关系最为密切的当属HTTP协议了。其实在工作中一直在使用HTTP协议，不过因为缺少一次汇总，总觉得印象不是很全，那就来总结一下吧。 先从定义开始HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写，基于TCP/IP通信协议来传递数据。 HTTP是一个属于应用层的">
-<meta name="twitter:image" content="http://os965hewa.bkt.clouddn.com/Http%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E7%BB%93%E6%9E%84.png">
 
 
 
@@ -101,16 +84,14 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -122,12 +103,41 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="导语网络知识是前端的必备技能，毕竟是要跟服务端打交道的。web网络体系中，前端使用最频繁，与前端关系最为密切的当属HTTP协议了。其实在工作中一直在使用HTTP协议，不过因为缺少一次汇总，总觉得印象不是很全，那就来总结一下吧。">
+<meta name="keywords" content="network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web网络之HTTP协议">
+<meta property="og:url" content="http://ifun.work/2017/05/16/web网络之HTTP协议/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="导语网络知识是前端的必备技能，毕竟是要跟服务端打交道的。web网络体系中，前端使用最频繁，与前端关系最为密切的当属HTTP协议了。其实在工作中一直在使用HTTP协议，不过因为缺少一次汇总，总觉得印象不是很全，那就来总结一下吧。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/Http%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/http%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF%E6%A0%BC%E5%BC%8F.jpg">
+<meta property="og:updated_time" content="2018-07-01T11:47:28.417Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web网络之HTTP协议">
+<meta name="twitter:description" content="导语网络知识是前端的必备技能，毕竟是要跟服务端打交道的。web网络体系中，前端使用最频繁，与前端关系最为密切的当属HTTP协议了。其实在工作中一直在使用HTTP协议，不过因为缺少一次汇总，总觉得印象不是很全，那就来总结一下吧。">
+<meta name="twitter:image" content="http://os965hewa.bkt.clouddn.com/Http%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E7%BB%93%E6%9E%84.png">
+
+
+
+
+
 
   <link rel="canonical" href="http://ifun.work/2017/05/16/web网络之HTTP协议/"/>
 
 
 
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>web网络之HTTP协议 | 乌斯怀亚-世界以南</title>
   
@@ -138,6 +148,34 @@
 
 
 
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
@@ -157,19 +195,21 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">乌斯怀亚-世界以南</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">weihome的博客</p>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -177,35 +217,58 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/aboutMe/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
 
       
+      
     </ul>
+  
+
   
 
   
@@ -213,12 +276,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -231,6 +305,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -240,7 +316,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="weihome">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="博客 前端 前端开发">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -253,11 +329,19 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">web网络之HTTP协议</h1>
+          <h1 class="post-title" itemprop="name headline">web网络之HTTP协议
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -265,11 +349,12 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-16T17:33:19+08:00">
-                2017-05-16
-              </time>
-            
 
+              
+                
+              
+
+              <time title="Created: 2017-05-16 17:33:19" itemprop="dateCreated datePublished" datetime="2017-05-16T17:33:19+08:00">2017-05-16</time>
             
 
             
@@ -287,11 +372,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a></span>
 
                 
                 
@@ -326,6 +407,7 @@
 
       
         <h3 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h3><p>网络知识是前端的必备技能，毕竟是要跟服务端打交道的。web网络体系中，前端使用最频繁，与前端关系最为密切的当属HTTP协议了。其实在工作中一直在使用HTTP协议，不过因为缺少一次汇总，总觉得印象不是很全，那就来总结一下吧。</p>
+<a id="more"></a>
 <h3 id="先从定义开始"><a href="#先从定义开始" class="headerlink" title="先从定义开始"></a>先从定义开始</h3><p>HTTP协议是<code>Hyper Text Transfer Protocol</code>（超文本传输协议）的缩写，基于<code>TCP/IP</code>通信协议来传递数据。</p>
 <p>HTTP是一个属于应用层的面向对象的协议，HTTP协议工作于客户端-服务端架构上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送请求。Web服务器根据接收到的请求后，向客户端发送响应信息。</p>
 <h3 id="主要特点"><a href="#主要特点" class="headerlink" title="主要特点"></a>主要特点</h3><p>1、简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。  </p>
@@ -374,7 +456,7 @@
 <h3 id="HTTP之响应消息Response"><a href="#HTTP之响应消息Response" class="headerlink" title="HTTP之响应消息Response"></a>HTTP之响应消息Response</h3><p>一般情况下，服务器接收并处理客户端发过来的请求后会返回一个HTTP的响应消息。</p>
 <p>HTTP响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文。</p>
 <p><img src="http://os965hewa.bkt.clouddn.com/http%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF%E6%A0%BC%E5%BC%8F.jpg" alt="http响应消息格式.jpg"></p>
-<p>例子<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line"><span class="built_in">Date</span>: Fri， <span class="number">22</span> May <span class="number">2009</span> <span class="number">06</span>:<span class="number">07</span>:<span class="number">21</span> GMT</span><br><span class="line">Content-Type: text/html; charset=UTF<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">      &lt;head&gt;<span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line">      &lt;body&gt;</span><br><span class="line">            &lt;!--body goes here--&gt;</span><br><span class="line">      &lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>例子<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line"><span class="built_in">Date</span>: Fri， <span class="number">22</span> May <span class="number">2009</span> <span class="number">06</span>:<span class="number">07</span>:<span class="number">21</span> GMT</span><br><span class="line">Content-Type: text/html; charset=UTF<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">      &lt;head&gt;&lt;/head&gt;</span><br><span class="line">      &lt;body&gt;</span><br><span class="line">            &lt;!--body goes here--&gt;</span><br><span class="line">      &lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure></p>
 <p>第一部分：状态行，由HTTP协议版本号， 状态码， 状态消息 三部分组成。</p>
 <p>第一行为状态行，（HTTP/1.1）表明HTTP版本为1.1版本，状态码为200，状态消息为（ok）</p>
 <p>第二部分：消息报头，用来说明客户端要使用的一些附加信息</p>
@@ -437,6 +519,9 @@
 
       
     </div>
+
+    
+
     
     
     
@@ -502,9 +587,6 @@
           </div>
           
 
-
-          
-
   
 
 
@@ -542,57 +624,111 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="weihome" />
+            
               <p class="site-author-name" itemprop="name">weihome</p>
               <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">22</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">categories</span>
+                  <a href="/archives/">
                 
-              </div>
-            
-
-            
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
               
+
               
-              <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">tags</span>
                 
-              </div>
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/weihomechen" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
             
-
-          </nav>
-
           
-
-          
-
-          
-          
-
-          
-          
-
           
 
         </div>
@@ -629,13 +765,17 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">weihome</span>
 
   
+
+  
 </div>
+
+
 
 
   <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
@@ -646,12 +786,13 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
 
 
 
 
         
+
 
 
 
@@ -666,6 +807,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -690,7 +833,11 @@
 
 
 
-  
+
+
+
+
+
 
 
 
@@ -710,16 +857,6 @@
 
   
   
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
     <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
@@ -728,42 +865,40 @@
     <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
 
 
 
   
   
 
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
 
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
 
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
 
 
   
 
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
 
 
 
@@ -790,8 +925,6 @@
 
 
 
-
-
   
 
 
@@ -805,6 +938,12 @@
   
 
   
+
+  
+  
+
+  
+
   
 
   

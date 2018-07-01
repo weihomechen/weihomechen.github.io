@@ -2,15 +2,27 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next pisces use-motion" lang="">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -38,10 +50,6 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
 
 
 
@@ -50,47 +58,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="笔记 JS," />
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
 
 
 
 
 
 
-
-
-
-
-<meta name="description" content="作用域闭包定义 闭包就是函数即使在它的词法作用域之外执行，也能够记住并访问它的词法作用域。  12345678910111213function foo() &amp;#123;    var a = 2;    function bar() &amp;#123;        console.log( a );    &amp;#125;    return bar;&amp;#125;var baz = foo();// 将">
-<meta name="keywords" content="笔记 JS">
-<meta property="og:type" content="article">
-<meta property="og:title" content="You don&#39;t know JS: Scope &amp; Closures 笔记（五）">
-<meta property="og:url" content="http://ifun.work/2017/04/06/You-don-t-know-JS-Scope-Closures-笔记（五）/index.html">
-<meta property="og:site_name" content="乌斯怀亚-世界以南">
-<meta property="og:description" content="作用域闭包定义 闭包就是函数即使在它的词法作用域之外执行，也能够记住并访问它的词法作用域。  12345678910111213function foo() &amp;#123;    var a = 2;    function bar() &amp;#123;        console.log( a );    &amp;#125;    return bar;&amp;#125;var baz = foo();// 将">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-04-06T14:07:10.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="You don&#39;t know JS: Scope &amp; Closures 笔记（五）">
-<meta name="twitter:description" content="作用域闭包定义 闭包就是函数即使在它的词法作用域之外执行，也能够记住并访问它的词法作用域。  12345678910111213function foo() &amp;#123;    var a = 2;    function bar() &amp;#123;        console.log( a );    &amp;#125;    return bar;&amp;#125;var baz = foo();// 将">
 
 
 
@@ -98,16 +84,14 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -119,12 +103,38 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="作用域闭包定义 闭包就是函数即使在它的词法作用域之外执行，也能够记住并访问它的词法作用域。  12345678910111213function foo() &amp;#123;    var a = 2;    function bar() &amp;#123;        console.log( a );    &amp;#125;    return bar;&amp;#125;var baz = foo();// 将">
+<meta name="keywords" content="JS,note">
+<meta property="og:type" content="article">
+<meta property="og:title" content="You don&#39;t know JS: Scope &amp; Closures 笔记（五）">
+<meta property="og:url" content="http://ifun.work/2017/04/06/You-don-t-know-JS-Scope-Closures-笔记（五）/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="作用域闭包定义 闭包就是函数即使在它的词法作用域之外执行，也能够记住并访问它的词法作用域。  12345678910111213function foo() &amp;#123;    var a = 2;    function bar() &amp;#123;        console.log( a );    &amp;#125;    return bar;&amp;#125;var baz = foo();// 将">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-01T11:49:16.324Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="You don&#39;t know JS: Scope &amp; Closures 笔记（五）">
+<meta name="twitter:description" content="作用域闭包定义 闭包就是函数即使在它的词法作用域之外执行，也能够记住并访问它的词法作用域。  12345678910111213function foo() &amp;#123;    var a = 2;    function bar() &amp;#123;        console.log( a );    &amp;#125;    return bar;&amp;#125;var baz = foo();// 将">
+
+
+
+
+
 
   <link rel="canonical" href="http://ifun.work/2017/04/06/You-don-t-know-JS-Scope-Closures-笔记（五）/"/>
 
 
 
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>You don't know JS: Scope & Closures 笔记（五） | 乌斯怀亚-世界以南</title>
   
@@ -135,6 +145,34 @@
 
 
 
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
@@ -154,19 +192,21 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">乌斯怀亚-世界以南</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">weihome的博客</p>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -174,35 +214,58 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/aboutMe/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
 
       
+      
     </ul>
+  
+
   
 
   
@@ -210,12 +273,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -228,6 +302,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -237,7 +313,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="weihome">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="博客 前端 前端开发">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -250,11 +326,19 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">You don't know JS: Scope & Closures 笔记（五）</h1>
+          <h1 class="post-title" itemprop="name headline">You don't know JS: Scope & Closures 笔记（五）
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -262,11 +346,12 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-06T22:06:12+08:00">
-                2017-04-06
-              </time>
-            
 
+              
+                
+              
+
+              <time title="Created: 2017-04-06 22:06:12" itemprop="dateCreated datePublished" datetime="2017-04-06T22:06:12+08:00">2017-04-06</time>
             
 
             
@@ -284,11 +369,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JS/" itemprop="url" rel="index">
-                    <span itemprop="name">JS</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a></span>
 
                 
                 
@@ -327,6 +408,7 @@
 </blockquote>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( a );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> bar;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> baz = foo();<span class="comment">// 将bar赋值给baz</span></span><br><span class="line"></span><br><span class="line">baz(); <span class="comment">// 执行bar，输出2。此时bar在它被声明的词法作用域（foo）外被执行，这就是闭包</span></span><br></pre></td></tr></table></figure>
 <p>一般来说，当foo执行完后，它的作用域应该被回收，但是bar()拥有一个词法作用域闭包覆盖着foo()的内部作用域，闭包为了能使bar()在以后任意的时刻可以引用这个作用域而保持它的存在。bar()在它被编写时的词法作用域之外被调用。闭包使这个函数可以继续访问它在编写时被定义的词法作用域。</p>
+<a id="more"></a>
 <p>闭包使函数在被声明的作用域之外执行时仍可以访问被声明时的作用域，计时器，事件处理器，Ajax请求，跨窗口消息，web worker，或者任何其他的异步（或同步！）任务等等，当你传入一个回调函数，就已经在使用闭包了！</p>
 <h3 id="IFFE是闭包么"><a href="#IFFE是闭包么" class="headerlink" title="IFFE是闭包么"></a>IFFE是闭包么</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">IIFE</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( a );</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
 <p>严格来说它不是在观察闭包。为什么？因为这个函数（就是我们这里命名为“IIFE”的那个）没有在它的词法作用域之外执行。它仍然在它被声明的相同作用域中（那个同时持有a的外围/全局作用域）被调用。a是通过普通的词法作用域查询找到的，不是通过真正的闭包。</p>
@@ -366,6 +448,9 @@
 
       
     </div>
+
+    
+
     
     
     
@@ -380,7 +465,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/笔记-JS/" rel="tag"># 笔记 JS</a>
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/tags/note/" rel="tag"># note</a>
           
         </div>
       
@@ -431,9 +518,6 @@
           </div>
           
 
-
-          
-
   
 
 
@@ -471,57 +555,111 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="weihome" />
+            
               <p class="site-author-name" itemprop="name">weihome</p>
               <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">22</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">categories</span>
+                  <a href="/archives/">
                 
-              </div>
-            
-
-            
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
               
+
               
-              <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">tags</span>
                 
-              </div>
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/weihomechen" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
             
-
-          </nav>
-
           
-
-          
-
-          
-          
-
-          
-          
-
           
 
         </div>
@@ -558,13 +696,17 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">weihome</span>
 
   
+
+  
 </div>
+
+
 
 
   <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
@@ -575,12 +717,13 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
 
 
 
 
         
+
 
 
 
@@ -595,6 +738,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -619,7 +764,11 @@
 
 
 
-  
+
+
+
+
+
 
 
 
@@ -639,16 +788,6 @@
 
   
   
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
     <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
@@ -657,42 +796,40 @@
     <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
 
 
 
   
   
 
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
 
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
 
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
 
 
   
 
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
 
 
 
@@ -719,8 +856,6 @@
 
 
 
-
-
   
 
 
@@ -734,6 +869,12 @@
   
 
   
+
+  
+  
+
+  
+
   
 
   

@@ -2,15 +2,27 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next pisces use-motion" lang="">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -38,10 +50,6 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
 
 
 
@@ -50,47 +58,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="笔记 JS," />
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
 
 
 
 
 
 
-
-
-
-
-<meta name="description" content="词法作用域复习作用域是什么？ 作用域的工作方式 词法作用域：词法分析时被定义的作用域 动态作用域：调用时确定的作用域  词法分析词法作用域是根据变量、函数、块等在什么地方编写确定其作用域，词法分析过后被确定下来，基本不会改变。 引擎查询标识符先从最内部的作用域开始查找，如果没找到，再逐级向上查询。一旦找到第一个匹配，作用域查询就停止了。如果有相同的标识符，内部的标识符屏蔽外部的标识符。函数的词法作">
-<meta name="keywords" content="笔记 JS">
-<meta property="og:type" content="article">
-<meta property="og:title" content="You don&#39;t know JS: Scope &amp; Closures 笔记（二）">
-<meta property="og:url" content="http://ifun.work/2017/04/03/You-don-t-know-JS-Scope-Closures-笔记（二）/index.html">
-<meta property="og:site_name" content="乌斯怀亚-世界以南">
-<meta property="og:description" content="词法作用域复习作用域是什么？ 作用域的工作方式 词法作用域：词法分析时被定义的作用域 动态作用域：调用时确定的作用域  词法分析词法作用域是根据变量、函数、块等在什么地方编写确定其作用域，词法分析过后被确定下来，基本不会改变。 引擎查询标识符先从最内部的作用域开始查找，如果没找到，再逐级向上查询。一旦找到第一个匹配，作用域查询就停止了。如果有相同的标识符，内部的标识符屏蔽外部的标识符。函数的词法作">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-04-06T14:07:34.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="You don&#39;t know JS: Scope &amp; Closures 笔记（二）">
-<meta name="twitter:description" content="词法作用域复习作用域是什么？ 作用域的工作方式 词法作用域：词法分析时被定义的作用域 动态作用域：调用时确定的作用域  词法分析词法作用域是根据变量、函数、块等在什么地方编写确定其作用域，词法分析过后被确定下来，基本不会改变。 引擎查询标识符先从最内部的作用域开始查找，如果没找到，再逐级向上查询。一旦找到第一个匹配，作用域查询就停止了。如果有相同的标识符，内部的标识符屏蔽外部的标识符。函数的词法作">
 
 
 
@@ -98,16 +84,14 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -119,12 +103,38 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="词法作用域复习作用域是什么？ 作用域的工作方式 词法作用域：词法分析时被定义的作用域 动态作用域：调用时确定的作用域  词法分析词法作用域是根据变量、函数、块等在什么地方编写确定其作用域，词法分析过后被确定下来，基本不会改变。 引擎查询标识符先从最内部的作用域开始查找，如果没找到，再逐级向上查询。一旦找到第一个匹配，作用域查询就停止了。如果有相同的标识符，内部的标识符屏蔽外部的标识符。函数的词法作">
+<meta name="keywords" content="JS,note">
+<meta property="og:type" content="article">
+<meta property="og:title" content="You don&#39;t know JS: Scope &amp; Closures 笔记（二）">
+<meta property="og:url" content="http://ifun.work/2017/04/03/You-don-t-know-JS-Scope-Closures-笔记（二）/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="词法作用域复习作用域是什么？ 作用域的工作方式 词法作用域：词法分析时被定义的作用域 动态作用域：调用时确定的作用域  词法分析词法作用域是根据变量、函数、块等在什么地方编写确定其作用域，词法分析过后被确定下来，基本不会改变。 引擎查询标识符先从最内部的作用域开始查找，如果没找到，再逐级向上查询。一旦找到第一个匹配，作用域查询就停止了。如果有相同的标识符，内部的标识符屏蔽外部的标识符。函数的词法作">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-01T11:49:00.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="You don&#39;t know JS: Scope &amp; Closures 笔记（二）">
+<meta name="twitter:description" content="词法作用域复习作用域是什么？ 作用域的工作方式 词法作用域：词法分析时被定义的作用域 动态作用域：调用时确定的作用域  词法分析词法作用域是根据变量、函数、块等在什么地方编写确定其作用域，词法分析过后被确定下来，基本不会改变。 引擎查询标识符先从最内部的作用域开始查找，如果没找到，再逐级向上查询。一旦找到第一个匹配，作用域查询就停止了。如果有相同的标识符，内部的标识符屏蔽外部的标识符。函数的词法作">
+
+
+
+
+
 
   <link rel="canonical" href="http://ifun.work/2017/04/03/You-don-t-know-JS-Scope-Closures-笔记（二）/"/>
 
 
 
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>You don't know JS: Scope & Closures 笔记（二） | 乌斯怀亚-世界以南</title>
   
@@ -135,6 +145,34 @@
 
 
 
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
@@ -154,19 +192,21 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">乌斯怀亚-世界以南</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">weihome的博客</p>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -174,35 +214,58 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/aboutMe/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
 
       
+      
     </ul>
+  
+
   
 
   
@@ -210,12 +273,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -228,6 +302,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -237,7 +313,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="weihome">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="博客 前端 前端开发">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -250,11 +326,19 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">You don't know JS: Scope & Closures 笔记（二）</h1>
+          <h1 class="post-title" itemprop="name headline">You don't know JS: Scope & Closures 笔记（二）
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -262,11 +346,12 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-03T22:50:45+08:00">
-                2017-04-03
-              </time>
-            
 
+              
+                
+              
+
+              <time title="Created: 2017-04-03 22:50:45" itemprop="dateCreated datePublished" datetime="2017-04-03T22:50:45+08:00">2017-04-03</time>
             
 
             
@@ -284,11 +369,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JS/" itemprop="url" rel="index">
-                    <span itemprop="name">JS</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a></span>
 
                 
                 
@@ -330,6 +411,7 @@
 <h3 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h3><p>词法作用域是根据变量、函数、块等在什么地方编写确定其作用域，词法分析过后被确定下来，基本不会改变。</p>
 <h3 id="引擎查询标识符"><a href="#引擎查询标识符" class="headerlink" title="引擎查询标识符"></a>引擎查询标识符</h3><p>先从最内部的作用域开始查找，如果没找到，再逐级向上查询。一旦找到第一个匹配，作用域查询就停止了。如果有相同的标识符，内部的标识符屏蔽外部的标识符。函数的词法作用域是由这个函数被声明的位置唯一定义的。词法作用域查询仅仅在处理头等标识符时实施：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">a = <span class="number">1</span>; <span class="comment">// 查询a时词法作用域实施</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = &#123;&#125;;</span><br><span class="line">b.a = <span class="number">2</span>; <span class="comment">// 查询b时词法作用域实施，然后对象属性访问规则将会接管a属性的解析。</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="欺骗词法作用域"><a href="#欺骗词法作用域" class="headerlink" title="欺骗词法作用域"></a>欺骗词法作用域</h3><h4 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h4><p>接收一个字符串作为参数值，并将这个字符串的内容插入到eval函数的位置，好像这个内容就是当初编写进去的：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">eval</span>( str );  <span class="comment">// str被当作原本就在这个位置， 相当于这行是： var a = 'eval传进去的a';</span></span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 打印的是"eval传进去的a"，全局作用域的a被内部的屏蔽了，如果使用严格模式，全局作用域的a不会被屏蔽</span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="string">'全局作用域下的a'</span>; </span><br><span class="line"></span><br><span class="line">foo( <span class="string">"var a = 'eval传进去的a';"</span>);</span><br></pre></td></tr></table></figure>
 <p>eval(..)通常被用于执行动态创建的代码，传入的字符串可以是复杂的代码。在非严格模式下，字符串里面的声明会修改eval所在的作用域。</p>
@@ -339,6 +421,9 @@
 
       
     </div>
+
+    
+
     
     
     
@@ -353,7 +438,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/笔记-JS/" rel="tag"># 笔记 JS</a>
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/tags/note/" rel="tag"># note</a>
           
         </div>
       
@@ -404,9 +491,6 @@
           </div>
           
 
-
-          
-
   
 
 
@@ -444,57 +528,111 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="weihome" />
+            
               <p class="site-author-name" itemprop="name">weihome</p>
               <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">22</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">categories</span>
+                  <a href="/archives/">
                 
-              </div>
-            
-
-            
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
               
+
               
-              <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">tags</span>
                 
-              </div>
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/weihomechen" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
             
-
-          </nav>
-
           
-
-          
-
-          
-          
-
-          
-          
-
           
 
         </div>
@@ -531,13 +669,17 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">weihome</span>
 
   
+
+  
 </div>
+
+
 
 
   <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
@@ -548,12 +690,13 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
 
 
 
 
         
+
 
 
 
@@ -568,6 +711,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -592,7 +737,11 @@
 
 
 
-  
+
+
+
+
+
 
 
 
@@ -612,16 +761,6 @@
 
   
   
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
     <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
@@ -630,42 +769,40 @@
     <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
 
 
 
   
   
 
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
 
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
 
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
 
 
   
 
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
 
 
 
@@ -692,8 +829,6 @@
 
 
 
-
-
   
 
 
@@ -707,6 +842,12 @@
   
 
   
+
+  
+  
+
+  
+
   
 
   

@@ -2,15 +2,27 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next pisces use-motion" lang="">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -38,10 +50,6 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
 
 
 
@@ -50,51 +58,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="笔记 JS," />
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
 
 
 
 
 
 
-
-
-
-
-<meta name="description" content="原型和行为委托JS模拟类的继承类是面向对象语言的一种设计模式，当一个传统的类被实例化时，就发生了类的行为向实例中拷贝。当类被继承时，也发生父类的行为向子类的拷贝。 在JS中，不会自动地（像类那样）在对象间创建拷贝。为了模拟类的继承，出现了明确的Mixins和隐含的Mixins 明确的 Mixins显式mixin不同于类的拷贝，因为对象（和函数）仅仅是共享的引用被复制，不是对象/函数自身被复制。这种">
-<meta name="keywords" content="笔记 JS">
-<meta property="og:type" content="article">
-<meta property="og:title" content="You don&#39;t know JS:this和对象原型 笔记（四）">
-<meta property="og:url" content="http://ifun.work/2017/04/15/You-don-t-know-JS-this和对象原型-笔记（四）/index.html">
-<meta property="og:site_name" content="乌斯怀亚-世界以南">
-<meta property="og:description" content="原型和行为委托JS模拟类的继承类是面向对象语言的一种设计模式，当一个传统的类被实例化时，就发生了类的行为向实例中拷贝。当类被继承时，也发生父类的行为向子类的拷贝。 在JS中，不会自动地（像类那样）在对象间创建拷贝。为了模拟类的继承，出现了明确的Mixins和隐含的Mixins 明确的 Mixins显式mixin不同于类的拷贝，因为对象（和函数）仅仅是共享的引用被复制，不是对象/函数自身被复制。这种">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://oohz6uxcv.bkt.clouddn.com/oo1.png">
-<meta property="og:image" content="http://oohz6uxcv.bkt.clouddn.com/oo2png.png">
-<meta property="og:image" content="http://oohz6uxcv.bkt.clouddn.com/oolo.png">
-<meta property="og:updated_time" content="2017-04-16T10:50:42.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="You don&#39;t know JS:this和对象原型 笔记（四）">
-<meta name="twitter:description" content="原型和行为委托JS模拟类的继承类是面向对象语言的一种设计模式，当一个传统的类被实例化时，就发生了类的行为向实例中拷贝。当类被继承时，也发生父类的行为向子类的拷贝。 在JS中，不会自动地（像类那样）在对象间创建拷贝。为了模拟类的继承，出现了明确的Mixins和隐含的Mixins 明确的 Mixins显式mixin不同于类的拷贝，因为对象（和函数）仅仅是共享的引用被复制，不是对象/函数自身被复制。这种">
-<meta name="twitter:image" content="http://oohz6uxcv.bkt.clouddn.com/oo1.png">
 
 
 
@@ -102,16 +84,14 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -123,12 +103,42 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="原型和行为委托JS模拟类的继承类是面向对象语言的一种设计模式，当一个传统的类被实例化时，就发生了类的行为向实例中拷贝。当类被继承时，也发生父类的行为向子类的拷贝。 在JS中，不会自动地（像类那样）在对象间创建拷贝。为了模拟类的继承，出现了明确的Mixins和隐含的Mixins 明确的 Mixins显式mixin不同于类的拷贝，因为对象（和函数）仅仅是共享的引用被复制，不是对象/函数自身被复制。这种">
+<meta name="keywords" content="JS,note">
+<meta property="og:type" content="article">
+<meta property="og:title" content="You don&#39;t know JS:this和对象原型 笔记（四）">
+<meta property="og:url" content="http://ifun.work/2017/04/15/You-don-t-know-JS-this和对象原型-笔记（四）/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="原型和行为委托JS模拟类的继承类是面向对象语言的一种设计模式，当一个传统的类被实例化时，就发生了类的行为向实例中拷贝。当类被继承时，也发生父类的行为向子类的拷贝。 在JS中，不会自动地（像类那样）在对象间创建拷贝。为了模拟类的继承，出现了明确的Mixins和隐含的Mixins 明确的 Mixins显式mixin不同于类的拷贝，因为对象（和函数）仅仅是共享的引用被复制，不是对象/函数自身被复制。这种">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://oohz6uxcv.bkt.clouddn.com/oo1.png">
+<meta property="og:image" content="http://oohz6uxcv.bkt.clouddn.com/oo2png.png">
+<meta property="og:image" content="http://oohz6uxcv.bkt.clouddn.com/oolo.png">
+<meta property="og:updated_time" content="2018-07-01T11:46:35.300Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="You don&#39;t know JS:this和对象原型 笔记（四）">
+<meta name="twitter:description" content="原型和行为委托JS模拟类的继承类是面向对象语言的一种设计模式，当一个传统的类被实例化时，就发生了类的行为向实例中拷贝。当类被继承时，也发生父类的行为向子类的拷贝。 在JS中，不会自动地（像类那样）在对象间创建拷贝。为了模拟类的继承，出现了明确的Mixins和隐含的Mixins 明确的 Mixins显式mixin不同于类的拷贝，因为对象（和函数）仅仅是共享的引用被复制，不是对象/函数自身被复制。这种">
+<meta name="twitter:image" content="http://oohz6uxcv.bkt.clouddn.com/oo1.png">
+
+
+
+
+
 
   <link rel="canonical" href="http://ifun.work/2017/04/15/You-don-t-know-JS-this和对象原型-笔记（四）/"/>
 
 
 
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>You don't know JS:this和对象原型 笔记（四） | 乌斯怀亚-世界以南</title>
   
@@ -139,6 +149,34 @@
 
 
 
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
@@ -158,19 +196,21 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">乌斯怀亚-世界以南</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">weihome的博客</p>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -178,35 +218,58 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/aboutMe/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
 
       
+      
     </ul>
+  
+
   
 
   
@@ -214,12 +277,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -232,6 +306,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -241,7 +317,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="weihome">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="博客 前端 前端开发">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -254,11 +330,19 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">You don't know JS:this和对象原型 笔记（四）</h1>
+          <h1 class="post-title" itemprop="name headline">You don't know JS:this和对象原型 笔记（四）
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -266,11 +350,12 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-15T18:22:26+08:00">
-                2017-04-15
-              </time>
-            
 
+              
+                
+              
+
+              <time title="Created: 2017-04-15 18:22:26" itemprop="dateCreated datePublished" datetime="2017-04-15T18:22:26+08:00">2017-04-15</time>
             
 
             
@@ -288,11 +373,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JS/" itemprop="url" rel="index">
-                    <span itemprop="name">JS</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a></span>
 
                 
                 
@@ -331,6 +412,7 @@
 <h3 id="明确的-Mixins"><a href="#明确的-Mixins" class="headerlink" title="明确的 Mixins"></a>明确的 Mixins</h3><p>显式mixin不同于类的拷贝，因为对象（和函数）仅仅是共享的<strong>引用</strong>被复制，不是对象/函数自身被复制。这种引用会影响到所有指向它的对象的属性。</p>
 <h3 id="隐含的-Mixin"><a href="#隐含的-Mixin" class="headerlink" title="隐含的 Mixin"></a>隐含的 Mixin</h3><p>其实就是利用<code>this</code>的绑定规则，改变了执行环境。</p>
 <h3 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h3><p>某种程度是显式的又是隐含的：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// “传统的JS类” `Vehicle`</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vehicle</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.engines = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">Vehicle.prototype.ignition = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">"Turning on my engine."</span> );</span><br><span class="line">&#125;;</span><br><span class="line">Vehicle.prototype.drive = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.ignition();</span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">"Steering and moving forward!"</span> );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// “寄生类” `Car`</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 首先, `car`是一个`Vehicle`</span></span><br><span class="line">    <span class="keyword">var</span> car = <span class="keyword">new</span> Vehicle();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 现在, 我们修改`car`使它特化</span></span><br><span class="line">    car.wheels = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存一个`Vehicle:drive()`的引用</span></span><br><span class="line">    <span class="keyword">var</span> vehDrive = car.drive;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 覆盖 `Vehicle:drive()`</span></span><br><span class="line">    car.drive = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        vehDrive.call( <span class="keyword">this</span> );</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">"Rolling on all "</span> + <span class="keyword">this</span>.wheels + <span class="string">" wheels!"</span> );</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> car;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用new调用默认返回创建的新对象，但是这里返回car对象，所以也可以不使用new调用</span></span><br><span class="line"><span class="keyword">var</span> myCar = <span class="keyword">new</span> Car();</span><br><span class="line"></span><br><span class="line">myCar.drive();</span><br><span class="line"><span class="comment">// Turning on my engine.</span></span><br><span class="line"><span class="comment">// Steering and moving forward!</span></span><br><span class="line"><span class="comment">// Rolling on all 4 wheels!</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>JavaScript中的对象有一个内部属性，在语言规范中称为[[Prototype]]，它只是一个其他对象的引用。几乎所有的对象在被创建时，它的这个属性都被赋予了一个非null值。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> anotherObject = &#123;</span><br><span class="line">    a: <span class="number">2</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个链接到`anotherObject`的对象</span></span><br><span class="line"><span class="keyword">var</span> myObject = <span class="built_in">Object</span>.create( anotherObject );</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果默认的[[Get]]操作不能直接在对象上找到被请求的属性，那么会沿着对象的[[Prototype]]链继续处理</span></span><br><span class="line">myObject.a; <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
 <p>但是，如果在anotherObject上也没有找到a，而且如果它的[[Prototype]]链不为空，就沿着它继续查找。</p>
@@ -410,6 +492,9 @@
 
       
     </div>
+
+    
+
     
     
     
@@ -424,7 +509,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/笔记-JS/" rel="tag"># 笔记 JS</a>
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/tags/note/" rel="tag"># note</a>
           
         </div>
       
@@ -475,9 +562,6 @@
           </div>
           
 
-
-          
-
   
 
 
@@ -515,57 +599,111 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="weihome" />
+            
               <p class="site-author-name" itemprop="name">weihome</p>
               <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">22</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">categories</span>
+                  <a href="/archives/">
                 
-              </div>
-            
-
-            
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
               
+
               
-              <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">tags</span>
                 
-              </div>
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/weihomechen" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
             
-
-          </nav>
-
           
-
-          
-
-          
-          
-
-          
-          
-
           
 
         </div>
@@ -602,13 +740,17 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">weihome</span>
 
   
+
+  
 </div>
+
+
 
 
   <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
@@ -619,12 +761,13 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
 
 
 
 
         
+
 
 
 
@@ -639,6 +782,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -663,7 +808,11 @@
 
 
 
-  
+
+
+
+
+
 
 
 
@@ -683,16 +832,6 @@
 
   
   
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
     <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
@@ -701,42 +840,40 @@
     <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
 
 
 
   
   
 
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
 
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
 
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
 
 
   
 
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
 
 
 
@@ -763,8 +900,6 @@
 
 
 
-
-
   
 
 
@@ -778,6 +913,12 @@
   
 
   
+
+  
+  
+
+  
+
   
 
   

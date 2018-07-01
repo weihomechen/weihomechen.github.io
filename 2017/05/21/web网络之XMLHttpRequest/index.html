@@ -2,15 +2,27 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next pisces use-motion" lang="">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -38,10 +50,6 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
 
 
 
@@ -50,52 +58,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="network," />
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
 
 
 
 
 
 
-
-
-
-
-<meta name="description" content="导语继HTTP之后，来梳理一下XMLHttpRequest。如果用过jQuery，那几乎也用过$.ajax吧，估计也是成功地发过很多个Ajax请求了。本文主要从的标准和API回顾XMLHttpRequest。 Ajax和XMLHttpRequest日常开发中，好像很少将Ajax和XMLHttpRequest区分开来，但其实这是两个不同维度的概念。 ajax依赖现有的CSS/HTML/Javascr">
-<meta name="keywords" content="network">
-<meta property="og:type" content="article">
-<meta property="og:title" content="web网络之XMLHttpRequest">
-<meta property="og:url" content="http://ifun.work/2017/05/21/web网络之XMLHttpRequest/index.html">
-<meta property="og:site_name" content="乌斯怀亚-世界以南">
-<meta property="og:description" content="导语继HTTP之后，来梳理一下XMLHttpRequest。如果用过jQuery，那几乎也用过$.ajax吧，估计也是成功地发过很多个Ajax请求了。本文主要从的标准和API回顾XMLHttpRequest。 Ajax和XMLHttpRequest日常开发中，好像很少将Ajax和XMLHttpRequest区分开来，但其实这是两个不同维度的概念。 ajax依赖现有的CSS/HTML/Javascr">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/XMLHttpRequest%E5%85%BC%E5%AE%B9%E6%80%A7.png">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/responseType.png">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/status.png">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/trigger.png">
-<meta property="og:updated_time" content="2017-06-29T14:10:04.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="web网络之XMLHttpRequest">
-<meta name="twitter:description" content="导语继HTTP之后，来梳理一下XMLHttpRequest。如果用过jQuery，那几乎也用过$.ajax吧，估计也是成功地发过很多个Ajax请求了。本文主要从的标准和API回顾XMLHttpRequest。 Ajax和XMLHttpRequest日常开发中，好像很少将Ajax和XMLHttpRequest区分开来，但其实这是两个不同维度的概念。 ajax依赖现有的CSS/HTML/Javascr">
-<meta name="twitter:image" content="http://os965hewa.bkt.clouddn.com/XMLHttpRequest%E5%85%BC%E5%AE%B9%E6%80%A7.png">
 
 
 
@@ -103,16 +84,14 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -124,12 +103,43 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="导语继HTTP之后，来梳理一下XMLHttpRequest。如果用过jQuery，那几乎也用过$.ajax吧，估计也是成功地发过很多个Ajax请求了。本文主要从的标准和API回顾XMLHttpRequest。 Ajax和XMLHttpRequest日常开发中，好像很少将Ajax和XMLHttpRequest区分开来，但其实这是两个不同维度的概念。 ajax依赖现有的CSS/HTML/Javascr">
+<meta name="keywords" content="network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web网络之XMLHttpRequest">
+<meta property="og:url" content="http://ifun.work/2017/05/21/web网络之XMLHttpRequest/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="导语继HTTP之后，来梳理一下XMLHttpRequest。如果用过jQuery，那几乎也用过$.ajax吧，估计也是成功地发过很多个Ajax请求了。本文主要从的标准和API回顾XMLHttpRequest。 Ajax和XMLHttpRequest日常开发中，好像很少将Ajax和XMLHttpRequest区分开来，但其实这是两个不同维度的概念。 ajax依赖现有的CSS/HTML/Javascr">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/XMLHttpRequest%E5%85%BC%E5%AE%B9%E6%80%A7.png">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/responseType.png">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/status.png">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/trigger.png">
+<meta property="og:updated_time" content="2018-07-01T11:48:17.279Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web网络之XMLHttpRequest">
+<meta name="twitter:description" content="导语继HTTP之后，来梳理一下XMLHttpRequest。如果用过jQuery，那几乎也用过$.ajax吧，估计也是成功地发过很多个Ajax请求了。本文主要从的标准和API回顾XMLHttpRequest。 Ajax和XMLHttpRequest日常开发中，好像很少将Ajax和XMLHttpRequest区分开来，但其实这是两个不同维度的概念。 ajax依赖现有的CSS/HTML/Javascr">
+<meta name="twitter:image" content="http://os965hewa.bkt.clouddn.com/XMLHttpRequest%E5%85%BC%E5%AE%B9%E6%80%A7.png">
+
+
+
+
+
 
   <link rel="canonical" href="http://ifun.work/2017/05/21/web网络之XMLHttpRequest/"/>
 
 
 
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>web网络之XMLHttpRequest | 乌斯怀亚-世界以南</title>
   
@@ -140,6 +150,34 @@
 
 
 
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
@@ -159,19 +197,21 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">乌斯怀亚-世界以南</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">weihome的博客</p>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -179,35 +219,58 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/aboutMe/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
 
       
+      
     </ul>
+  
+
   
 
   
@@ -215,12 +278,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -233,6 +307,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -242,7 +318,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="weihome">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="博客 前端 前端开发">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -255,11 +331,19 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">web网络之XMLHttpRequest</h1>
+          <h1 class="post-title" itemprop="name headline">web网络之XMLHttpRequest
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -267,11 +351,12 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-21T21:09:24+08:00">
-                2017-05-21
-              </time>
-            
 
+              
+                
+              
+
+              <time title="Created: 2017-05-21 21:09:24" itemprop="dateCreated datePublished" datetime="2017-05-21T21:09:24+08:00">2017-05-21</time>
             
 
             
@@ -289,11 +374,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a></span>
 
                 
                 
@@ -331,6 +412,7 @@
 <h3 id="Ajax和XMLHttpRequest"><a href="#Ajax和XMLHttpRequest" class="headerlink" title="Ajax和XMLHttpRequest"></a>Ajax和<font color="#F57170">XMLHttpRequest</font></h3><p>日常开发中，好像很少将<code>Ajax</code>和<font color="#F57170">XMLHttpRequest</font>区分开来，但其实这是两个不同维度的概念。</p>
 <p>ajax依赖现有的CSS/HTML/Javascript，而其中最核心的依赖是浏览器提供的<font color="#F57170">XMLHttpRequest</font>对象，是这个对象使得浏览器可以发出HTTP请求与接收HTTP响应。</p>
 <p>所以两者的关系：我们使用<font color="#F57170">XMLHttpRequest</font>对象来发送一个Ajax请求。</p>
+<a id="more"></a>
 <h3 id="XMLHttpRequest的发展历程"><a href="#XMLHttpRequest的发展历程" class="headerlink" title="XMLHttpRequest的发展历程"></a><font color="#F57170">XMLHttpRequest</font>的发展历程</h3><p><font color="#F57170">XMLHttpRequest</font>一开始只是微软浏览器提供的一个接口，后来各大浏览器纷纷效仿也提供了这个接口，再后来W3C对它进行了标准化，提出了<font color="#F57170">XMLHttpRequest</font>标准。<font color="#F57170">XMLHttpRequest</font>标准又分为Level 1和Level 2。</p>
 <p><font color="#F57170">XMLHttpRequest</font> Level 1主要存在以下缺点：</p>
 <ul>
@@ -517,6 +599,9 @@
 
       
     </div>
+
+    
+
     
     
     
@@ -582,9 +667,6 @@
           </div>
           
 
-
-          
-
   
 
 
@@ -622,57 +704,111 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="weihome" />
+            
               <p class="site-author-name" itemprop="name">weihome</p>
               <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">22</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">categories</span>
+                  <a href="/archives/">
                 
-              </div>
-            
-
-            
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
               
+
               
-              <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">tags</span>
                 
-              </div>
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/weihomechen" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
             
-
-          </nav>
-
           
-
-          
-
-          
-          
-
-          
-          
-
           
 
         </div>
@@ -709,13 +845,17 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">weihome</span>
 
   
+
+  
 </div>
+
+
 
 
   <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
@@ -726,12 +866,13 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
 
 
 
 
         
+
 
 
 
@@ -746,6 +887,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -770,7 +913,11 @@
 
 
 
-  
+
+
+
+
+
 
 
 
@@ -790,16 +937,6 @@
 
   
   
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
     <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
@@ -808,42 +945,40 @@
     <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
 
 
 
   
   
 
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
 
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
 
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
 
 
   
 
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
 
 
 
@@ -870,8 +1005,6 @@
 
 
 
-
-
   
 
 
@@ -885,6 +1018,12 @@
   
 
   
+
+  
+  
+
+  
+
   
 
   
