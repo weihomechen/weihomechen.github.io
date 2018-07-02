@@ -259,6 +259,14 @@
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
   </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-personal-project">
+    <a href="/vue-mail/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-star"></i> <br />Personal project</a>
+  </li>
 
       
       
@@ -292,6 +300,331 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2018/07/02/前端压缩图片文件大小的一次尝试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="博客 前端 前端开发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/02/前端压缩图片文件大小的一次尝试/" itemprop="url">
+                  前端压缩图片文件大小的一次尝试
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-02 09:57:38" itemprop="dateCreated datePublished" datetime="2018-07-02T09:57:38+08:00">2018-07-02</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          业务背景在开发管控物品申报一个需求时，需要上传身份证或护照照片，上传完成后取得该图片的base64，然后调用接口，通过阿里云的AI识别，获得姓名和证件号码等关键信息。上传图片没有大小限制，但是转换后的图片base64需要在1.5M内，通过 FileReader 可以轻松取到base64，而base64的大小和原文件大小挂钩，所以重点在于如果base64大于1.5M，需要对原文件进行体积上的压缩。
+Canvas及其使用场景压缩文件大小涉及到对文件的字节码进行处理，然而浏览器环境没有提供处理字节码方便的接口或方法，像服务端那样对文件进行各种处理前端看来很不好实现。BUT，前端虽然不像服务端那样擅长读取IO、处理文件流，但是对可视化和图像处理正是前端探索和积累的方向。从HTML5的 canvas 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/02/前端压缩图片文件大小的一次尝试/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2018/07/02/记一个懒加载的小运用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="博客 前端 前端开发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/02/记一个懒加载的小运用/" itemprop="url">
+                  记一个懒加载的小运用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-02 09:08:59" itemprop="dateCreated datePublished" datetime="2018-07-02T09:08:59+08:00">2018-07-02</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          导语在博客的消息模块开发过程中，有一个消息列表，其中的消息有未读和已读的状态区分。消息列表会完整的展示几乎全部信息，包括内容，那么，当列表展示时，在可视区域内的每一条消息既然一览无遗的呈现在用户面前，也就可以判定这些消息为已读，需要发起请求改变这些消息的状态。
+问题在于，每个高度不同的屏幕，可视区域高度也不同，能容纳的消息条数自然也不同，更不用说每条信息内容不同导致元素块高度也不一样，一刀切的认为每一页有几条消息会完整呈现在可视区域内是不现实的。如何准确的判断每一条信息是否可以认为已读呢？
+懒加载基础运用：图片懒加载先介绍一下图片懒加载：
+
+如果一个页面内容很丰富，图片较多，比如说各种商城页面。这些页面图片数量多，而且比较大，少说百来K，多则上兆。要是页面载入就一次性加载完毕。估计都会等到黄
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/02/记一个懒加载的小运用/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1043,7 +1376,7 @@
 
       
         
-          <h2 id="彻底搞懂JS比较运算符"><a href="#彻底搞懂JS比较运算符" class="headerlink" title="彻底搞懂JS比较运算符"></a>彻底搞懂JS比较运算符</h2><p>JS存在强制类型转换，让人觉得比较运算符的运算规则十分复杂，而且很容易判断出错。正好看到一篇文章，作者画的图实在是太形象了，贴出来给自己做个笔记：</p>
+          <p>JS存在强制类型转换，让人觉得比较运算符的运算规则十分复杂，而且很容易判断出错。正好看到一篇文章，作者画的图实在是太形象了，贴出来给自己做个笔记：</p>
 <p>JS中的值可以分为两类，一类是简单基本类型，也称为原始类型（Primitive）：</p>
 <ul>
 <li>Number：很多个，不是无限个</li>
@@ -1598,329 +1931,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/04/16/CSS点滴：页面加载动画/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="weihome">
-      <meta itemprop="description" content="博客 前端 前端开发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="乌斯怀亚-世界以南">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/04/16/CSS点滴：页面加载动画/" itemprop="url">
-                  CSS花园：页面加载动画
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-04-16 20:11:22" itemprop="dateCreated datePublished" datetime="2017-04-16T20:11:22+08:00">2017-04-16</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>页面切换需要加载时间，这个过程对于用户而言是无聊的，如果时间过长，很可能引起用户的不快，甚至关掉页面。如果在页面加载期间，展现有趣的动画，可以转移用户的注意力，提高用户体验。下面展示了几种有趣的加载小动画，为了便于展示，引入了jsFiddle。因为jsFiddle有时候会抽风，顺便也把代码贴一下, 以后有需要方便复制粘贴~~~</p>
-<h5 id="加载动画1："><a href="#加载动画1：" class="headerlink" title="加载动画1："></a>加载动画1：</h5><iframe scrolling="no" width="100%" height="300" src="//jsfiddle.net/d2wer0xj/embedded/result,html,css/light" frameborder="0" allowfullscreen></iframe>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"spinner"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.spinner</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#333</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">  <span class="attribute">-webkit-animation</span>: sk-rotateplane <span class="number">1.2s</span> infinite ease-in-out;</span><br><span class="line">  <span class="attribute">animation</span>: sk-rotateplane <span class="number">1.2s</span> infinite ease-in-out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> sk-rotateplane &#123;</span><br><span class="line">  0% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(120px) &#125;</span><br><span class="line">  50% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateY</span>(180deg) &#125;</span><br><span class="line">  100% &#123; <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateY</span>(180deg)  <span class="built_in">rotateX</span>(180deg) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> sk-rotateplane &#123;</span><br><span class="line">  0% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateX</span>(0deg) <span class="built_in">rotateY</span>(0deg);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateX</span>(0deg) <span class="built_in">rotateY</span>(0deg) </span><br><span class="line">  &#125; 50% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateX</span>(-180.1deg) <span class="built_in">rotateY</span>(0deg);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateX</span>(-180.1deg) <span class="built_in">rotateY</span>(0deg) </span><br><span class="line">  &#125; 100% &#123; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateX</span>(-180deg) <span class="built_in">rotateY</span>(-179.9deg);</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">perspective</span>(120px) <span class="built_in">rotateX</span>(-180deg) <span class="built_in">rotateY</span>(-179.9deg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/16/CSS点滴：页面加载动画/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/04/15/You-don-t-know-JS-this和对象原型-笔记（四）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="weihome">
-      <meta itemprop="description" content="博客 前端 前端开发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="乌斯怀亚-世界以南">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/04/15/You-don-t-know-JS-this和对象原型-笔记（四）/" itemprop="url">
-                  You don't know JS:this和对象原型 笔记（四）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-04-15 18:22:26" itemprop="dateCreated datePublished" datetime="2017-04-15T18:22:26+08:00">2017-04-15</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="原型和行为委托"><a href="#原型和行为委托" class="headerlink" title="原型和行为委托"></a>原型和行为委托</h1><h2 id="JS模拟类的继承"><a href="#JS模拟类的继承" class="headerlink" title="JS模拟类的继承"></a>JS模拟类的继承</h2><p>类是面向对象语言的一种设计模式，当一个传统的类被实例化时，就发生了类的行为向实例中拷贝。当类被继承时，也发生父类的行为向子类的拷贝。</p>
-<p>在JS中，不会自动地（像类那样）在对象间创建拷贝。为了模拟类的继承，出现了明确的Mixins和隐含的Mixins</p>
-<h3 id="明确的-Mixins"><a href="#明确的-Mixins" class="headerlink" title="明确的 Mixins"></a>明确的 Mixins</h3><p>显式mixin不同于类的拷贝，因为对象（和函数）仅仅是共享的<strong>引用</strong>被复制，不是对象/函数自身被复制。这种引用会影响到所有指向它的对象的属性。</p>
-<h3 id="隐含的-Mixin"><a href="#隐含的-Mixin" class="headerlink" title="隐含的 Mixin"></a>隐含的 Mixin</h3><p>其实就是利用<code>this</code>的绑定规则，改变了执行环境。</p>
-<h3 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h3><p>某种程度是显式的又是隐含的：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// “传统的JS类” `Vehicle`</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vehicle</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.engines = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">Vehicle.prototype.ignition = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">"Turning on my engine."</span> );</span><br><span class="line">&#125;;</span><br><span class="line">Vehicle.prototype.drive = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.ignition();</span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">"Steering and moving forward!"</span> );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// “寄生类” `Car`</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 首先, `car`是一个`Vehicle`</span></span><br><span class="line">    <span class="keyword">var</span> car = <span class="keyword">new</span> Vehicle();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 现在, 我们修改`car`使它特化</span></span><br><span class="line">    car.wheels = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存一个`Vehicle:drive()`的引用</span></span><br><span class="line">    <span class="keyword">var</span> vehDrive = car.drive;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 覆盖 `Vehicle:drive()`</span></span><br><span class="line">    car.drive = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        vehDrive.call( <span class="keyword">this</span> );</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">"Rolling on all "</span> + <span class="keyword">this</span>.wheels + <span class="string">" wheels!"</span> );</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> car;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用new调用默认返回创建的新对象，但是这里返回car对象，所以也可以不使用new调用</span></span><br><span class="line"><span class="keyword">var</span> myCar = <span class="keyword">new</span> Car();</span><br><span class="line"></span><br><span class="line">myCar.drive();</span><br><span class="line"><span class="comment">// Turning on my engine.</span></span><br><span class="line"><span class="comment">// Steering and moving forward!</span></span><br><span class="line"><span class="comment">// Rolling on all 4 wheels!</span></span><br></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/15/You-don-t-know-JS-this和对象原型-笔记（四）/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1972,7 +1982,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2020,7 +2030,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="业务背景在开发管控物品申报一个需求时，需要上传身份证或护照照片，上传完成后取得该图片的base64，然后调用接口，通过阿里云的AI识别，获得姓名和证件号码等关键信息。上传图片没有大小限制，但是转换后的图片base64需要在1.5M内，通过 FileReader 可以轻松取到base64，而base64的大小和原文件大小挂钩，所以重点在于如果base64大于1.5M，需要对原文件进行体积上的压缩。">
+<meta name="keywords" content="JS,canvas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端压缩图片文件大小的一次尝试">
+<meta property="og:url" content="http://ifun.work/2018/07/02/前端压缩图片文件大小的一次尝试/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="业务背景在开发管控物品申报一个需求时，需要上传身份证或护照照片，上传完成后取得该图片的base64，然后调用接口，通过阿里云的AI识别，获得姓名和证件号码等关键信息。上传图片没有大小限制，但是转换后的图片base64需要在1.5M内，通过 FileReader 可以轻松取到base64，而base64的大小和原文件大小挂钩，所以重点在于如果base64大于1.5M，需要对原文件进行体积上的压缩。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/JWkBScDyxDs8RjWnfC2cjbZejzZsNZjR.png">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/QrszY3t28nzjB3TkeXDMjaZeZ2DAkTRX.png">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/ieQmix5TSBiKaGmmwHj7FH8h32DbYG78.png">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/mYfAXyXdr2Tkp4pQTPHR8DPMeaKGFY6s.png">
+<meta property="og:updated_time" content="2018-07-02T02:45:14.827Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端压缩图片文件大小的一次尝试">
+<meta name="twitter:description" content="业务背景在开发管控物品申报一个需求时，需要上传身份证或护照照片，上传完成后取得该图片的base64，然后调用接口，通过阿里云的AI识别，获得姓名和证件号码等关键信息。上传图片没有大小限制，但是转换后的图片base64需要在1.5M内，通过 FileReader 可以轻松取到base64，而base64的大小和原文件大小挂钩，所以重点在于如果base64大于1.5M，需要对原文件进行体积上的压缩。">
+<meta name="twitter:image" content="http://os965hewa.bkt.clouddn.com/JWkBScDyxDs8RjWnfC2cjbZejzZsNZjR.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://ifun.work/2018/07/02/前端压缩图片文件大小的一次尝试/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>前端压缩图片文件大小的一次尝试 | 乌斯怀亚-世界以南</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乌斯怀亚-世界以南</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">weihome的博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/aboutMe/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-personal-project">
+    <a href="/vue-mail/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-star"></i> <br />Personal project</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2018/07/02/前端压缩图片文件大小的一次尝试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="博客 前端 前端开发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端压缩图片文件大小的一次尝试
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-02 09:57:38" itemprop="dateCreated datePublished" datetime="2018-07-02T09:57:38+08:00">2018-07-02</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="业务背景"><a href="#业务背景" class="headerlink" title="业务背景"></a>业务背景</h2><p>在开发管控物品申报一个需求时，需要上传身份证或护照照片，上传完成后取得该图片的<strong>base64</strong>，然后调用接口，通过阿里云的AI识别，获得姓名和证件号码等关键信息。上传图片没有大小限制，但是转换后的图片base64需要在1.5M内，通过 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader" target="_blank" rel="noopener">FileReader</a> 可以轻松取到base64，而base64的大小和原文件大小挂钩，所以重点在于如果base64大于1.5M，需要对原文件进行体积上的压缩。</p>
+<h2 id="Canvas及其使用场景"><a href="#Canvas及其使用场景" class="headerlink" title="Canvas及其使用场景"></a>Canvas及其使用场景</h2><p>压缩文件大小涉及到对文件的字节码进行处理，然而浏览器环境没有提供处理字节码方便的接口或方法，像服务端那样对文件进行各种处理前端看来很不好实现。BUT，前端虽然不像服务端那样擅长读取IO、处理文件流，但是对可视化和图像处理正是前端探索和积累的方向。从<code>HTML5</code>的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API" target="_blank" rel="noopener">canvas</a>  ，笔者找到了前端的解决方法。</p>
+<blockquote>
+<p>canvas是HTML5新增的元素，可用于通过使用 JavaScript中的脚本来绘制图形。例如，它可以用于绘制图形，制作照片，创建动画，甚至可以进行实时视频处理或渲染。</p>
+</blockquote>
+<p>正是基于canvas对图像处理的强大能力，canvas可以对图片进行重新绘制，重新绘制时可以指定质量系数，质量系数越低，生成的图片越小；参见 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toDataURL" target="_blank" rel="noopener">toDataURL</a>。所以目前的解决思路大概就是：获取到图片，如果文件大于1.5M，利用H5 canvas技术进行图片数据化，通过指定系数对图片进行压缩，因为无法获得base64的大小，所以还需将base64还原成文件，进行新一轮的判断，然后将小于1.5M的base64调用接口完成识别。</p>
+<h2 id="压缩图片的具体实现"><a href="#压缩图片的具体实现" class="headerlink" title="压缩图片的具体实现"></a>压缩图片的具体实现</h2><p>首先是取到图片文件及其base64，取到base64后，生成canvas，原本需要进行一步文件大小的判断，大于1.5M才需要进行处理，但是因为判断可能不止一次，所以放到了处理方法里面统一判断。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> image = <span class="keyword">new</span> Image();</span><br><span class="line">image.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">  <span class="keyword">const</span> ctx = canvas.getContext(<span class="string">'2d'</span>);</span><br><span class="line">  <span class="comment">// 如果高度超标</span></span><br><span class="line">  <span class="keyword">const</span> MAX_HEIGHT = <span class="number">3000</span>;</span><br><span class="line">  <span class="keyword">if</span> (image.height &gt; MAX_HEIGHT) &#123;</span><br><span class="line">    <span class="comment">// 宽度等比例缩放 *=</span></span><br><span class="line">    image.width *= MAX_HEIGHT / image.height;</span><br><span class="line">    image.height = MAX_HEIGHT;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// canvas清屏</span></span><br><span class="line">  ctx.clearRect(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);</span><br><span class="line">  <span class="comment">// 重置canvas宽高</span></span><br><span class="line">  canvas.width = image.width;</span><br><span class="line">  canvas.height = image.height;</span><br><span class="line">  ctx.drawImage(image, <span class="number">0</span>, <span class="number">0</span>, image.width, image.height);</span><br><span class="line">  handleFileSize(canvas);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="regexp">/^image/</span>.test(file.type)) &#123;</span><br><span class="line">  <span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">  reader.readAsDataURL(file);</span><br><span class="line"></span><br><span class="line">  reader.onload = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    image.src = reader.result || e.srcElement.result;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在处理文件大小方法里面：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> handleFileSize = <span class="function">(<span class="params">canvas, compressSize = <span class="number">1</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> maxSize = <span class="number">1.5</span> * <span class="number">1024</span> * <span class="number">1024</span>; <span class="comment">// xM</span></span><br><span class="line">  <span class="keyword">if</span> (file.size &gt; maxSize) &#123; <span class="comment">// 如果图片大小大于xM，进行压缩</span></span><br><span class="line">    compressSize *= (maxSize / file.size).toFixed(<span class="number">2</span>);</span><br><span class="line">    <span class="comment">// toDataURL的第一个参数为image/jpeg或image/webp时才能指定压缩质量系数，然而质量不等于大小。。。</span></span><br><span class="line">    <span class="comment">// 统一指定格式后，原文件格式变化后，大小又会发生变化，</span></span><br><span class="line">    <span class="comment">// 因为canvas仍然为原始的canvas，并且不能确定转化前后的大小变化，累乘压缩比，可能会造成过分压缩</span></span><br><span class="line">    <span class="keyword">const</span> compressedSrc = canvas.toDataURL(<span class="string">'image/jpeg'</span>, compressSize);</span><br><span class="line">    file = convertBase64UrlToFile(compressedSrc, compressSize); <span class="comment">// 因为不能获取base64的大小，只好转成file文件再判定</span></span><br><span class="line">    handleFileSize(canvas);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">    reader.readAsDataURL(file);</span><br><span class="line">    <span class="comment">// 读取成功后的回调</span></span><br><span class="line">    <span class="keyword">if</span> (reader.result) &#123;</span><br><span class="line">      <span class="keyword">this</span>.aliyunOcr(reader.result, faceorback);</span><br><span class="line">    &#125;</span><br><span class="line">    reader.onload = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> imageSrc = reader.result || e.srcElement.result;</span><br><span class="line">      <span class="keyword">this</span>.aliyunOcr(imageSrc, faceorback);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>👉有几点需要注意：</p>
+<ul>
+<li>canvas.toDataUrl虽然可以指定质量系数，但是图片质量不等于文件大小，只能确定质量越低文件越小，并且只有转化成 image/jpeg 或image/webp，才能指定质量系数；文件格式变化后可能带来大小的变化；</li>
+<li>暂时没有找到判断base64大小的方法，所以会转成文件，再进行新一轮的判断；</li>
+<li>可能会进行多轮处理，但是目前的canvas并没有重新生成，而是在原本的canvas容器内重新绘制，所以目前的做法是对压缩系数（指定的最大值和当前文件大小之比）进行累乘，这样可以在很少几轮内就完成压缩到最大值内；</li>
+</ul>
+<p>附base64还原成文件方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> convertBase64UrlToFile = <span class="function">(<span class="params">urlData</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> bytes = <span class="built_in">window</span>.atob(urlData.split(<span class="string">','</span>)[<span class="number">1</span>]); <span class="comment">// 去掉url的头，并转换为byte</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 处理异常,将ascii码小于0的转换为大于0</span></span><br><span class="line">  <span class="keyword">const</span> ab = <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(bytes.length);</span><br><span class="line">  <span class="keyword">const</span> ia = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(ab);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; bytes.length; i++) &#123;</span><br><span class="line">    ia[i] = bytes.charCodeAt(i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Blob([ab], &#123; <span class="attr">type</span>: <span class="string">'image/jpeg'</span> &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="结果检验"><a href="#结果检验" class="headerlink" title="结果检验"></a>结果检验</h2><p>前端对压缩结果进行的测试主要是：将处理完成的base64添加到页面，然后打开查看，确认图片是否能正常显示，再存到本地，确认是否符合小于1.5M，对比前后的文件大小，其它关于能否识别就不再赘述。</p>
+<p>上传一张大于1.5M的图片，打开压缩后的图片：</p>
+<p><img src="http://os965hewa.bkt.clouddn.com/JWkBScDyxDs8RjWnfC2cjbZejzZsNZjR.png" alt="压缩后添加到页面中的图片"></p>
+<p>可以看到图片可以正常显示，清晰度也还行：</p>
+<p><img src="http://os965hewa.bkt.clouddn.com/QrszY3t28nzjB3TkeXDMjaZeZ2DAkTRX.png" alt="压缩后的图片"></p>
+<p>保存到本地后，查看大小，小于1.5M：</p>
+<p><img src="http://os965hewa.bkt.clouddn.com/ieQmix5TSBiKaGmmwHj7FH8h32DbYG78.png" alt="存到本地后文件信息"></p>
+<p>和原图的对比，因为原图是由raw格式保存的，比较大（虚胖），丢弃了专业图像处理才用得到的细节，大幅压缩后清晰度并未打了折扣：</p>
+<p><img src="http://os965hewa.bkt.clouddn.com/mYfAXyXdr2Tkp4pQTPHR8DPMeaKGFY6s.png" alt="压缩前后对比  "></p>
+<p>陆续经过其它图片的测试后，对压缩结果还是比较满意的；而后使用正经的身份证或护照压缩后的图片调用阿里云的接口后也能正常识别。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>虽然还有几个问题尚未解决，现在的图片压缩尝试未臻完美，不过记录下这次尝试，权当抛砖引玉😁。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/tags/canvas/" rel="tag"># canvas</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/02/记一个懒加载的小运用/" rel="next" title="记一个懒加载的小运用">
+                <i class="fa fa-chevron-left"></i> 记一个懒加载的小运用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="weihome" />
+            
+              <p class="site-author-name" itemprop="name">weihome</p>
+              <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/weihomechen" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#业务背景"><span class="nav-number">1.</span> <span class="nav-text">业务背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Canvas及其使用场景"><span class="nav-number">2.</span> <span class="nav-text">Canvas及其使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩图片的具体实现"><span class="nav-number">3.</span> <span class="nav-text">压缩图片的具体实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果检验"><span class="nav-number">4.</span> <span class="nav-text">结果检验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">5.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weihome</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

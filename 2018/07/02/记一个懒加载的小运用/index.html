@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="导语在博客的消息模块开发过程中，有一个消息列表，其中的消息有未读和已读的状态区分。消息列表会完整的展示几乎全部信息，包括内容，那么，当列表展示时，在可视区域内的每一条消息既然一览无遗的呈现在用户面前，也就可以判定这些消息为已读，需要发起请求改变这些消息的状态。 问题在于，每个高度不同的屏幕，可视区域高度也不同，能容纳的消息条数自然也不同，更不用说每条信息内容不同导致元素块高度也不一样，一刀切的认为">
+<meta name="keywords" content="懒加载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一个懒加载的小运用">
+<meta property="og:url" content="http://ifun.work/2018/07/02/记一个懒加载的小运用/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="导语在博客的消息模块开发过程中，有一个消息列表，其中的消息有未读和已读的状态区分。消息列表会完整的展示几乎全部信息，包括内容，那么，当列表展示时，在可视区域内的每一条消息既然一览无遗的呈现在用户面前，也就可以判定这些消息为已读，需要发起请求改变这些消息的状态。 问题在于，每个高度不同的屏幕，可视区域高度也不同，能容纳的消息条数自然也不同，更不用说每条信息内容不同导致元素块高度也不一样，一刀切的认为">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/3FnAkk8bzHX83mdfiSJeWtCp6yfWaPc6.png">
+<meta property="og:updated_time" content="2018-07-02T01:55:53.764Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记一个懒加载的小运用">
+<meta name="twitter:description" content="导语在博客的消息模块开发过程中，有一个消息列表，其中的消息有未读和已读的状态区分。消息列表会完整的展示几乎全部信息，包括内容，那么，当列表展示时，在可视区域内的每一条消息既然一览无遗的呈现在用户面前，也就可以判定这些消息为已读，需要发起请求改变这些消息的状态。 问题在于，每个高度不同的屏幕，可视区域高度也不同，能容纳的消息条数自然也不同，更不用说每条信息内容不同导致元素块高度也不一样，一刀切的认为">
+<meta name="twitter:image" content="http://os965hewa.bkt.clouddn.com/3FnAkk8bzHX83mdfiSJeWtCp6yfWaPc6.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://ifun.work/2018/07/02/记一个懒加载的小运用/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>记一个懒加载的小运用 | 乌斯怀亚-世界以南</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乌斯怀亚-世界以南</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">weihome的博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/aboutMe/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-personal-project">
+    <a href="/vue-mail/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-star"></i> <br />Personal project</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2018/07/02/记一个懒加载的小运用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="博客 前端 前端开发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">记一个懒加载的小运用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-02 09:08:59" itemprop="dateCreated datePublished" datetime="2018-07-02T09:08:59+08:00">2018-07-02</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>在博客的消息模块开发过程中，有一个消息列表，其中的消息有未读和已读的状态区分。消息列表会完整的展示几乎全部信息，包括内容，那么，当列表展示时，在可视区域内的每一条消息既然一览无遗的呈现在用户面前，也就可以判定这些消息为已读，需要发起请求改变这些消息的状态。</p>
+<p>问题在于，每个高度不同的屏幕，可视区域高度也不同，能容纳的消息条数自然也不同，更不用说每条信息内容不同导致元素块高度也不一样，一刀切的认为每一页有几条消息会完整呈现在可视区域内是不现实的。如何准确的判断每一条信息是否可以认为已读呢？</p>
+<h3 id="懒加载基础运用：图片懒加载"><a href="#懒加载基础运用：图片懒加载" class="headerlink" title="懒加载基础运用：图片懒加载"></a>懒加载基础运用：图片懒加载</h3><p>先介绍一下图片懒加载：</p>
+<blockquote>
+<p>如果一个页面内容很丰富，图片较多，比如说各种商城页面。这些页面图片数量多，而且比较大，少说百来K，多则上兆。要是页面载入就一次性加载完毕。估计都会等到黄花菜都凉了。为了解决这个问题，访问一个页面的时候，先把img元素或是其他元素的背景图片路径替换成一张小图片的路径（这样就只需请求一次，俗称占位图），只有当图片出现在浏览器的可视区域内时，才设置图片正真的路径，让图片显示出来。这就是图片懒加载。</p>
+</blockquote>
+<p>图片进入可视区域再加载，和我们这个消息完整进入可视区域再发请求设置为已读，实现的效果有些类似，基础原理其实是一样的：控制事件的触发；因为消息附带的信息和内容都是字符串，数据量很小，所以不需要控制数据加载的时机，专注在触发事件（进入可视区域）时执行我们想要的操作即可。那先来回顾一下懒加载的实现原理。</p>
+<h2 id="懒加载的原理和具体实现"><a href="#懒加载的原理和具体实现" class="headerlink" title="懒加载的原理和具体实现"></a>懒加载的原理和具体实现</h2><p>图片懒加载的原理主要是运用了图片元素依赖src的特性，src存在时才会开始获取图片，而设置src的时机在于图片进入可视区域，先来看一下图片懒加载的具体实现。现在有一个图片列表，实现懒加载的逻辑大概如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> timer;</span><br><span class="line"><span class="keyword">let</span> n = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> lazyLoad = <span class="function">(<span class="params">tagsName, tagsAttribute, oldUrl</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> tagsObj = <span class="built_in">document</span>.getElementsByTagName(tagsName); <span class="comment">// 获取对象</span></span><br><span class="line">  <span class="keyword">const</span> seeHeight = <span class="built_in">document</span>.documentElement.clientHeight; <span class="comment">// 获取可视区域高度</span></span><br><span class="line">  <span class="keyword">const</span> scrollTop = <span class="built_in">document</span>.documentElement.scrollTop || <span class="built_in">document</span>.body.scrollTop;<span class="comment">//获取已经滑动区域的高度</span></span><br><span class="line">  <span class="keyword">for</span> (i = n; i &lt; tagsObj.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (tagsObj[i].offsetTop &lt; seeHeight + scrollTop) &#123;</span><br><span class="line">      <span class="keyword">if</span> (tagsObj[i].getAttribute(<span class="string">'src'</span>) === oldUrl) &#123;</span><br><span class="line">        tagsObj[i].src = tagsObj[i].getAttribute(tagsAttribute);</span><br><span class="line">      &#125;</span><br><span class="line">      n++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">lazyLoad(<span class="string">'img'</span>, <span class="string">'data-url'</span>, <span class="string">'img/blank.png'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'scroll'</span>, () =&gt; &#123;</span><br><span class="line">  clearTimeout(timer);</span><br><span class="line">  timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    lazyLoad(<span class="string">'img'</span>, <span class="string">'data-url'</span>, <span class="string">'img/blank.png'</span>);</span><br><span class="line">  &#125;, <span class="number">300</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>可以看到，我们想要实现的，进入可视区域和图片懒加载是十分相似的，只不过我们是需要完整进入，并且采取的操作不同而已。根据实际的情况来分配资源，使之达到优化的效果。从这次想要实现的效果出发，旧瓶装新酒的实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">lazyHandler = <span class="function">(<span class="params">className = <span class="string">'message-item'</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; alreadyReadList &#125; = <span class="keyword">this</span>.state;</span><br><span class="line">  <span class="keyword">const</span> visibleHeight = <span class="built_in">document</span>.documentElement.clientHeight; <span class="comment">// 获取可视区域高度</span></span><br><span class="line">  <span class="keyword">const</span> msgList = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.getElementsByClassName(className));</span><br><span class="line"></span><br><span class="line">  msgList.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> offsetTop = item.getBoundingClientRect().bottom;</span><br><span class="line">    <span class="keyword">const</span> mid = item.id;</span><br><span class="line">    <span class="keyword">if</span> (offsetTop &lt; visibleHeight &amp;&amp; !alreadyReadList.find(<span class="function"><span class="params">v</span> =&gt;</span> v === +mid)) &#123;</span><br><span class="line">      <span class="keyword">this</span>.changeMsgStatus(mid);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过测试后，基本实现了想要的效果，当一条信息完整进入可视区域后，会发起一个请求设置其状态为已读：</p>
+<p><img src="http://os965hewa.bkt.clouddn.com/3FnAkk8bzHX83mdfiSJeWtCp6yfWaPc6.png" alt=""></p>
+<h2 id="懒加载其他运用"><a href="#懒加载其他运用" class="headerlink" title="懒加载其他运用"></a>懒加载其他运用</h2><p>懒加载的效果不仅仅可以用于图片加载，而是广泛应用在开发过程中：</p>
+<p>1、模块的懒加载</p>
+<p>将代码在一些逻辑断点处分离开，然后在一些代码块中完成某些操作后，立即引用或即将引用另外一些新的代码块。这样加快了应用的初始加载速度，减轻了它的总体体积，因为某些代码块可能永远不会被加载。先今流行的工具或框架大都运用或支持代码模块的懒加载，比如webpack支持在你需要的时候再import进某些模块，加载模块会返回一个promise对象，便于处理加载成功或失败；再如react，你可以使用 react-loadable 来实现异步加载组件，这样的特性同样还可以在angular和vue上找到。另外，模块的懒加载是在代码分割的基础上实现的。</p>
+<p>2、服务端渲染</p>
+<p>有时为了SEO会采用服务端渲染，当页面很大时，渲染的速度往往会很慢，运用懒加载，先加载首屏的内容，减少用户等待的时间，当首屏加载完成或页面滚动时，再获取下一步的数据。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>如果把懒加载的原理抽象出来，会发现其具有广泛的应用性，其实也说明来越基础的东西越灵活，要是不拘泥于具体，是可以挖掘出多种多样的方向的。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/懒加载/" rel="tag"># 懒加载</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/26/web网络之TCP-IP协议/" rel="next" title="web网络之TCP/IP协议">
+                <i class="fa fa-chevron-left"></i> web网络之TCP/IP协议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/02/前端压缩图片文件大小的一次尝试/" rel="prev" title="前端压缩图片文件大小的一次尝试">
+                前端压缩图片文件大小的一次尝试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="weihome" />
+            
+              <p class="site-author-name" itemprop="name">weihome</p>
+              <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/weihomechen" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#懒加载基础运用：图片懒加载"><span class="nav-number">1.1.</span> <span class="nav-text">懒加载基础运用：图片懒加载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#懒加载的原理和具体实现"><span class="nav-number">2.</span> <span class="nav-text">懒加载的原理和具体实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#懒加载其他运用"><span class="nav-number">3.</span> <span class="nav-text">懒加载其他运用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weihome</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

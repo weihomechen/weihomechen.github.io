@@ -123,7 +123,7 @@
 <meta property="og:image" content="http://os965hewa.bkt.clouddn.com/tcp%E9%80%9A%E4%BF%A1.jpg">
 <meta property="og:image" content="http://os965hewa.bkt.clouddn.com/ack=sep+len.png">
 <meta property="og:image" content="http://os965hewa.bkt.clouddn.com/sack.png">
-<meta property="og:updated_time" content="2018-07-01T11:47:38.075Z">
+<meta property="og:updated_time" content="2018-07-01T13:56:04.900Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web网络之TCP&#x2F;IP协议">
 <meta name="twitter:description" content="导语：为什么会有TCP/IP协议在世界上各地，各种各样的电脑运行着各自不同的操作系统为大家服务，这些电脑在表达同一种信息的时候所使用的方法是千差万别。就好像圣经中上帝打乱了各地人的口音，让他们无法合作一样。计算机使用者意识到，计算机只是单兵作战并不会发挥太大的作用。只有把它们联合起来，电脑才会发挥出它最大的潜力。于是人们就想方设法的用电线把电脑连接到了一起。 但是简单的连到一起是远远不够的，就好像">
@@ -267,6 +267,14 @@
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-personal-project">
+    <a href="/vue-mail/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-star"></i> <br />Personal project</a>
   </li>
 
       
@@ -455,6 +463,7 @@
 <p><img src="http://os965hewa.bkt.clouddn.com/%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F.gif" alt="报文格式"></p>
 <font color="#11999E">16位源端口号</font>：16位的源端口中包含初始化通信的端口。源端口和源IP地址的作用是标识报文的返回地址。<br><br><font color="#11999E">16位目的端口号</font>：16位的目的端口域定义传输的目的。这个端口指明报文接收计算机上的应用程序地址接口。<br><br><font color="#11999E">32位序号</font>：32位的序列号由接收端计算机使用，重新分段的报文成最初形式。当SYN出现，序列码实际上是初始序列码（Initial Sequence Number，ISN），而第一个数据字节是ISN+1。这个序列号（序列码）可用来补偿传输中的不一致。<br><br><font color="#11999E">32位确认序号</font>：32位的序列号由接收端计算机使用，重组分段的报文成最初形式。如果设置了ACK控制位，这个值表示一个准备接收的包的序列码。<br><br><font color="#11999E">4位首部长度</font>：4位包括TCP头大小，指示何处数据开始。<br><br><font color="#11999E">保留（6位）</font>：6位值域，这些位必须是0。为了将来定义新的用途而保留。<br><br><font color="#11999E">标志</font>：6位标志域。表示为：紧急标志、有意义的应答标志、推、重置连接标志、同步序列号标志、完成发送数据标志。按照顺序排列是：URG、ACK、PSH、RST、SYN、FIN。<br><br><font color="#11999E">16位窗口大小</font>：用来表示想收到的每个TCP数据段的大小。TCP的流量控制由连接的每一端通过声明的窗口大小来提供。窗口大小为字节数，起始于确认序号字段指明的值，这个值是接收端正期望接收的字节。窗口大小是一个16字节字段，因而窗口大小最大为65535字节。<br><br><font color="#11999E">16位校验和</font>：16位TCP头。源机器基于数据内容计算一个数值，收信息机要与源机器数值 结果完全一样，从而证明数据的有效性。检验和覆盖了整个的TCP报文段：这是一个强制性的字段，一定是由发送端计算和存储，并由接收端进行验证的。<br><br><font color="#11999E">16位紧急指针</font>：指向后面是优先数据的字节，在URG标志设置了时才有效。如果URG标志没有被设置，紧急域作为填充。加快处理标示为紧急的数据段。<br><br><font color="#11999E">选项</font>：长度不定，但长度必须为1个字节。如果没有选项就表示这个1字节的域等于0。<br><br><font color="#11999E">数据</font>：该TCP协议包负载的数据。<br><br>在上述字段中，6位标志域的各个选项功能如下。<br><br><strong>URG</strong>：紧急标志。紧急标志为”1”表明该位有效。<br><br><strong>ACK</strong>：确认标志。表明确认编号栏有效。大多数情况下该标志位是置位的。TCP报头内的确认编号栏内包含的确认编号（w+1）为下一个预期的序列编号，同时提示远端系统已经成功接收所有数据。<br><br><strong>PSH</strong>：推标志。该标志置位时，接收端不将该数据进行队列处理，而是尽可能快地将数据转由应用处理。在处理Telnet或rlogin等交互模式的连接时，该标志总是置位的。<br><br><strong>RST</strong>：复位标志。用于复位相应的TCP连接。<br><br><strong>SYN</strong>：同步标志。表明同步序列编号栏有效。该标志仅在三次握手建立TCP连接时有效。它提示TCP连接的服务端检查序列编号，该序列编号为TCP连接初始端（一般是客户端）的初始序列编号。在这里，可以把TCP序列编号看作是一个范围从0到4，294，967，295的32位计数器。通过TCP连接交换的数据中每一个字节都经过序列编号。在TCP报头中的序列编号栏包括了TCP分段中第一个字节的序列编号。<br><br><strong>FIN</strong>：结束标志。<br><br><br><h2>TCP通信</h2><br><img src="http://os965hewa.bkt.clouddn.com/tcp%E9%80%9A%E4%BF%A1.jpg" alt="TCP通信"><br><br>其实，大家看上面的图，差不多都已经能够摸清楚每次发送请求的内容。其实，TCP3次握手是为了建立 稳定可靠的连接。所以也就不存在神马 2次连接等的怪癖。<br>(图中flag说明:<strong>SYN</strong>包表示标志位<strong>SYN=1</strong>，<strong>ACK</strong>包表示标志位<strong>ACK=1</strong>，<strong>SYN+ACK</strong>包表示标志位<strong>SYN=1，ACK=1</strong>)<br><br><h3>TCP三次握手</h3><br>现在，我们来正式进入3次握手环节。<br><br><strong>第一次握手</strong>: 客户端向服务器发送一个SYN包，并且添加上seqNumber(假设为x)，然后进入SYN_SEND状态，并且等待服务器的确认。<br><strong>第二次握手</strong>: 服务器接受SYN包，并且进行确认，如果该请求有效，则将<code>TCP flags</code>中的ACK 标志位置1， 然后将AckNumber置为(seqNumber+1)，并且再添加上自己的seqNumber(y)， 完成后，返回给客户端.服务器进入SYN_RECV状态.(这里服务端是发送SYN+ACK包)<br><strong>第三次握手</strong>: 客户端接受ACK+SYN报文后，获取到服务器发送seqNumber(y)， 并且将新头部的AckNumber变为(y+1).然后发送给服务器，完成TCP3次连接。此时服务器和客户端都进入ESTABLISHED状态.<br><br>回答一下这个比较尴尬的问题，为什么只有3次握手，而不是4次，或者2次？<br>很简单呀，因为3次就够了，干嘛用4次。23333. 举个例子吧，假如是2次的话， 可能会出现这样一个情况。<br><br>当客户端发送一次请求A后，但是A在网络延迟了很久， 接着客户端又发送了一次B，但是此时A已经无效了。 接着服务器相应了B，并返回TCP连接头，建立连接(这里就2次哈)。 然后，A 历经千山万水终于到服务器了， 服务器一看有请求来了，则接受，由于一开始A带着的TCP格式都是正确的，那么服务器，理所应当的也返回成功连接的flag，但是，此时客户端已经判断该次请求无效，废弃了。 然后服务器，就这么一直挂着(浪费资源)，造成的一个问题是，md， 这个锅是谁的？ 所以，为了保险起见，再补充一次连接就可以了。所以3次是最合适的。如果你用4，5，6，7，8…次的话，这不更浪费吗？<br><br>对于建链接的3次握手，主要是要初始化Sequence Number 的初始值。通信的双方要互相通知对方自己的初始化的Sequence Number（缩写为ISN：Inital Sequence Number）——所以叫SYN，全称Synchronize Sequence Numbers。也就上图中的 x 和 y。这个号要作为以后的数据通信的序号，以保证应用层接收到的数据不会因为网络上的传输的问题而乱序（TCP会用这个序号来拼接数据）。<br><br><h3>TCP四次挥手</h3><br><strong>第一次挥手</strong>: 客户端感觉此时如果<code>keep-alive</code>比较浪费资源，则他提出了分手的请求。设置<code>SeqNumber</code>和<code>AckNumber</code>之后，向服务端发送FIN包， 表示我这已经没有数据给你了。然后客户端进入<code>FIN_WAIT_1</code>状态<br><strong>第二次挥手</strong>:服务端收到了客户端机的FIN包，已经知道了客户端没有数据再发送了。此时服务端会给客户端发送一个ACK包，并且将AckNumber 变为客户端传输来的SeqNumber+1. 当客户端接受到之后，则变为<code>FIN_WAIT_2</code>状态。表示已经得到服务端的许可，可以进行关闭操作。不过此时，服务端还是可以向客户端发送请求的。<br><strong>第三次挥手</strong>: 服务端向客户端发送FIN包，请求关闭，相当于告诉客户端，我这里也没有你要的数据了。然后服务端进入<code>CLOSE_WAIT</code>状态.（这里还需要带上SeqNumber，大家看图说话就可以了）<br><strong>第四次挥手</strong>: 客户端接收到服务端的FIN包之后，然后同样，发送一个ACK包给服务端。 服务端接受到之后，就断开了。 而客户端会等待<strong>2MSL</strong>之后，如果没有回复，确保服务器端确实是关闭了。然后A机也可以关闭连接。客户端，服务端都进入了CLOSE状态.<br>明白了吗？<br>大哥~ 等等，什么是2MSL呀~<br>哦，对哦。 这个还么说…<br>2MSL=2*MSL. 而MSL其实就是Maximum Segment Lifetime，中文意思就是报文最大生存时间。RFC 793中规定MSL为2分钟，实际应用中常用的是30秒，1分钟和2分钟等。 同样上面的TIME_WAT状态其实也就是2MSL状态。 如果超过改时间，则会将该报文废弃，然后直接进入CLOSED状态.<br><br><h4>为什么建立连接是三次握手，而关闭连接却是四次挥手呢？</h4><br>这是因为服务端在LISTEN状态下，收到建立连接请求的SYN报文后，把ACK和SYN放在一个报文里发送给客户端。而关闭连接时，当收到对方的FIN报文时，仅仅表示对方不再发送数据了但是还能接收数据，己方也未必全部数据都发送给对方了，所以己方可以立即close，也可以发送一些数据给对方后，再发送FIN报文给对方来表示同意现在关闭连接，因此，己方ACK和FIN一般都会分开发送。<br><br>对于4次挥手，其实你仔细看是2次，因为TCP是全双工的，所以，发送方和接收方都需要Fin和Ack。只不过，有一方是被动的，所以看上去就成了所谓的4次挥手。如果两边同时断连接，那就会就进入到CLOSING状态，然后到达TIME_WAIT状态。<br><br>之所以绝大数时候我们看到的都是四次挥手，是因为收到fin后，知道对方要关闭了，然后OS通知应用层要关闭啥的，这里应用层可能需要做些准备工作，有一些延时，所以先回ack，准备好了再发fin 。 握手过程没有这个准备过程所以可以立即发送syn+ack。<br><br><h4>为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？</h4><br>原因有二：<br>- <font color="#11999E">保证TCP协议的全双工连接能够可靠关闭</font><br>- <font color="#11999E">保证这次连接的重复数据段从网络中消失</font>
 
+
 <p>先说第一点，如果Client直接CLOSED了，那么由于IP协议的不可靠性或者是其它网络原因，导致Server没有收到Client最后回复的ACK。那么Server就会在超时之后继续发送FIN，此时由于Client已经CLOSED了，就找不到与重发的FIN对应的连接，最后Server就会收到RST而不是ACK，Server就会以为是连接错误把问题报告给高层。这样的情况虽然不会造成数据丢失，但是却导致TCP协议不符合可靠连接的要求。所以，Client不是直接进入CLOSED，而是要保持TIME_WAIT，当再次收到FIN的时候，能够保证对方收到ACK，最后正确的关闭连接。</p>
 <p>再说第二点，如果Client直接CLOSED，然后又再向Server发起一个新连接，我们不能保证这个新连接与刚关闭的连接的端口号是不同的。也就是说有可能新连接和老连接的端口号是相同的。一般来说不会发生什么问题，但是还是有特殊情况出现：假设新连接和已经关闭的老连接端口号是一样的，如果前一次连接的某些数据仍然滞留在网络中，这些延迟数据在建立新连接之后才到达Server，由于新连接和老连接的端口号是一样的，又因为TCP协议判断不同连接的依据是socket pair，于是，TCP协议就认为那个延迟的数据是属于新连接的，这样就和真正的新连接的数据包发生混淆了。所以TCP连接还要在TIME_WAIT状态等待2倍MSL，这样可以保证本次连接的所有数据都从网络中消失。</p>
 <h3 id="TCP链接中的其它信息"><a href="#TCP链接中的其它信息" class="headerlink" title="TCP链接中的其它信息"></a>TCP链接中的其它信息</h3><h4 id="ack-seq-len"><a href="#ack-seq-len" class="headerlink" title="ack=seq+len"></a>ack=seq+len</h4><p>ack总是seq+len（包的大小），这样发送方明确知道server收到那些东西了。</p>
@@ -515,6 +524,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/02/记一个懒加载的小运用/" rel="prev" title="记一个懒加载的小运用">
+                记一个懒加载的小运用 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -592,7 +605,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -640,7 +653,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
