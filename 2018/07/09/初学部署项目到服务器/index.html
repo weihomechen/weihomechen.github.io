@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="背景前段时间用每个月10块钱学生身份专享买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是node+mysql）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。 思路结合以前所学的知识，先理一下部署的思路，大概就是这样吧：  1、本地处理，比如">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初学部署项目到自己的服务器">
+<meta property="og:url" content="http://ifun.work/2018/07/09/初学部署项目到服务器/index.html">
+<meta property="og:site_name" content="乌斯怀亚-世界以南">
+<meta property="og:description" content="背景前段时间用每个月10块钱学生身份专享买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是node+mysql）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。 思路结合以前所学的知识，先理一下部署的思路，大概就是这样吧：  1、本地处理，比如">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/D2846853-0732-4B12-85DA-E5A0B4616060.png">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/89AA5E73-9340-4177-B46F-AD8F32C909C3.png">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/89A1D49B-4087-4ACA-9983-CABE501061EE.png">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/2A90CD06-0035-4E5B-82A0-EDE14FE21F35.png">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/D329B066-B0AD-4C54-873C-60C4E04CAAD0.png">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/DA5C3699-ED6A-4AAE-8A33-40442BD552F1.png">
+<meta property="og:updated_time" content="2018-07-23T09:03:35.770Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初学部署项目到自己的服务器">
+<meta name="twitter:description" content="背景前段时间用每个月10块钱学生身份专享买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是node+mysql）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。 思路结合以前所学的知识，先理一下部署的思路，大概就是这样吧：  1、本地处理，比如">
+<meta name="twitter:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/D2846853-0732-4B12-85DA-E5A0B4616060.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://ifun.work/2018/07/09/初学部署项目到服务器/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>初学部署项目到自己的服务器 | 乌斯怀亚-世界以南</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乌斯怀亚-世界以南</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">weihome的博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/aboutMe/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-personal-project">
+    <a href="/vue-mail/index.html" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-star"></i> <br />Personal project</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2018/07/09/初学部署项目到服务器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="博客 前端 前端开发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初学部署项目到自己的服务器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-09 18:23:42" itemprop="dateCreated datePublished" datetime="2018-07-09T18:23:42+08:00">2018-07-09</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>前段时间用每个月10块钱<del>学生身份专享</del>买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是<code>node+mysql</code>）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>结合以前所学的知识，先理一下部署的思路，大概就是这样吧：</p>
+<ul>
+<li>1、本地处理，比如打包、压缩</li>
+<li>2、上传到服务器</li>
+<li>3、服务器进行相应的文件处理，比如解压</li>
+<li>4、项目在服务器上安装依赖，运行该项目等</li>
+</ul>
+<p>这个博客系统实行前后端分离，实际上是两个项目（一个前端，一个服务端），对于前端来说，完全可以用生产环境标准打包后直接以静态页面的形式放在服务器上，主要是nginx需要配置相应的访问代理。服务端可能要麻烦一点，毕竟node服务、数据库这些是需要在服务器上启动后一直跑的。</p>
+<p>规范的部署应该是从代码仓库部署到服务器，现在为了学习和记录，是直接从本地部署到服务器，先挖个坑，等到搞定后写个<code>脚本</code>或<code>命令行工具</code>，实现一键部署。既然是初学，就没有涉及到<code>进程守护</code>，再挖一个坑，以后补。</p>
+<h1 id="部署前端部分"><a href="#部署前端部分" class="headerlink" title="部署前端部分"></a>部署前端部分</h1><h2 id="本地打包和压缩"><a href="#本地打包和压缩" class="headerlink" title="本地打包和压缩"></a>本地打包和压缩</h2><p>先来做第一步，本地的打包和压缩。</p>
+<p>打包不用说，用生产环境的配置使用webpack进行打包，就得到了打包后的前端部分，主要是html、js、css以及一些静态资源，然后就是…</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 压缩以方便上传</span></span><br><span class="line">tar -czf blog.tar.gz build</span><br></pre></td></tr></table></figure>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/D2846853-0732-4B12-85DA-E5A0B4616060.png" alt="压缩"></p>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>压缩后得到<code>tar</code>文件，接着上传：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上传</span></span><br><span class="line">scp blog.tar.gz root@118.25.16.129:/var/proj/</span><br></pre></td></tr></table></figure>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/89AA5E73-9340-4177-B46F-AD8F32C909C3.png" alt="上传"></p>
+<p>登录服务器瞧一瞧：</p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/89A1D49B-4087-4ACA-9983-CABE501061EE.png" alt=""></p>
+<h2 id="服务器处理"><a href="#服务器处理" class="headerlink" title="服务器处理"></a>服务器处理</h2><p>可以看到已经上传成功，接着处理：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除已存在的文件</span></span><br><span class="line">rm -rf blog</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar xzvf blog.tar.gz</span><br><span class="line"><span class="comment"># 重命名</span></span><br><span class="line">mv build blog</span><br><span class="line"><span class="comment"># 删除压缩包</span></span><br><span class="line">rm -rf blog.tar.gz</span><br></pre></td></tr></table></figure>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/2A90CD06-0035-4E5B-82A0-EDE14FE21F35.png" alt=""></p>
+<p>到这里，就已经把前端的静态页面部署到服务器了，但是现在用浏览器是访问不到的，需要配置nginx做请求代理，具体的配置也是上网扒的:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置nginx</span></span><br><span class="line">vim /etc/nginx/nginx.conf</span><br><span class="line"><span class="comment"># 修改配置</span></span><br><span class="line">server &#123;</span><br><span class="line">  listen          80 default_server; <span class="comment"># 监听的端口，默认80</span></span><br><span class="line">  listen          [::]:80 default_server;</span><br><span class="line">  server_name     rulifun.cn;  <span class="comment"># 绑定的域名，</span></span><br><span class="line">  root            /usr/share/nginx/html; <span class="comment"># 访问网站根目录展示的页面</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Load configuration files for the default server block.</span></span><br><span class="line">  include /etc/nginx/default.d/*.conf;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location /blog &#123; <span class="comment"># 访问“fulifun.cn/blog”或“ip地址/blog”时查找的页面</span></span><br><span class="line">      index index.htm index.html;</span><br><span class="line">      <span class="built_in">alias</span> /var/proj/blog;</span><br><span class="line">      try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启nginx</span></span><br><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+<p>到这里在浏览器输入<code>fulifun.cn/blog</code>或<code>ip地址/blog</code>已经可以访问前端页面，但是服务端没跑起来，涉及到接口的只有一堆报错，接下来部署服务端。</p>
+<h1 id="部署服务端"><a href="#部署服务端" class="headerlink" title="部署服务端"></a>部署服务端</h1><h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><p>服务端要麻烦一点，主要是因为服务端是需要在服务器上面启动然后一直在跑的，和前端相似的步骤不再赘述。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 压缩，现在是从本地部署到服务器，规范的做法应该是从代码仓库部署</span></span><br><span class="line">tar -czf blog-node.tar.gz blog-node</span><br><span class="line"></span><br><span class="line"><span class="comment"># 上传</span></span><br><span class="line">scp -r blog-node.tar.gz root@118.25.16.129:/var/proj/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 登录服务器，切到相应的目录</span></span><br><span class="line"><span class="comment"># 如果服务端已经在运行，需要先停止，删除原本的目录</span></span><br><span class="line"><span class="comment"># npm run stop</span></span><br><span class="line"><span class="comment"># rm -rf blog-node</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar xzvf blog-bode.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖，如果是从代码仓库部署，可能还需要安装依赖</span></span><br><span class="line"><span class="comment"># npm install --production</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动服务端</span></span><br><span class="line">npm run prod</span><br></pre></td></tr></table></figure>
+<h2 id="启动服务端之前的准备工作"><a href="#启动服务端之前的准备工作" class="headerlink" title="启动服务端之前的准备工作"></a>启动服务端之前的准备工作</h2><p>本项目是以<code>nodejs</code>作为服务端主要技术，初次之外还有相关的配套，比如<code>nginx</code>、数据库（项目用的是<code>mysql</code>）、<code>redis</code>等。启动服务端之前需要安装并测试这些配套工具/库是否可用，鉴于网上有许多安装教程，笔者就不再重复写了。</p>
+<h2 id="服务端的nginx配置"><a href="#服务端的nginx配置" class="headerlink" title="服务端的nginx配置"></a>服务端的nginx配置</h2><p>node服务跑起来后，为了使用方便，接口地址一般是<code>/api/xxx</code>，前端为了可以从接口地址访问服务端提供的api，还需要做请求代理，修改<code>nginx.conf</code>:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 主要是修改 http 部分的设置</span></span><br><span class="line">http &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Basic Settings</span></span><br><span class="line">	<span class="comment"># SSL Settings</span></span><br><span class="line">	<span class="comment"># Logging Settings</span></span><br><span class="line">	<span class="comment"># Gzip Settings</span></span><br><span class="line">	<span class="comment"># Virtual Host Configs</span></span><br><span class="line"></span><br><span class="line">	upstream blog_api_server &#123;</span><br><span class="line">    server 118.25.16.129:7003;</span><br><span class="line">    keepalive 2000;</span><br><span class="line">  &#125;		</span><br><span class="line"></span><br><span class="line">	server &#123;</span><br><span class="line">    listen       80 default_server;</span><br><span class="line">    listen       [::]:80 default_server;</span><br><span class="line">    server_name    ifun.work;</span><br><span class="line">    root           /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对“/blog”的请求代理到前端页面</span></span><br><span class="line">    location /blog &#123;</span><br><span class="line">      index index.htm index.html;</span><br><span class="line">      <span class="built_in">alias</span> /var/proj/blog;</span><br><span class="line">      try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对“/blog/api”的请求代理到服务端（设置为7003端口）</span></span><br><span class="line">    location /blog/api &#123;</span><br><span class="line">      proxy_pass http://blog_api_server/api;</span><br><span class="line">      proxy_set_header Host <span class="variable">$host</span>:<span class="variable">$server_port</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 同上，处理socket的请求</span></span><br><span class="line">    location /blog/socket.io &#123;</span><br><span class="line">      proxy_set_header Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">      proxy_set_header Connection <span class="string">"upgrade"</span>;</span><br><span class="line">      proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">      proxy_set_header Host <span class="variable">$host</span>:<span class="variable">$server_port</span>;</span><br><span class="line">      proxy_pass http://blog_api_server/socket.io;</span><br><span class="line">    &#125;	</span><br><span class="line"> 	&#125;		</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>走到这一步就大功告成啦，访问<code>ip地址/blog</code>或<code>域名/blog</code>，就可以访问到前端页面:</p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/D329B066-B0AD-4C54-873C-60C4E04CAAD0.png" alt=""></p>
+<p>接口也能正常访问：</p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/DA5C3699-ED6A-4AAE-8A33-40442BD552F1.png" alt=""></p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>写这篇文章时，其实离成功部署过去有段时间了，有些琐碎的地方可能被我忘记了，不过大概思路就是这样。最近因为这个云服务器带宽只有1M，这小破水管每秒最高128k（多人并发还要分流😂），已经hold不住前端页面啦。偶然间看到阿里云和腾讯云的oss对象存储可以设置成静态网站托管，就琢磨着把前端放到oss上去，服务器只放跑服务端，只提供接口调用服务。但是当我实践时，遇到了跨域的问题，也是折腾了一阵，这就是后话了。</p>
+<p>PS：不要忘了写成脚本或命令行工具啊，每次部署太麻烦了！！！</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/02/前端压缩图片文件大小的一次尝试/" rel="next" title="前端压缩图片文件大小的一次尝试">
+                <i class="fa fa-chevron-left"></i> 前端压缩图片文件大小的一次尝试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/14/解决跨域GET正常POST报错问题/" rel="prev" title="解决跨域GET正常POST报错问题">
+                解决跨域GET正常POST报错问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="weihome" />
+            
+              <p class="site-author-name" itemprop="name">weihome</p>
+              <p class="site-description motion-element" itemprop="description">博客 前端 前端开发</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/weihomechen" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署前端部分"><span class="nav-number">3.</span> <span class="nav-text">部署前端部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地打包和压缩"><span class="nav-number">3.1.</span> <span class="nav-text">本地打包和压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传"><span class="nav-number">3.2.</span> <span class="nav-text">上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器处理"><span class="nav-number">3.3.</span> <span class="nav-text">服务器处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署服务端"><span class="nav-number">4.</span> <span class="nav-text">部署服务端</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#具体操作"><span class="nav-number">4.1.</span> <span class="nav-text">具体操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务端之前的准备工作"><span class="nav-number">4.2.</span> <span class="nav-text">启动服务端之前的准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端的nginx配置"><span class="nav-number">4.3.</span> <span class="nav-text">服务端的nginx配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">5.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weihome</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
