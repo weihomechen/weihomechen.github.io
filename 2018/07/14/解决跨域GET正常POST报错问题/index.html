@@ -108,13 +108,13 @@
 
 
 
-  <meta name="description" content="背景前几天磕磕碰碰终于把项目部署上服务器了，在访问项目时发现体验可以说十分不友好了，初次加载一个页面需要花费十几秒乃至二十几秒，emmmm，这在等待加载过程中简直就是一个世纪那样漫长啊。分析下来应该有以下两个原因：  打包后的文件体积太大 网站的带宽太小  代码优化先跑一会题，聊聊第一个问题，思考了一下解决的途径：  代码分割 tree shaking（去除无用的代码） 代码压缩（uglify）">
+  <meta name="description" content="背景前几天磕磕碰碰终于把项目部署上服务器了，在访问项目时发现体验可以说十分不友好了，初次加载一个页面需要花费二十几秒乃至三十几秒，emmmm，这在等待加载过程中简直就是一个世纪那样漫长啊。分析下来应该有以下两个原因：  打包后的文件体积太大 网站的带宽太小  代码优化先跑一会题，聊聊第一个问题，思考了一下解决的途径：  代码分割 tree shaking（去除无用的代码） 代码压缩（uglify）">
 <meta name="keywords" content="跨域,CROS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解决跨域GET正常POST报错问题">
 <meta property="og:url" content="http://ifun.work/2018/07/14/解决跨域GET正常POST报错问题/index.html">
 <meta property="og:site_name" content="乌斯怀亚-世界以南">
-<meta property="og:description" content="背景前几天磕磕碰碰终于把项目部署上服务器了，在访问项目时发现体验可以说十分不友好了，初次加载一个页面需要花费十几秒乃至二十几秒，emmmm，这在等待加载过程中简直就是一个世纪那样漫长啊。分析下来应该有以下两个原因：  打包后的文件体积太大 网站的带宽太小  代码优化先跑一会题，聊聊第一个问题，思考了一下解决的途径：  代码分割 tree shaking（去除无用的代码） 代码压缩（uglify）">
+<meta property="og:description" content="背景前几天磕磕碰碰终于把项目部署上服务器了，在访问项目时发现体验可以说十分不友好了，初次加载一个页面需要花费二十几秒乃至三十几秒，emmmm，这在等待加载过程中简直就是一个世纪那样漫长啊。分析下来应该有以下两个原因：  打包后的文件体积太大 网站的带宽太小  代码优化先跑一会题，聊聊第一个问题，思考了一下解决的途径：  代码分割 tree shaking（去除无用的代码） 代码压缩（uglify）">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9FGET%E6%AD%A3%E5%B8%B8POST%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/2B777217-4E19-45B8-B621-05B8D673F10A.png">
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9FGET%E6%AD%A3%E5%B8%B8POST%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/049FA8C3-D737-4BF8-9B46-D88DB4CD6BFB.png">
@@ -123,10 +123,10 @@
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9FGET%E6%AD%A3%E5%B8%B8POST%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/2732644089-5b51890d1d86a_articlex.png">
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9FGET%E6%AD%A3%E5%B8%B8POST%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/673565360-5b5189558e701_articlex.png">
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9FGET%E6%AD%A3%E5%B8%B8POST%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/3444780280-5b5189831d8a8_articlex.png">
-<meta property="og:updated_time" content="2018-07-27T03:35:09.088Z">
+<meta property="og:updated_time" content="2018-08-06T01:00:06.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决跨域GET正常POST报错问题">
-<meta name="twitter:description" content="背景前几天磕磕碰碰终于把项目部署上服务器了，在访问项目时发现体验可以说十分不友好了，初次加载一个页面需要花费十几秒乃至二十几秒，emmmm，这在等待加载过程中简直就是一个世纪那样漫长啊。分析下来应该有以下两个原因：  打包后的文件体积太大 网站的带宽太小  代码优化先跑一会题，聊聊第一个问题，思考了一下解决的途径：  代码分割 tree shaking（去除无用的代码） 代码压缩（uglify）">
+<meta name="twitter:description" content="背景前几天磕磕碰碰终于把项目部署上服务器了，在访问项目时发现体验可以说十分不友好了，初次加载一个页面需要花费二十几秒乃至三十几秒，emmmm，这在等待加载过程中简直就是一个世纪那样漫长啊。分析下来应该有以下两个原因：  打包后的文件体积太大 网站的带宽太小  代码优化先跑一会题，聊聊第一个问题，思考了一下解决的途径：  代码分割 tree shaking（去除无用的代码） 代码压缩（uglify）">
 <meta name="twitter:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9FGET%E6%AD%A3%E5%B8%B8POST%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/2B777217-4E19-45B8-B621-05B8D673F10A.png">
 
 
@@ -419,7 +419,7 @@
       
 
       
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>前几天磕磕碰碰终于把项目部署上服务器了，在访问项目时发现体验可以说十分不友好了，初次加载一个页面需要花费十几秒乃至二十几秒，emmmm，这在等待加载过程中简直就是一个世纪那样漫长啊。分析下来应该有以下两个原因：</p>
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>前几天磕磕碰碰终于把项目部署上服务器了，在访问项目时发现体验可以说十分不友好了，初次加载一个页面需要花费二十几秒乃至三十几秒，emmmm，这在等待加载过程中简直就是一个世纪那样漫长啊。分析下来应该有以下两个原因：</p>
 <ul>
 <li>打包后的文件体积太大</li>
 <li>网站的带宽太小</li>
@@ -431,10 +431,12 @@
 <li>代码压缩（uglify）</li>
 <li>懒加载</li>
 </ul>
+<a id="more"></a>
 <p>前三点其实<code>webpack</code>已经帮我们做了，只不过这个项目的webpack还是古老的<code>2.xx</code>版本，鉴于目前已经出到<code>4.xx</code>版本，于是就把<code>webpack</code>升级到了最新版本，升级后的确减少了打包后的体积，不过仍有改进的空间，此处挖一个<a href="">传送门</a>。</p>
 <h2 id="解决带宽问题"><a href="#解决带宽问题" class="headerlink" title="解决带宽问题"></a>解决带宽问题</h2><p>因为服务器的带宽只有1M，折合每秒最高128k，如果多人并发访问还得分流。我意识到这个配置其实只适合跑服务端，提供api服务，毕竟接口返回的数据不会太多。在使用oss对象存储时，我发现阿里云和腾讯云的oss对象存储服务都支持把存储空间配置成静态网站托管模式：</p>
 <p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9FGET%E6%AD%A3%E5%B8%B8POST%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/2B777217-4E19-45B8-B621-05B8D673F10A.png" alt=""></p>
 <p>于是我想：要不就把前端页面放在oss上面吧，oss存储空间访问速度有保证，而且还可以绑定域名，正好解决了我目前的问题。</p>
+<h3 id="更新：在nginx上开启gzip压缩可以大幅减小文件体积"><a href="#更新：在nginx上开启gzip压缩可以大幅减小文件体积" class="headerlink" title="更新：在nginx上开启gzip压缩可以大幅减小文件体积"></a>更新：在nginx上开启gzip压缩可以大幅减小文件体积</h3><p><a href="http://ifun.work/2018/07/28/%E5%B0%9D%E8%AF%95nginx%E5%BC%80%E5%90%AFgzip%E8%A7%A3%E5%86%B3%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B8%A6%E5%AE%BD%E5%A4%AA%E5%B0%8F%E9%97%AE%E9%A2%98/">尝试nginx开启gzip解决服务器带宽太小问题</a></p>
 <h1 id="前端迁移到oss对象存储"><a href="#前端迁移到oss对象存储" class="headerlink" title="前端迁移到oss对象存储"></a>前端迁移到oss对象存储</h1><p>前端的迁移比较简单，就是把打包后的文件上传到oss对象存储上，需要注意一下路径和文件名，因为明媚存储空间时可能出现你要用的名字已被使用，所以我在文件层级上做了一下调整：</p>
 <p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9FGET%E6%AD%A3%E5%B8%B8POST%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/049FA8C3-D737-4BF8-9B46-D88DB4CD6BFB.png" alt=""></p>
 <p>迁移后访问 <code>http://&lt;Bucket&gt;.oss-cn-hangzhou.aliyuncs.com/</code> 即可访问该存储空间下的<code>index.html</code> ，比如访问 <a href="http://ifun.oss-cn-hangzhou.aliyuncs.com" target="_blank" rel="noopener">http://ifun.oss-cn-hangzhou.aliyuncs.com</a> 。</p>
@@ -499,6 +501,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/28/尝试nginx开启gzip解决服务器带宽太小问题/" rel="prev" title="尝试nginx开启gzip解决服务器带宽太小问题">
+                尝试nginx开启gzip解决服务器带宽太小问题 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -576,7 +582,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -636,7 +642,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -681,7 +691,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码优化"><span class="nav-number">1.1.</span> <span class="nav-text">代码优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决带宽问题"><span class="nav-number">1.2.</span> <span class="nav-text">解决带宽问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前端迁移到oss对象存储"><span class="nav-number">2.</span> <span class="nav-text">前端迁移到oss对象存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迁移后带来的跨域问题"><span class="nav-number">3.</span> <span class="nav-text">迁移后带来的跨域问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码优化"><span class="nav-number">1.1.</span> <span class="nav-text">代码优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决带宽问题"><span class="nav-number">1.2.</span> <span class="nav-text">解决带宽问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更新：在nginx上开启gzip压缩可以大幅减小文件体积"><span class="nav-number">1.2.1.</span> <span class="nav-text">更新：在nginx上开启gzip压缩可以大幅减小文件体积</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前端迁移到oss对象存储"><span class="nav-number">2.</span> <span class="nav-text">前端迁移到oss对象存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迁移后带来的跨域问题"><span class="nav-number">3.</span> <span class="nav-text">迁移后带来的跨域问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>

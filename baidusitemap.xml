@@ -4,8 +4,30 @@
 
     
   <url>
+    <loc>http://ifun.work/2018/07/28/%E5%B0%9D%E8%AF%95nginx%E5%BC%80%E5%90%AFgzip%E8%A7%A3%E5%86%B3%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B8%A6%E5%AE%BD%E5%A4%AA%E5%B0%8F%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2018-08-06T01:50:50.109Z</lastmod>
+    <data>
+        <display>
+        <title>尝试nginx开启gzip解决服务器带宽太小问题</title>
+        <pubTime>2018-07-28T07:03:11.000Z</pubTime>
+        
+        <tag>nginx</tag>
+         
+        <tag>gzip</tag>
+         
+         
+           
+             
+              <breadCrumb title="web" url="http://ifun.work/categories/web/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://ifun.work/2018/07/14/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9FGET%E6%AD%A3%E5%B8%B8POST%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/</loc>
-    <lastmod>2018-07-27T03:35:09.088Z</lastmod>
+    <lastmod>2018-08-06T01:00:06.162Z</lastmod>
     <data>
         <display>
         <title>解决跨域GET正常POST报错问题</title>
@@ -27,7 +49,7 @@
     
   <url>
     <loc>http://ifun.work/2018/07/09/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
-    <lastmod>2018-07-23T09:03:35.770Z</lastmod>
+    <lastmod>2018-08-03T09:57:56.232Z</lastmod>
     <data>
         <display>
         <title>初学部署项目到自己的服务器</title>

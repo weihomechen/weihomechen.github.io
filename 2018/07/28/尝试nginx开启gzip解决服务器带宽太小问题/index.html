@@ -108,25 +108,28 @@
 
 
 
-  <meta name="description" content="词法作用域复习作用域是什么？ 作用域的工作方式 词法作用域：词法分析时被定义的作用域 动态作用域：调用时确定的作用域  词法分析词法作用域是根据变量、函数、块等在什么地方编写确定其作用域，词法分析过后被确定下来，基本不会改变。 引擎查询标识符先从最内部的作用域开始查找，如果没找到，再逐级向上查询。一旦找到第一个匹配，作用域查询就停止了。如果有相同的标识符，内部的标识符屏蔽外部的标识符。函数的词法作">
-<meta name="keywords" content="JS,note">
+  <meta name="description" content="背景之前在解决跨域报错文章里提过，服务器带宽太小导致访问静态文件时十分缓慢。于是把前端搬到了阿里云的OSS对象存储上，然后引发了一系列问题😂">
+<meta name="keywords" content="nginx,gzip">
 <meta property="og:type" content="article">
-<meta property="og:title" content="You don&#39;t know JS: Scope &amp; Closures 笔记（二）">
-<meta property="og:url" content="http://ifun.work/2017/04/03/You-don-t-know-JS-Scope-Closures-笔记（二）/index.html">
+<meta property="og:title" content="尝试nginx开启gzip解决服务器带宽太小问题">
+<meta property="og:url" content="http://ifun.work/2018/07/28/尝试nginx开启gzip解决服务器带宽太小问题/index.html">
 <meta property="og:site_name" content="乌斯怀亚-世界以南">
-<meta property="og:description" content="词法作用域复习作用域是什么？ 作用域的工作方式 词法作用域：词法分析时被定义的作用域 动态作用域：调用时确定的作用域  词法分析词法作用域是根据变量、函数、块等在什么地方编写确定其作用域，词法分析过后被确定下来，基本不会改变。 引擎查询标识符先从最内部的作用域开始查找，如果没找到，再逐级向上查询。一旦找到第一个匹配，作用域查询就停止了。如果有相同的标识符，内部的标识符屏蔽外部的标识符。函数的词法作">
+<meta property="og:description" content="背景之前在解决跨域报错文章里提过，服务器带宽太小导致访问静态文件时十分缓慢。于是把前端搬到了阿里云的OSS对象存储上，然后引发了一系列问题😂">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-01T11:49:00.533Z">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/7763BD02-D82B-43E4-B24E-15EF7C861987.png">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/E2A68BE8-9C81-4715-84AA-8B2B5A52723B.png">
+<meta property="og:updated_time" content="2018-08-06T01:50:50.109Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="You don&#39;t know JS: Scope &amp; Closures 笔记（二）">
-<meta name="twitter:description" content="词法作用域复习作用域是什么？ 作用域的工作方式 词法作用域：词法分析时被定义的作用域 动态作用域：调用时确定的作用域  词法分析词法作用域是根据变量、函数、块等在什么地方编写确定其作用域，词法分析过后被确定下来，基本不会改变。 引擎查询标识符先从最内部的作用域开始查找，如果没找到，再逐级向上查询。一旦找到第一个匹配，作用域查询就停止了。如果有相同的标识符，内部的标识符屏蔽外部的标识符。函数的词法作">
+<meta name="twitter:title" content="尝试nginx开启gzip解决服务器带宽太小问题">
+<meta name="twitter:description" content="背景之前在解决跨域报错文章里提过，服务器带宽太小导致访问静态文件时十分缓慢。于是把前端搬到了阿里云的OSS对象存储上，然后引发了一系列问题😂">
+<meta name="twitter:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/7763BD02-D82B-43E4-B24E-15EF7C861987.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://ifun.work/2017/04/03/You-don-t-know-JS-Scope-Closures-笔记（二）/"/>
+  <link rel="canonical" href="http://ifun.work/2018/07/28/尝试nginx开启gzip解决服务器带宽太小问题/"/>
 
 
 
@@ -136,7 +139,7 @@
   };
 </script>
 
-  <title>You don't know JS: Scope & Closures 笔记（二） | 乌斯怀亚-世界以南</title>
+  <title>尝试nginx开启gzip解决服务器带宽太小问题 | 乌斯怀亚-世界以南</title>
   
 
 
@@ -317,7 +320,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/04/03/You-don-t-know-JS-Scope-Closures-笔记（二）/">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2018/07/28/尝试nginx开启gzip解决服务器带宽太小问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="weihome">
@@ -334,7 +337,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">You don't know JS: Scope & Closures 笔记（二）
+          <h1 class="post-title" itemprop="name headline">尝试nginx开启gzip解决服务器带宽太小问题
               
             
           </h1>
@@ -359,7 +362,7 @@
                 
               
 
-              <time title="Created: 2017-04-03 22:50:45" itemprop="dateCreated datePublished" datetime="2017-04-03T22:50:45+08:00">2017-04-03</time>
+              <time title="Created: 2018-07-28 15:03:11" itemprop="dateCreated datePublished" datetime="2018-07-28T15:03:11+08:00">2018-07-28</time>
             
 
             
@@ -377,7 +380,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a></span>
 
                 
                 
@@ -411,21 +414,64 @@
       
 
       
-        <h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><h3 id="复习"><a href="#复习" class="headerlink" title="复习"></a>复习</h3><p>作用域是什么？</p>
-<h3 id="作用域的工作方式"><a href="#作用域的工作方式" class="headerlink" title="作用域的工作方式"></a>作用域的工作方式</h3><ul>
-<li>词法作用域：词法分析时被定义的作用域</li>
-<li>动态作用域：调用时确定的作用域</li>
-</ul>
-<h3 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h3><p>词法作用域是根据变量、函数、块等在什么地方编写确定其作用域，词法分析过后被确定下来，基本不会改变。</p>
-<h3 id="引擎查询标识符"><a href="#引擎查询标识符" class="headerlink" title="引擎查询标识符"></a>引擎查询标识符</h3><p>先从最内部的作用域开始查找，如果没找到，再逐级向上查询。一旦找到第一个匹配，作用域查询就停止了。如果有相同的标识符，内部的标识符屏蔽外部的标识符。函数的词法作用域是由这个函数被声明的位置唯一定义的。词法作用域查询仅仅在处理头等标识符时实施：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">a = <span class="number">1</span>; <span class="comment">// 查询a时词法作用域实施</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = &#123;&#125;;</span><br><span class="line">b.a = <span class="number">2</span>; <span class="comment">// 查询b时词法作用域实施，然后对象属性访问规则将会接管a属性的解析。</span></span><br></pre></td></tr></table></figure>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前在<a href="http://ifun.work/2018/07/14/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9FGET%E6%AD%A3%E5%B8%B8POST%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/">解决跨域报错</a>文章里提过，服务器带宽太小导致访问静态文件时十分缓慢。于是把前端搬到了阿里云的OSS对象存储上，然后引发了一系列问题😂</p>
 <a id="more"></a>
-<h3 id="欺骗词法作用域"><a href="#欺骗词法作用域" class="headerlink" title="欺骗词法作用域"></a>欺骗词法作用域</h3><h4 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h4><p>接收一个字符串作为参数值，并将这个字符串的内容插入到eval函数的位置，好像这个内容就是当初编写进去的：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">eval</span>( str );  <span class="comment">// str被当作原本就在这个位置， 相当于这行是： var a = 'eval传进去的a';</span></span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 打印的是"eval传进去的a"，全局作用域的a被内部的屏蔽了，如果使用严格模式，全局作用域的a不会被屏蔽</span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="string">'全局作用域下的a'</span>; </span><br><span class="line"></span><br><span class="line">foo( <span class="string">"var a = 'eval传进去的a';"</span>);</span><br></pre></td></tr></table></figure>
-<p>eval(..)通常被用于执行动态创建的代码，传入的字符串可以是复杂的代码。在非严格模式下，字符串里面的声明会修改eval所在的作用域。</p>
-<h4 id="with-（已被废弃）"><a href="#with-（已被废弃）" class="headerlink" title="with （已被废弃）"></a>with （已被废弃）</h4><p>with语句从传递给它的对象中凭空制造了一个全新的词法作用域。</p>
-<p>性能影响：如果出现eval 和 with，引擎在编译阶段所做的任何优化都没有意义，那干脆不用优化了，执行时再去做解析标识符等原本应该在编译时做的工作，导致代码运行变慢。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>词法作用域意味着作用域是由编写时函数被声明的位置的决定的。编译器的词法分析阶段确定所有的标识符是在哪里和如何声明的，并在执行期间预测它们将如何被查询。<br>eval和with可以欺骗词法作用域，eval接收字符串将其作为源代码插入所在的作用域，with接收一个对象作为全新的作用域。这两种做法使引擎不在编译阶段进行优化，因为词法作用域可能被动态改变。</p>
+<h2 id="思考其他的解决办法"><a href="#思考其他的解决办法" class="headerlink" title="思考其他的解决办法"></a>思考其他的解决办法</h2><p>将前端搬到oss存储上引发了比如跨域、文件路径错误、缓存出错等问题，迫使我不得不重新思考有没有其他的解决办法。</p>
+<p>从根本上说就是带宽和文件体积的矛盾，搬到oss上是为了用oss访问速度快来解决服务器带宽小，另外还有一种办法是直接提高服务器的带宽，然而直接提高带宽价格不菲（贫穷使我折腾~）。</p>
+<p>另一方面，是减少文件体积，一开始只在本地开发，没想到部署到服务器后的生产环境问题，以后新建工程时切记需要考虑到从开发到生产这一系列完整的流程。</p>
+<h3 id="代码瘦身"><a href="#代码瘦身" class="headerlink" title="代码瘦身"></a>代码瘦身</h3><p>为了减少文件体积，做了以下的尝试：</p>
+<ul>
+<li>打包工具：升级到最新版的<code>webpack</code></li>
+<li>将图片、字体、第三方库等静态资源迁移到<code>OSS对象存储</code></li>
+<li>删除无用的组件、模块和代码</li>
+</ul>
+<p>瘦身结果明显，从原本的36M之巨变成了10M（<del>之巨</del>）</p>
+<p>首屏（home）加载需要加载2个上1M的js文件，等待的时间也要20+秒之久 orz</p>
+<p>感觉代码瘦身这一条路遇到了瓶颈啊，在浏览webpack文档以求解决办法时，看到了这个<a href="https://webpack.js.org/plugins/compression-webpack-plugin/#src/components/Sidebar/Sidebar.jsx" target="_blank" rel="noopener">插件</a></p>
+<p>压缩？打包后文件还可以压缩的！确认过眼神，是我想找的人！</p>
+<p>使用后打包文件一览：</p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/7763BD02-D82B-43E4-B24E-15EF7C861987.png" alt=""></p>
+<p>打包后的文件会伴生一个被压缩后的gz文件，体积差不多是原文件的四分之一左右，如果能使用gz文件代替原本的文件，那访问速度肯定能提速不少。</p>
+<p>不过，怎么样才能访问gz文件而不是原文件呢？上网搜索后发现还是要从<code>nginx</code>入手（ngxin牛逼）</p>
+<h2 id="nginx的gzip"><a href="#nginx的gzip" class="headerlink" title="nginx的gzip"></a>nginx的gzip</h2><h3 id="ngx-http-gzip-module"><a href="#ngx-http-gzip-module" class="headerlink" title="ngx_http_gzip_module"></a>ngx_http_gzip_module</h3><p>这个方法不要求事先进行压缩，而是在访问文件时再进行压缩，然后返回压缩后的文件, 参见<a href="http://nginx.org/en/docs/http/ngx_http_gzip_module.html" target="_blank" rel="noopener">ngx_http_gzip_module</a>.</p>
+<h3 id="ngx-http-gzip-static-module"><a href="#ngx-http-gzip-static-module" class="headerlink" title="ngx_http_gzip_static_module"></a>ngx_http_gzip_static_module</h3><p>一个方法是开启 <code>static gzip</code>，这样在访问文件时，<code>nginx</code>会先查找是否存在同名的以 <code>.gz</code> 结尾的文件，如果有，就返回 <code>.gz</code> 文件，<code>gz</code> 文件事先压缩好存放在服务器的。</p>
+<p>这个和 <code>compression-webpack-plugin</code> 配合起来简直完美，该插件在打包时会进行压缩，然后上传到服务器，nginx开启 <a href="http://nginx.org/en/docs/http/ngx_http_gzip_static_module.html" target="_blank" rel="noopener">static gzip</a> 后，每次访问文件时，都会查找并找到同名的以gz结尾的文件，然后返回gz文件。</p>
+<h3 id="权衡比较"><a href="#权衡比较" class="headerlink" title="权衡比较"></a>权衡比较</h3><p>第一种方法</p>
+<p>利：</p>
+<ul>
+<li>不占用额外的存储空间</li>
+<li>简单快捷，该模块默认编译进nginx</li>
+</ul>
+<p>弊：</p>
+<ul>
+<li>比较吃服务器性能</li>
+<li>压缩会花费一定的时间</li>
+</ul>
+<p>第二种方法</p>
+<p>利：</p>
+<ul>
+<li>事先压缩，不吃服务器性能</li>
+<li>省去了压缩的时间</li>
+</ul>
+<p>弊：</p>
+<ul>
+<li>占用额外的存储空间，尤其当文件数量多体积大</li>
+<li>比较麻烦，不是默认提供的功能，需要编译nginx时加进去</li>
+</ul>
+<h3 id="动手篇"><a href="#动手篇" class="headerlink" title="动手篇"></a>动手篇</h3><p>因为之前用插件在打包时就生成了压缩文件，我首先选择了第二种方法。为了编译     <code>ngx_http_gzip_static_module</code> 模块，不得不把nginx卸载了，然后下载源码，用源码进行编译。编译时再加入参数 <code>--with-http_gzip_static_module</code>，编译完成后重新编辑nginx的配置文件 <code>nginx.conf</code>。尴尬的是，配置文件保存时报错了，提示 <code>gzip_static</code> 是非法的，明明是按照文档说明做的配置Orz。因为一时找不到原因，我就转向了第一种方法。</p>
+<ul>
+<li>重新使用默认设置安装nginx</li>
+<li><p>修改nginx.conf:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 开启gzip</span><br><span class="line">gzip on;</span><br><span class="line"># 表明哪些UA头不使用gzip压缩，这里是ie6不启用</span><br><span class="line">gzip_disable &quot;msie6&quot;;</span><br><span class="line"># 是否在http header中添加Vary: Accept-Encoding，建议开启</span><br><span class="line">gzip_vary on;</span><br><span class="line"># 小于设置值的文件将不会压缩</span><br><span class="line">gzip_min_length  8k;  </span><br><span class="line">gzip_proxied any;</span><br><span class="line"># 压缩级别，1-9，数字越大压缩的越好，也越占用CPU时间</span><br><span class="line">gzip_comp_level 6;</span><br><span class="line"># 设置压缩所需要的缓冲区大小</span><br><span class="line">gzip_buffers 16 8k;</span><br><span class="line"># 设置gzip压缩针对的HTTP协议版本</span><br><span class="line">gzip_http_version 1.1;</span><br><span class="line"># 进行压缩的文件类型</span><br><span class="line">gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>:wq 保存退出，重启nginx</p>
+</li>
+</ul>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>终于到了激动人心的验证时刻了(BGM响起)： </p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/E2A68BE8-9C81-4715-84AA-8B2B5A52723B.png" alt=""></p>
+<p>加载时间缩短为3秒，一些大的js文件也被大幅压缩，美滋滋～</p>
+<p>而且从腾讯云提供的服务器监控数据来看，在使用gzip后CPU的使用率也没有超过3%，不知道是压缩的文件少还是E5太强🤣。目前来说，第一种做法对我来说完全木有问题。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这段时间来，先是买了个云服务器，一步一步学着配置服务器、安装服务器环境和所需应用，<a href="http://ifun.work/2018/07/09/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/">动手部署项目到服务器上</a>，然后折腾着又把前端放到oss上<a href="http://ifun.work/2018/07/09/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/">引发跨域等一系列问题</a>，磕磕碰碰解决一个又一个问题后又搬了回来，嫌弃每次手动部署太麻烦，第一次写了个<a href="https://github.com/weihomechen/deploy-tool" target="_blank" rel="noopener">命令行工具</a>。要是产品大人看到这些肯定要给我加需求了，匿了匿了😂。</p>
 
       
     </div>
@@ -446,9 +492,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JS/" rel="tag"># JS</a>
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
           
-            <a href="/tags/note/" rel="tag"># note</a>
+            <a href="/tags/gzip/" rel="tag"># gzip</a>
           
         </div>
       
@@ -461,8 +507,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/29/You-don-t-know-JS-Scope-Closures-笔记（一）/" rel="next" title="You don't know JS: Scope & Closures 笔记（一）">
-                <i class="fa fa-chevron-left"></i> You don't know JS: Scope & Closures 笔记（一）
+              <a href="/2018/07/14/解决跨域GET正常POST报错问题/" rel="next" title="解决跨域GET正常POST报错问题">
+                <i class="fa fa-chevron-left"></i> 解决跨域GET正常POST报错问题
               </a>
             
           </div>
@@ -470,10 +516,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/04/04/You-don-t-know-JS-Scope-Closures-笔记（三）/" rel="prev" title="You don't know JS: Scope & Closures 笔记（三）">
-                You don't know JS: Scope & Closures 笔记（三） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -660,7 +702,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#词法作用域"><span class="nav-number">1.</span> <span class="nav-text">词法作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复习"><span class="nav-number">1.1.</span> <span class="nav-text">复习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域的工作方式"><span class="nav-number">1.2.</span> <span class="nav-text">作用域的工作方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词法分析"><span class="nav-number">1.3.</span> <span class="nav-text">词法分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引擎查询标识符"><span class="nav-number">1.4.</span> <span class="nav-text">引擎查询标识符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#欺骗词法作用域"><span class="nav-number">1.5.</span> <span class="nav-text">欺骗词法作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#eval"><span class="nav-number">1.5.1.</span> <span class="nav-text">eval</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#with-（已被废弃）"><span class="nav-number">1.5.2.</span> <span class="nav-text">with （已被废弃）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考其他的解决办法"><span class="nav-number">2.</span> <span class="nav-text">思考其他的解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码瘦身"><span class="nav-number">2.1.</span> <span class="nav-text">代码瘦身</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx的gzip"><span class="nav-number">3.</span> <span class="nav-text">nginx的gzip</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ngx-http-gzip-module"><span class="nav-number">3.1.</span> <span class="nav-text">ngx_http_gzip_module</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ngx-http-gzip-static-module"><span class="nav-number">3.2.</span> <span class="nav-text">ngx_http_gzip_static_module</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权衡比较"><span class="nav-number">3.3.</span> <span class="nav-text">权衡比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动手篇"><span class="nav-number">3.4.</span> <span class="nav-text">动手篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">3.5.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>

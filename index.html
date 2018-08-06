@@ -316,6 +316,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2018/07/28/尝试nginx开启gzip解决服务器带宽太小问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="博客 前端 前端开发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/28/尝试nginx开启gzip解决服务器带宽太小问题/" itemprop="url">
+                  尝试nginx开启gzip解决服务器带宽太小问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-28 15:03:11" itemprop="dateCreated datePublished" datetime="2018-07-28T15:03:11+08:00">2018-07-28</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前在<a href="http://ifun.work/2018/07/14/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9FGET%E6%AD%A3%E5%B8%B8POST%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/">解决跨域报错</a>文章里提过，服务器带宽太小导致访问静态文件时十分缓慢。于是把前端搬到了阿里云的OSS对象存储上，然后引发了一系列问题😂</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/28/尝试nginx开启gzip解决服务器带宽太小问题/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://ifun.work/2018/07/14/解决跨域GET正常POST报错问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -415,22 +573,18 @@
 
       
         
-          
-          背景前几天磕磕碰碰终于把项目部署上服务器了，在访问项目时发现体验可以说十分不友好了，初次加载一个页面需要花费十几秒乃至二十几秒，emmmm，这在等待加载过程中简直就是一个世纪那样漫长啊。分析下来应该有以下两个原因：
-
-打包后的文件体积太大
-网站的带宽太小
-
-代码优化先跑一会题，聊聊第一个问题，思考了一下解决的途径：
-
-代码分割
-tree shaking（去除无用的代码）
-代码压缩（uglify）
-懒加载
-
-前三点其实webpack已经帮我们做了，只不过这个项目的webpack还是古老的2.xx版本，鉴于目前已经出到4.xx版本，于是就把webpack升级到了最新版本，升级后的确减少了打包后的体积，不过仍有改进的空间，此处挖一个传送门。
-解决带宽问题因为服务器的带宽只有1M，折合每秒最高128
-          ...
+          <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>前几天磕磕碰碰终于把项目部署上服务器了，在访问项目时发现体验可以说十分不友好了，初次加载一个页面需要花费二十几秒乃至三十几秒，emmmm，这在等待加载过程中简直就是一个世纪那样漫长啊。分析下来应该有以下两个原因：</p>
+<ul>
+<li>打包后的文件体积太大</li>
+<li>网站的带宽太小</li>
+</ul>
+<h2 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h2><p>先跑一会题，聊聊第一个问题，思考了一下解决的途径：</p>
+<ul>
+<li>代码分割</li>
+<li>tree shaking（去除无用的代码）</li>
+<li>代码压缩（uglify）</li>
+<li>懒加载</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/07/14/解决跨域GET正常POST报错问题/#more" rel="contents">
@@ -588,17 +742,8 @@ tree shaking（去除无用的代码）
 
       
         
-          
-          背景前段时间用每个月10块钱学生身份专享买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是node+mysql）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。
-思路结合以前所学的知识，先理一下部署的思路，大概就是这样吧：
-
-1、本地处理，比如打包、压缩
-2、上传到服务器
-3、服务器进行相应的文件处理，比如解压
-4、项目在服务器上安装依赖，运行该项目等
-
-这个博客系统实行前后端分离，实际上是两个项目（一个前端，一个服务端），对于前端来说，完全可以用生产环境标准打包后直接以静态页面的形式放在服务器上，主要是nginx需要配置相应的访问代理。
-          ...
+          <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>前段时间用每个月10块钱<del>学生身份专享</del>买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是<code>node+mysql</code>）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。</p>
+<h3 id="更新：-脚本已经写好啦，传送门"><a href="#更新：-脚本已经写好啦，传送门" class="headerlink" title="更新： 脚本已经写好啦，传送门"></a>更新： 脚本已经写好啦，<a href="https://github.com/weihomechen/deploy-tool" target="_blank" rel="noopener">传送门</a></h3>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/07/09/初学部署项目到服务器/#more" rel="contents">
@@ -1776,165 +1921,6 @@ tree shaking（去除无用的代码）
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/05/04/JS点滴：原型与原型链/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="weihome">
-      <meta itemprop="description" content="博客 前端 前端开发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="乌斯怀亚-世界以南">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/04/JS点滴：原型与原型链/" itemprop="url">
-                  JS点滴：原型与原型链
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-05-04 10:56:17" itemprop="dateCreated datePublished" datetime="2017-05-04T10:56:17+08:00">2017-05-04</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="一-普通对象与函数对象"><a href="#一-普通对象与函数对象" class="headerlink" title="一. 普通对象与函数对象"></a>一. 普通对象与函数对象</h3><p>JavaScript 中，万物皆对象！但对象也是有区别的。分为普通对象和函数对象，Object 、Function 是 JS 自带的函数对象。下面举例说明</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123;&#125;; </span><br><span class="line"><span class="keyword">var</span> o2 =<span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">var</span> o3 = <span class="keyword">new</span> f1();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;&#125;; </span><br><span class="line"><span class="keyword">var</span> f2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> f3 = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'str'</span>,<span class="string">'console.log(str)'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Object</span>); <span class="comment">//function </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Function</span>); <span class="comment">//function  </span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> f1); <span class="comment">//function </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> f2); <span class="comment">//function </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> f3); <span class="comment">//function   </span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> o1); <span class="comment">//object </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> o2); <span class="comment">//object </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> o3); <span class="comment">//object</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/04/JS点滴：原型与原型链/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1986,7 +1972,7 @@ tree shaking（去除无用的代码）
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2046,7 +2032,11 @@ tree shaking（去除无用的代码）
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

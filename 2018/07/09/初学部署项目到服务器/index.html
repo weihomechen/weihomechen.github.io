@@ -108,13 +108,13 @@
 
 
 
-  <meta name="description" content="背景前段时间用每个月10块钱学生身份专享买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是node+mysql）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。 思路结合以前所学的知识，先理一下部署的思路，大概就是这样吧：  1、本地处理，比如">
+  <meta name="description" content="背景前段时间用每个月10块钱学生身份专享买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是node+mysql）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。 更新： 脚本已经写好啦，传送门">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="初学部署项目到自己的服务器">
 <meta property="og:url" content="http://ifun.work/2018/07/09/初学部署项目到服务器/index.html">
 <meta property="og:site_name" content="乌斯怀亚-世界以南">
-<meta property="og:description" content="背景前段时间用每个月10块钱学生身份专享买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是node+mysql）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。 思路结合以前所学的知识，先理一下部署的思路，大概就是这样吧：  1、本地处理，比如">
+<meta property="og:description" content="背景前段时间用每个月10块钱学生身份专享买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是node+mysql）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。 更新： 脚本已经写好啦，传送门">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/D2846853-0732-4B12-85DA-E5A0B4616060.png">
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/89AA5E73-9340-4177-B46F-AD8F32C909C3.png">
@@ -122,10 +122,10 @@
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/2A90CD06-0035-4E5B-82A0-EDE14FE21F35.png">
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/D329B066-B0AD-4C54-873C-60C4E04CAAD0.png">
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/DA5C3699-ED6A-4AAE-8A33-40442BD552F1.png">
-<meta property="og:updated_time" content="2018-07-23T09:03:35.770Z">
+<meta property="og:updated_time" content="2018-08-03T09:57:56.232Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初学部署项目到自己的服务器">
-<meta name="twitter:description" content="背景前段时间用每个月10块钱学生身份专享买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是node+mysql）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。 思路结合以前所学的知识，先理一下部署的思路，大概就是这样吧：  1、本地处理，比如">
+<meta name="twitter:description" content="背景前段时间用每个月10块钱学生身份专享买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是node+mysql）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。 更新： 脚本已经写好啦，传送门">
 <meta name="twitter:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E5%88%9D%E5%AD%A6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/D2846853-0732-4B12-85DA-E5A0B4616060.png">
 
 
@@ -419,6 +419,7 @@
 
       
         <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>前段时间用每个月10块钱<del>学生身份专享</del>买了一台腾讯云的云服务器，买了之后一直在吃灰，想着捣鼓些东西放上去，于是就把目光放在了博客系统（包含前后端，服务端主要是<code>node+mysql</code>）上。虽说工作中也经常部署项目，但其实都是服务端同学搭好环境写好脚本，前端只是登录部署服务器执行下部署命令而已，现在需要自己从头开始了。</p>
+<h3 id="更新：-脚本已经写好啦，传送门"><a href="#更新：-脚本已经写好啦，传送门" class="headerlink" title="更新： 脚本已经写好啦，传送门"></a>更新： 脚本已经写好啦，<a href="https://github.com/weihomechen/deploy-tool" target="_blank" rel="noopener">传送门</a></h3><a id="more"></a>
 <h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>结合以前所学的知识，先理一下部署的思路，大概就是这样吧：</p>
 <ul>
 <li>1、本地处理，比如打包、压缩</li>
@@ -577,7 +578,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -637,7 +638,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -682,7 +687,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署前端部分"><span class="nav-number">3.</span> <span class="nav-text">部署前端部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地打包和压缩"><span class="nav-number">3.1.</span> <span class="nav-text">本地打包和压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传"><span class="nav-number">3.2.</span> <span class="nav-text">上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器处理"><span class="nav-number">3.3.</span> <span class="nav-text">服务器处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署服务端"><span class="nav-number">4.</span> <span class="nav-text">部署服务端</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#具体操作"><span class="nav-number">4.1.</span> <span class="nav-text">具体操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务端之前的准备工作"><span class="nav-number">4.2.</span> <span class="nav-text">启动服务端之前的准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端的nginx配置"><span class="nav-number">4.3.</span> <span class="nav-text">服务端的nginx配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">5.</span> <span class="nav-text">结语</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更新：-脚本已经写好啦，传送门"><span class="nav-number">1.0.1.</span> <span class="nav-text">更新： 脚本已经写好啦，传送门</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署前端部分"><span class="nav-number">3.</span> <span class="nav-text">部署前端部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地打包和压缩"><span class="nav-number">3.1.</span> <span class="nav-text">本地打包和压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传"><span class="nav-number">3.2.</span> <span class="nav-text">上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器处理"><span class="nav-number">3.3.</span> <span class="nav-text">服务器处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署服务端"><span class="nav-number">4.</span> <span class="nav-text">部署服务端</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#具体操作"><span class="nav-number">4.1.</span> <span class="nav-text">具体操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务端之前的准备工作"><span class="nav-number">4.2.</span> <span class="nav-text">启动服务端之前的准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端的nginx配置"><span class="nav-number">4.3.</span> <span class="nav-text">服务端的nginx配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">5.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>
