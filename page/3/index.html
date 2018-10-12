@@ -316,6 +316,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/04/05/You-don-t-know-JS-Scope-Closures-笔记（四）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="weihome">
+      <meta itemprop="description" content="博客 前端 前端开发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌斯怀亚-世界以南">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/04/05/You-don-t-know-JS-Scope-Closures-笔记（四）/" itemprop="url">
+                  You don't know JS: Scope & Closures 笔记（四）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2017-04-05 22:31:39" itemprop="dateCreated datePublished" datetime="2017-04-05T22:31:39+08:00">2017-04-05</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/05/You-don-t-know-JS-Scope-Closures-笔记（四）/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2017/04/05/You-don-t-know-JS-Scope-Closures-笔记（四）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="提升"><a href="#提升" class="headerlink" title="提升"></a>提升</h2><p>在一个作用域中声明的任何变量都附着在这个作用域上。</p>
+<h3 id="声明和赋值：先有鸡还是先有蛋？"><a href="#声明和赋值：先有鸡还是先有蛋？" class="headerlink" title="声明和赋值：先有鸡还是先有蛋？"></a>声明和赋值：先有鸡还是先有蛋？</h3><p>有如下两段代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log( a ); <span class="comment">// 输出undefined？输出的是 2</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log( a );   <span class="comment">// 变量a在声明前被使用，抛出ReferenceError错误？ 输出的undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="编译器编译步骤"><a href="#编译器编译步骤" class="headerlink" title="编译器编译步骤"></a>编译器编译步骤</h3><p>如果有一个语句: </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>JavaScript实际上认为这是两个语句：var a;和a = 2;。第一个语句，声明，是在编译阶段被处理的。第二个语句，赋值，为了执行阶段而留在原处。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/05/You-don-t-know-JS-Scope-Closures-笔记（四）/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://ifun.work/2017/04/04/You-don-t-know-JS-Scope-Closures-笔记（三）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1558,7 +1732,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
@@ -1622,7 +1796,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">Tags</span>
                   </a>
                 </div>
