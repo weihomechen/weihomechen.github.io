@@ -316,7 +316,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ifun.work/2018/10/11/post/">
+    <link itemprop="mainEntityOfPage" href="http://ifun.work/2018/10/11/发布我的第一个npm包/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="weihome">
@@ -335,7 +335,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/11/post/" itemprop="url">
+                <a class="post-title-link" href="/2018/10/11/发布我的第一个npm包/" itemprop="url">
                   发布我的第一个npm包
                 </a>
               
@@ -395,8 +395,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/11/post/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/10/11/post/" itemprop="commentCount"></span>
+                <a href="/2018/10/11/发布我的第一个npm包/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/10/11/发布我的第一个npm包/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -425,18 +425,14 @@
 
       
         
-          
-          前言deploy-tool
-前一阵子在折腾node和服务器，每次部署项目到服务器都要重复那些步骤，懒癌发作的我意识到必须写一个脚本工具了。几经周折写好后，每次运行是这样的:
-1234# 先进到项目 cd /deploy-tool # 执行node ./bin/deploy.js [参数1，参数2]
-这样一点都不酷！
-首先，切换到项目，不需要；其次，node ./bin/deploy.js 应该用一个命令代替。想要实现这种效果，就想到了把这个工具发布到npm，然后安装这个工具，感觉可以的！用了这么久npm，安装过这么多npm包，终于要安装自己写的包了，想想还有点小激动呢。
-npm publish官网上说发布直接就是npm publish，这么简单的么，然而第一次就扑街了。。。
-原来，正常的流程
-          ...
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a href="https://github.com/weihomechen/deploy-tool" target="_blank" rel="noopener">deploy-tool</a></p>
+<p>前一阵子在折腾node和服务器，每次部署项目到服务器都要重复那些步骤，懒癌发作的我意识到必须写一个脚本工具了。几经周折写好后，每次运行是这样的:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先进到项目 </span></span><br><span class="line"><span class="built_in">cd</span> /deploy-tool </span><br><span class="line"><span class="comment"># 执行</span></span><br><span class="line">node ./bin/deploy.js [参数1，参数2]</span><br></pre></td></tr></table></figure>
+<p>这样一点都不酷！</p>
+<p>首先，切换到项目，不需要；其次，<code>node ./bin/deploy.js</code> 应该用一个命令代替。想要实现这种效果，就想到了把这个工具发布到npm，然后安装这个工具，感觉可以的！用了这么久npm，安装过这么多npm包，终于要安装自己写的包了，想想还有点小激动呢。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/11/post/#more" rel="contents">
+            <a class="btn" href="/2018/10/11/发布我的第一个npm包/#more" rel="contents">
               Weiterlesen &raquo;
             </a>
           </div>
