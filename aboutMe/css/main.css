@@ -330,6 +330,7 @@ ul li {
   margin-top: 30px;
   border: 4px solid #fff;
   border-radius: 150px;
+  object-fit: cover;
 }
 
 .se2 .self-info {
@@ -609,21 +610,21 @@ ul li {
   background: #9cd0fc;
 }
 
-.html .mask-circle {
+.webpack .mask-circle {
   background: #64d1f3;
 }
 
-.html .left-p,
-.html .right-p {
+.webpack .left-p,
+.webpack .right-p {
   background: #ee652a;
 }
 
-.css3 .mask-circle {
+.node .mask-circle {
   background: #64b5ed;
 }
 
-.css3 .left-p,
-.css3 .right-p {
+.node .left-p,
+.node .right-p {
   background: #ffc064;
 }
 
@@ -701,12 +702,23 @@ ul li {
   left: 50%;
   background: #d7e4ed;
   width: 3px;
-  height: 2200px;
+  height: 1000px;
 }
 
 .se4 .wrap ul>li {
   position: relative;
-  margin-bottom: 200px;
+  margin-bottom: 30px;
+}
+
+.se4 .num1 {
+  height: 300px;
+}
+
+.se4 .num2 {
+  height: 200px;
+}
+
+.se4 .num3 {
   height: 100px;
 }
 
@@ -791,6 +803,10 @@ ul li {
 
 .se4 .work-link {
   color: #45ADA8
+}
+
+.se4 a {
+  color: #00AACC;
 }
 
 .move-right {
