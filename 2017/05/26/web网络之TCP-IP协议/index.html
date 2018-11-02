@@ -121,9 +121,9 @@
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/tcp%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F.jpg">
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F.gif">
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/tcp%E9%80%9A%E4%BF%A1.jpg">
-<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/ack=sep+len.png">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/ack%3Dsep%2Blen.png">
 <meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/sack.png">
-<meta property="og:updated_time" content="2018-11-02T06:40:33.570Z">
+<meta property="og:updated_time" content="2018-11-02T06:51:11.437Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web网络之TCP&#x2F;IP协议">
 <meta name="twitter:description" content="导语：为什么会有TCP/IP协议在世界上各地，各种各样的电脑运行着各自不同的操作系统为大家服务，这些电脑在表达同一种信息的时候所使用的方法是千差万别。就好像圣经中上帝打乱了各地人的口音，让他们无法合作一样。计算机使用者意识到，计算机只是单兵作战并不会发挥太大的作用。只有把它们联合起来，电脑才会发挥出它最大的潜力。于是人们就想方设法的用电线把电脑连接到了一起。 但是简单的连到一起是远远不够的，就好像">
@@ -478,7 +478,7 @@
 <p>再说第二点，如果Client直接CLOSED，然后又再向Server发起一个新连接，我们不能保证这个新连接与刚关闭的连接的端口号是不同的。也就是说有可能新连接和老连接的端口号是相同的。一般来说不会发生什么问题，但是还是有特殊情况出现：假设新连接和已经关闭的老连接端口号是一样的，如果前一次连接的某些数据仍然滞留在网络中，这些延迟数据在建立新连接之后才到达Server，由于新连接和老连接的端口号是一样的，又因为TCP协议判断不同连接的依据是socket pair，于是，TCP协议就认为那个延迟的数据是属于新连接的，这样就和真正的新连接的数据包发生混淆了。所以TCP连接还要在TIME_WAIT状态等待2倍MSL，这样可以保证本次连接的所有数据都从网络中消失。</p>
 <h3 id="TCP链接中的其它信息"><a href="#TCP链接中的其它信息" class="headerlink" title="TCP链接中的其它信息"></a>TCP链接中的其它信息</h3><h4 id="ack-seq-len"><a href="#ack-seq-len" class="headerlink" title="ack=seq+len"></a>ack=seq+len</h4><p>ack总是seq+len（包的大小），这样发送方明确知道server收到那些东西了。</p>
 <p>但是特例是三次握手和四次挥手，虽然len都是0，但是syn和fin都要占用一个seq号，所以这里的ack都是seq+1。</p>
-<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/ack=sep+len.png" alt="ack=sep+len"></p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/ack%3Dsep%2Blen.png" alt="ack=sep+len"></p>
 <p>看图中左边红框里的len+seq就是接收方回复的ack的数字，表示这个包接收方收到了。然后下一个包的seq就是前一个包的len+seq，依次增加，一旦中间发出去的东西没有收到ack就是丢包了，过一段时间（或者其他方式）触发重传，保障了tcp传输的可靠性。</p>
 <h4 id="三次握手中的其它信息"><a href="#三次握手中的其它信息" class="headerlink" title="三次握手中的其它信息"></a>三次握手中的其它信息</h4><p><font color="#11999E">MSS </font>最大一个包中能传输的信息（不含tcp、ip包头），MSS+包头就是MTU（最大传输单元），如果MTU过大可能在传输的过程中被卡住过不去造成卡死（这个大小的包一直传输不过去），跟丢包还不一样。</p>
 <p><font color="#11999E">SACK_PERM </font>用于丢包的话提升重传效率，比如client一次发了1、2、3、4、5 这5个包给server，实际server收到了 1、3、4、5这四个包，中间2丢掉了。这个时候server回复ack的时候，都只能回复2，表示2前面所有的包都收到了，给我发第二个包吧，如果server 收到3、4、5还是没有收到2的话，也是回复ack 2而不是回复ack 3、4、5、6的，表示快点发2过来。</p>
