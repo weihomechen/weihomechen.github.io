@@ -116,15 +116,15 @@
 <meta property="og:site_name" content="乌斯怀亚-世界以南">
 <meta property="og:description" content="业务背景在开发管控物品申报一个需求时，需要上传身份证或护照照片，上传完成后取得该图片的base64，然后调用接口，通过阿里云的AI识别，获得姓名和证件号码等关键信息。上传图片没有大小限制，但是转换后的图片base64需要在1.5M内，通过 FileReader 可以轻松取到base64，而base64的大小和原文件大小挂钩，所以重点在于如果base64大于1.5M，需要对原文件进行体积上的压缩。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/JWkBScDyxDs8RjWnfC2cjbZejzZsNZjR.png">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/QrszY3t28nzjB3TkeXDMjaZeZ2DAkTRX.png">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/ieQmix5TSBiKaGmmwHj7FH8h32DbYG78.png">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/mYfAXyXdr2Tkp4pQTPHR8DPMeaKGFY6s.png">
-<meta property="og:updated_time" content="2018-07-02T07:33:24.000Z">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/JWkBScDyxDs8RjWnfC2cjbZejzZsNZjR.png">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/QrszY3t28nzjB3TkeXDMjaZeZ2DAkTRX.png">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/ieQmix5TSBiKaGmmwHj7FH8h32DbYG78.png">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/mYfAXyXdr2Tkp4pQTPHR8DPMeaKGFY6s.png">
+<meta property="og:updated_time" content="2018-11-02T06:40:33.584Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端压缩图片文件大小的一次尝试">
 <meta name="twitter:description" content="业务背景在开发管控物品申报一个需求时，需要上传身份证或护照照片，上传完成后取得该图片的base64，然后调用接口，通过阿里云的AI识别，获得姓名和证件号码等关键信息。上传图片没有大小限制，但是转换后的图片base64需要在1.5M内，通过 FileReader 可以轻松取到base64，而base64的大小和原文件大小挂钩，所以重点在于如果base64大于1.5M，需要对原文件进行体积上的压缩。">
-<meta name="twitter:image" content="http://os965hewa.bkt.clouddn.com/JWkBScDyxDs8RjWnfC2cjbZejzZsNZjR.png">
+<meta name="twitter:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/JWkBScDyxDs8RjWnfC2cjbZejzZsNZjR.png">
 
 
 
@@ -447,13 +447,13 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> convertBase64UrlToFile = <span class="function">(<span class="params">urlData</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> bytes = <span class="built_in">window</span>.atob(urlData.split(<span class="string">','</span>)[<span class="number">1</span>]); <span class="comment">// 去掉url的头，并转换为byte</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 处理异常,将ascii码小于0的转换为大于0</span></span><br><span class="line">  <span class="keyword">const</span> ab = <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(bytes.length);</span><br><span class="line">  <span class="keyword">const</span> ia = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(ab);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; bytes.length; i++) &#123;</span><br><span class="line">    ia[i] = bytes.charCodeAt(i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Blob([ab], &#123; <span class="attr">type</span>: <span class="string">'image/jpeg'</span> &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h2 id="结果检验"><a href="#结果检验" class="headerlink" title="结果检验"></a>结果检验</h2><p>前端对压缩结果进行的测试主要是：将处理完成的base64添加到页面，然后打开查看，确认图片是否能正常显示，再存到本地，确认是否符合小于1.5M，对比前后的文件大小，其它关于能否识别就不再赘述。</p>
 <p>上传一张大于1.5M的图片，打开压缩后的图片：</p>
-<p><img src="http://os965hewa.bkt.clouddn.com/JWkBScDyxDs8RjWnfC2cjbZejzZsNZjR.png" alt="压缩后添加到页面中的图片"></p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/JWkBScDyxDs8RjWnfC2cjbZejzZsNZjR.png" alt="压缩后添加到页面中的图片"></p>
 <p>可以看到图片可以正常显示，清晰度也还行：</p>
-<p><img src="http://os965hewa.bkt.clouddn.com/QrszY3t28nzjB3TkeXDMjaZeZ2DAkTRX.png" alt="压缩后的图片"></p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/QrszY3t28nzjB3TkeXDMjaZeZ2DAkTRX.png" alt="压缩后的图片"></p>
 <p>保存到本地后，查看大小，小于1.5M：</p>
-<p><img src="http://os965hewa.bkt.clouddn.com/ieQmix5TSBiKaGmmwHj7FH8h32DbYG78.png" alt="存到本地后文件信息"></p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/ieQmix5TSBiKaGmmwHj7FH8h32DbYG78.png" alt="存到本地后文件信息"></p>
 <p>和原图的对比，因为原图是由raw格式保存的，比较大（虚胖），丢弃了专业图像处理才用得到的细节，大幅压缩后清晰度并未打了折扣：</p>
-<p><img src="http://os965hewa.bkt.clouddn.com/mYfAXyXdr2Tkp4pQTPHR8DPMeaKGFY6s.png" alt="压缩前后对比  "></p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/mYfAXyXdr2Tkp4pQTPHR8DPMeaKGFY6s.png" alt="压缩前后对比  "></p>
 <p>陆续经过其它图片的测试后，对压缩结果还是比较满意的；而后使用正经的身份证或护照压缩后的图片调用阿里云的接口后也能正常识别。</p>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>虽然还有几个问题尚未解决，现在的图片压缩尝试未臻完美，不过记录下这次尝试，权当抛砖引玉😁。</p>
 

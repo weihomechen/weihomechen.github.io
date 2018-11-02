@@ -116,12 +116,12 @@
 <meta property="og:site_name" content="乌斯怀亚-世界以南">
 <meta property="og:description" content="导语在博客的消息模块开发过程中，有一个消息列表，其中的消息有未读和已读的状态区分。消息列表会完整的展示几乎全部信息，包括内容，那么，当列表展示时，在可视区域内的每一条消息既然一览无遗的呈现在用户面前，也就可以判定这些消息为已读，需要发起请求改变这些消息的状态。 问题在于，每个高度不同的屏幕，可视区域高度也不同，能容纳的消息条数自然也不同，更不用说每条信息内容不同导致元素块高度也不一样，一刀切的认为">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/3FnAkk8bzHX83mdfiSJeWtCp6yfWaPc6.png">
-<meta property="og:updated_time" content="2018-07-02T07:33:36.000Z">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/3FnAkk8bzHX83mdfiSJeWtCp6yfWaPc6.png">
+<meta property="og:updated_time" content="2018-11-02T06:40:33.583Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一个懒加载的小运用">
 <meta name="twitter:description" content="导语在博客的消息模块开发过程中，有一个消息列表，其中的消息有未读和已读的状态区分。消息列表会完整的展示几乎全部信息，包括内容，那么，当列表展示时，在可视区域内的每一条消息既然一览无遗的呈现在用户面前，也就可以判定这些消息为已读，需要发起请求改变这些消息的状态。 问题在于，每个高度不同的屏幕，可视区域高度也不同，能容纳的消息条数自然也不同，更不用说每条信息内容不同导致元素块高度也不一样，一刀切的认为">
-<meta name="twitter:image" content="http://os965hewa.bkt.clouddn.com/3FnAkk8bzHX83mdfiSJeWtCp6yfWaPc6.png">
+<meta name="twitter:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/3FnAkk8bzHX83mdfiSJeWtCp6yfWaPc6.png">
 
 
 
@@ -436,7 +436,7 @@
 <p>可以看到，我们想要实现的，进入可视区域和图片懒加载是十分相似的，只不过我们是需要完整进入，并且采取的操作不同而已。根据实际的情况来分配资源，使之达到优化的效果。从这次想要实现的效果出发，旧瓶装新酒的实现：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">lazyHandler = <span class="function">(<span class="params">className = <span class="string">'message-item'</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; alreadyReadList &#125; = <span class="keyword">this</span>.state;</span><br><span class="line">  <span class="keyword">const</span> visibleHeight = <span class="built_in">document</span>.documentElement.clientHeight; <span class="comment">// 获取可视区域高度</span></span><br><span class="line">  <span class="keyword">const</span> msgList = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.getElementsByClassName(className));</span><br><span class="line"></span><br><span class="line">  msgList.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> offsetTop = item.getBoundingClientRect().bottom;</span><br><span class="line">    <span class="keyword">const</span> mid = item.id;</span><br><span class="line">    <span class="keyword">if</span> (offsetTop &lt; visibleHeight &amp;&amp; !alreadyReadList.find(<span class="function"><span class="params">v</span> =&gt;</span> v === +mid)) &#123;</span><br><span class="line">      <span class="keyword">this</span>.changeMsgStatus(mid);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>经过测试后，基本实现了想要的效果，当一条信息完整进入可视区域后，会发起一个请求设置其状态为已读：</p>
-<p><img src="http://os965hewa.bkt.clouddn.com/3FnAkk8bzHX83mdfiSJeWtCp6yfWaPc6.png" alt=""></p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/3FnAkk8bzHX83mdfiSJeWtCp6yfWaPc6.png" alt=""></p>
 <h2 id="懒加载其他运用"><a href="#懒加载其他运用" class="headerlink" title="懒加载其他运用"></a>懒加载其他运用</h2><p>懒加载的效果不仅仅可以用于图片加载，而是广泛应用在开发过程中：</p>
 <p>1、模块的懒加载</p>
 <p>将代码在一些逻辑断点处分离开，然后在一些代码块中完成某些操作后，立即引用或即将引用另外一些新的代码块。这样加快了应用的初始加载速度，减轻了它的总体体积，因为某些代码块可能永远不会被加载。先今流行的工具或框架大都运用或支持代码模块的懒加载，比如webpack支持在你需要的时候再import进某些模块，加载模块会返回一个promise对象，便于处理加载成功或失败；再如react，你可以使用 react-loadable 来实现异步加载组件，这样的特性同样还可以在angular和vue上找到。另外，模块的懒加载是在代码分割的基础上实现的。</p>

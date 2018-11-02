@@ -116,14 +116,14 @@
 <meta property="og:site_name" content="乌斯怀亚-世界以南">
 <meta property="og:description" content="一. 普通对象与函数对象JavaScript 中，万物皆对象！但对象也是有区别的。分为普通对象和函数对象，Object 、Function 是 JS 自带的函数对象。下面举例说明 123456789101112131415161718var o1 = &amp;#123;&amp;#125;; var o2 =new Object();var o3 = new f1();function f1()&amp;#123;&amp;#">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://osjvlsq19.bkt.clouddn.com/js%E5%8E%9F%E5%9E%8B%E9%93%BE.jpg">
-<meta property="og:image" content="http://osjvlsq19.bkt.clouddn.com/__proto__.jpg">
-<meta property="og:image" content="http://osjvlsq19.bkt.clouddn.com/prototype.png">
-<meta property="og:updated_time" content="2018-07-01T11:52:00.000Z">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/js%E5%8E%9F%E5%9E%8B%E9%93%BE.jpg">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/__proto__.jpg">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/prototype.png">
+<meta property="og:updated_time" content="2018-11-02T06:06:53.511Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS点滴：原型与原型链">
 <meta name="twitter:description" content="一. 普通对象与函数对象JavaScript 中，万物皆对象！但对象也是有区别的。分为普通对象和函数对象，Object 、Function 是 JS 自带的函数对象。下面举例说明 123456789101112131415161718var o1 = &amp;#123;&amp;#125;; var o2 =new Object();var o3 = new f1();function f1()&amp;#123;&amp;#">
-<meta name="twitter:image" content="http://osjvlsq19.bkt.clouddn.com/js%E5%8E%9F%E5%9E%8B%E9%93%BE.jpg">
+<meta name="twitter:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/js%E5%8E%9F%E5%9E%8B%E9%93%BE.jpg">
 
 
 
@@ -456,11 +456,11 @@
 <p>故两次 <strong>this</strong> 在函数执行时都指向 person1。</p>
 <h3 id="四-proto"><a href="#四-proto" class="headerlink" title="四. __proto__"></a>四. <strong><code>__proto__</code></strong></h3><p>JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做 <code>__proto__</code> 的内置属性，用于指向创建它的构造函数的原型对象。<br>对象 person1 有一个 <code>__proto__</code> 属性，创建它的构造函数是 Person，构造函数的原型对象是 Person.prototype ，所以：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">person1.__proto__ == Person.prototype</span><br></pre></td></tr></table></figure></p>
 <p>请看下图：</p>
-<p><img src="http://osjvlsq19.bkt.clouddn.com/js%E5%8E%9F%E5%9E%8B%E9%93%BE.jpg" alt="js原型链"></p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/js%E5%8E%9F%E5%9E%8B%E9%93%BE.jpg" alt="js原型链"></p>
 <p>根据上面这个连接图，我们能得到：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Person.prototype.constructor == Person;</span><br><span class="line">person1.__proto__ == Person.prototype;</span><br><span class="line">person1.constructor == Person;</span><br></pre></td></tr></table></figure></p>
 <p>不过，要明确的真正重要的一点就是，这个连接存在于 <strong>实例</strong>（person1）与构造函数（Person）的 <strong>原型对象</strong> （Person.prototype）之间，而不是存在于实例（person1）与构造函数（Person）之间。</p>
 <p>注意：因为绝大部分浏览器都支持<code>__proto__</code>属性，所以它才被加入了 ES6 里（ES5 部分浏览器也支持，但还不是标准）。</p>
-<h3 id="五-原型链"><a href="#五-原型链" class="headerlink" title="五. 原型链"></a>五. 原型链</h3><p><img src="http://osjvlsq19.bkt.clouddn.com/__proto__.jpg" alt="原型链"></p>
+<h3 id="五-原型链"><a href="#五-原型链" class="headerlink" title="五. 原型链"></a>五. 原型链</h3><p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/__proto__.jpg" alt="原型链"></p>
 <p>小测试来检验一下你理解的怎么样：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">person1.__proto__ 是什么？</span><br><span class="line">Person.__proto__ 是什么？</span><br><span class="line">Person.prototype.__proto__ 是什么？</span><br><span class="line"><span class="built_in">Object</span>.__proto__ 是什么？</span><br><span class="line"><span class="built_in">Object</span>.prototype__proto__ 是什么？</span><br></pre></td></tr></table></figure></p>
 <p>答案：<br>第一题：<br>因为 <code>person1.__proto__ === person1</code> 的构造函数.prototype<br>因为 person1的构造函数 === Person<br>所以 <code>person1.__proto__ === Person.prototype</code></p>
 <p>第二题：<br>因为 <code>Person.__proto__ === Person</code> 的构造函数.prototype<br>因为 Person的构造函数 === Function<br>所以 <code>Person.__proto__ === Function.prototype</code></p>
@@ -502,7 +502,7 @@
 <blockquote>
 <p>实例（tidy）和 原型对象（dog.prototype）存在一个连接。不过，要明确的真正重要的一点就是，这个连接存在于实例（tidy）与构造函数的原型对象（dog.prototype）之间，而不是存在于实例（tidy）与构造函数（dog）之间。</p>
 </blockquote>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p><img src="http://osjvlsq19.bkt.clouddn.com/prototype.png" alt=""></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/prototype.png" alt=""></p>
 <p>原型对象 <strong>prototype</strong> 是函数创建时自动获得的一个对象，可以理解为是构造函数的一个特殊的实例，主要是要来继承。prototype上面的属性和方法可以共享给其它实例。当其它实例在自身上面找不到所需的属性或方法时，就会沿着原型链 <strong><code>__proto__</code></strong>，向上到 <strong>prototype</strong> 寻找，如果到原型链的末端都没有找到就返回  <strong>undefined</strong>。</p>
 
       

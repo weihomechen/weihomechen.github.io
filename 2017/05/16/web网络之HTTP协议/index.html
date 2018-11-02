@@ -116,13 +116,13 @@
 <meta property="og:site_name" content="乌斯怀亚-世界以南">
 <meta property="og:description" content="导语网络知识是前端的必备技能，毕竟是要跟服务端打交道的。web网络体系中，前端使用最频繁，与前端关系最为密切的当属HTTP协议了。其实在工作中一直在使用HTTP协议，不过因为缺少一次汇总，总觉得印象不是很全，那就来总结一下吧。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/Http%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E7%BB%93%E6%9E%84.png">
-<meta property="og:image" content="http://os965hewa.bkt.clouddn.com/http%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF%E6%A0%BC%E5%BC%8F.jpg">
-<meta property="og:updated_time" content="2018-07-01T11:47:28.000Z">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/Http%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/http%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF%E6%A0%BC%E5%BC%8F.jpg">
+<meta property="og:updated_time" content="2018-11-02T06:40:33.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web网络之HTTP协议">
 <meta name="twitter:description" content="导语网络知识是前端的必备技能，毕竟是要跟服务端打交道的。web网络体系中，前端使用最频繁，与前端关系最为密切的当属HTTP协议了。其实在工作中一直在使用HTTP协议，不过因为缺少一次汇总，总觉得印象不是很全，那就来总结一下吧。">
-<meta name="twitter:image" content="http://os965hewa.bkt.clouddn.com/Http%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E7%BB%93%E6%9E%84.png">
+<meta name="twitter:image" content="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/Http%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E7%BB%93%E6%9E%84.png">
 
 
 
@@ -457,7 +457,7 @@
 <p>URI类不包含任何访问资源的方法，它唯一的作用就是解析。相反的是，URL类可以打开一个到达资源的流。</p>
 <h3 id="HTTP之请求消息Request"><a href="#HTTP之请求消息Request" class="headerlink" title="HTTP之请求消息Request"></a>HTTP之请求消息Request</h3><p>客户端发送一个HTTP请求到服务器的请求消息包括以下格式：</p>
 <p>请求行（request line）、请求头部（header）、空行和请求数据四个部分组成。</p>
-<p><img src="http://os965hewa.bkt.clouddn.com/Http%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E7%BB%93%E6%9E%84.png" alt="Http请求消息结构.png"></p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/Http%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E7%BB%93%E6%9E%84.png" alt="Http请求消息结构.png"></p>
 <p>Get请求例子，使用Charles抓取的request：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET /<span class="number">562</span>f25980001b1b106000338.jpg HTTP/<span class="number">1.1</span></span><br><span class="line">Host    img.mukewang.com</span><br><span class="line">User-Agent    Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; WOW64) AppleWebKit/<span class="number">537.36</span> (KHTML， like Gecko) Chrome/<span class="number">51.0</span><span class="number">.2704</span><span class="number">.106</span> Safari/<span class="number">537.36</span></span><br><span class="line">Accept    image/webp，image<span class="comment">/*，*/</span>*;q=<span class="number">0.8</span></span><br><span class="line">Referer    http:<span class="comment">//www.imooc.com/</span></span><br><span class="line">Accept-Encoding    gzip， deflate， sdch</span><br><span class="line">Accept-Language    zh-CN，zh;q=<span class="number">0.8</span></span><br></pre></td></tr></table></figure>
 <p>第一部分：请求行，用来说明请求类型，要访问的资源以及所使用的HTTP版本.</p>
@@ -473,7 +473,7 @@
 <p>第一部分：请求行，第一行明了是post请求，以及http1.1版本。<br>第二部分：请求头部，第二行至第六行。<br>第三部分：空行，第七行的空行。<br>第四部分：请求数据，第八行。</p>
 <h3 id="HTTP之响应消息Response"><a href="#HTTP之响应消息Response" class="headerlink" title="HTTP之响应消息Response"></a>HTTP之响应消息Response</h3><p>一般情况下，服务器接收并处理客户端发过来的请求后会返回一个HTTP的响应消息。</p>
 <p>HTTP响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文。</p>
-<p><img src="http://os965hewa.bkt.clouddn.com/http%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF%E6%A0%BC%E5%BC%8F.jpg" alt="http响应消息格式.jpg"></p>
+<p><img src="https://rulifun.oss-cn-hangzhou.aliyuncs.com/hexo-blog/http%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF%E6%A0%BC%E5%BC%8F.jpg" alt="http响应消息格式.jpg"></p>
 <p>例子<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line"><span class="built_in">Date</span>: Fri， <span class="number">22</span> May <span class="number">2009</span> <span class="number">06</span>:<span class="number">07</span>:<span class="number">21</span> GMT</span><br><span class="line">Content-Type: text/html; charset=UTF<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">      &lt;head&gt;<span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line">      &lt;body&gt;</span><br><span class="line">            &lt;!--body goes here--&gt;</span><br><span class="line">      &lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure></p>
 <p>第一部分：状态行，由HTTP协议版本号， 状态码， 状态消息 三部分组成。</p>
 <p>第一行为状态行，（HTTP/1.1）表明HTTP版本为1.1版本，状态码为200，状态消息为（ok）</p>
