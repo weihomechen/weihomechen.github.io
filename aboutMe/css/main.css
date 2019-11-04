@@ -693,7 +693,7 @@ ul li {
   width: 80%;
   height: 100%;
   margin: 0 auto;
-  padding: 50px;
+  padding: 32px;
 }
 
 .se4 .wrap .content .vertical-line {
@@ -711,15 +711,15 @@ ul li {
 }
 
 .se4 .num1 {
-  height: 300px;
+  height: 400px;
 }
 
 .se4 .num2 {
-  height: 200px;
+  height: 300px;
 }
 
 .se4 .num3 {
-  height: 100px;
+  height: 200px;
 }
 
 /*.se4 .wrap ul>li:last-child{margin-bottom:40px;}*/
@@ -809,6 +809,10 @@ ul li {
   color: #00AACC;
 }
 
+.se4 .progress-desc {
+  margin-bottom: 8px;
+}
+
 .move-right {
   animation: moveright .6s ease-in-out .3s normal;
 }
@@ -817,9 +821,11 @@ ul li {
   0% {
     left: -10%;
   }
+
   70% {
     left: 16%;
   }
+
   100% {
     left: 100px;
   }
@@ -833,9 +839,11 @@ ul li {
   0% {
     right: -10%;
   }
+
   70% {
     right: 16%;
   }
+
   100% {
     right: 100px;
   }
@@ -1122,18 +1130,23 @@ ul li {
   0% {
     transform: rotate(0deg);
   }
+
   20% {
     transform: rotate(-15deg);
   }
+
   40% {
     transform: rotate(10deg);
   }
+
   60% {
     transform: rotate(-5deg);
   }
+
   80% {
     transform: rotate(5deg);
   }
+
   100% {
     transform: rotate(0deg);
   }

@@ -222,7 +222,6 @@ function section5() {
   move('.my-course-blog .content-box').set('transform', 'rotateY(0deg)').set('opacity', 1).duration('1.9s').end();
   move('.my-course-vue-mail .content-box').set('transform', 'rotateY(0deg)').set('opacity', 1).duration('2.1s').end();
   move('.my-course-admin .content-box').set('transform', 'rotateY(0deg)').set('opacity', 1).duration('2.3s').end();
-  move('.my-course-mail .content-box').set('transform', 'rotateY(0deg)').set('opacity', 1).duration('2.5s').end();
   move('.my-course-erp .content-box').set('transform', 'rotateY(0deg)').set('opacity', 1).duration('2.7s').end();
 }
 
@@ -278,7 +277,6 @@ $(document).ready(function () {
   move('.my-course-vue-mail .content-box').set('transform', 'rotateY(270deg)').set('opacity', 0).end();
   move('.my-course-blog .content-box').set('transform', 'rotateY(270deg)').set('opacity', 0).end();
   move('.my-course-admin .content-box').set('transform', 'rotateY(270deg)').set('opacity', 0).end();
-  move('.my-course-mail .content-box').set('transform', 'rotateY(270deg)').set('opacity', 0).end();
   move('.my-course-erp .content-box').set('transform', 'rotateY(270deg)').set('opacity', 0).end();
 
   //section6动画初始化
